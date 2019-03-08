@@ -10,11 +10,11 @@ import {
   cellStyleWidth3,
   cellStyleWidth4,
   cellStyleWidth7,
-  CellWidthStyle
+  CellWidthStyle,
 } from './Cell';
 
 const rowBtnStyle = {
-  cursor: 'pointer'
+  cursor: 'pointer',
 };
 
 export type BodyWidth = 3 | 4 | 7;
@@ -27,7 +27,7 @@ interface BodyProps {
   /** Called after a click on picklist's cell. */
   onCellClick: (
     e: React.SyntheticEvent<HTMLElement>,
-    data: OnValueClickData
+    data: OnValueClickData,
   ) => void;
   /** Called on cell hover. */
   onCellHover: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
@@ -37,11 +37,6 @@ interface BodyProps {
   active?: number | number[];
   /** Array of element indexes in `data` array that should be displayed as disabled. */
   disabled?: number[];
-  /** Array of element indexes in `data` array that should be displayed as marked. */
-  marked?: number[];
-  markedtip?: object[];
-  /** The color of the mark that will be displayed on the picklist. */
-  markColor?: string;
 }
 
 function Body(props: BodyProps) {
@@ -53,10 +48,11 @@ function Body(props: BodyProps) {
     disabled,
     hovered,
     onCellHover,
-    marked,
-    markColor,
-    markedtip
   } = props;
+
+  console.log('Data', data, width);
+  console.log('Body', buildRows(data, width));
+
   // const content = buildRows(data, width).map((row, rowIndex) => (
   //   <Table.Row key={`${rowIndex}${row[0]}`}>
   //     {row.map((item, itemIndex) => (
@@ -107,7 +103,7 @@ function Body(props: BodyProps) {
         <Table.Cell>Approved</Table.Cell>
         <Table.Cell>None</Table.Cell>
       </Table.Row>
-    </Table.Body>
+    </Table.Body >
   );
 }
 
@@ -125,7 +121,7 @@ function isActive(
   rowIndex: number,
   rowWidth: number,
   colIndex: number,
-  active: number | number[]
+  active: number | number[],
 ): boolean {
   if (isNil(active)) {
     return false;
@@ -139,87 +135,6 @@ function isActive(
   }
 
   return rowIndex * rowWidth + colIndex === active;
-}
-
-function isHovered(
-  rowIndex: number,
-  rowWidth: number,
-  colIndex: number,
-  hovered: number
-): boolean {
-  if (isNil(hovered)) {
-    return false;
-  }
-
-  return rowIndex * rowWidth + colIndex === hovered;
-}
-
-function isDisabled(
-  rowIndex: number,
-  rowWidth: number,
-  colIndex: number,
-  disabledIndexes: number[]
-): boolean {
-  if (isNil(disabledIndexes) || disabledIndexes.length === 0) {
-    return false;
-  }
-  for (const disabledIndex of disabledIndexes) {
-    if (rowIndex * rowWidth + colIndex === disabledIndex) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-function getCellStyle(width: BodyWidth): CellWidthStyle {
-  switch (width) {
-    case 3:
-      return cellStyleWidth3;
-    case 4:
-      return cellStyleWidth4;
-    case 7:
-      return cellStyleWidth7;
-    default:
-      break;
-  }
-}
-
-function isMarked(
-  rowIndex: number,
-  rowWidth: number,
-  colIndex: number,
-  markedIndexes: number[]
-): boolean {
-  if (isNil(markedIndexes) || markedIndexes.length === 0) {
-    return false;
-  }
-  for (const markedIndex of markedIndexes) {
-    if (rowIndex * rowWidth + colIndex === markedIndex) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-function getMarkedTip(
-  rowIndex: number,
-  rowWidth: number,
-  colIndex: number,
-  markedIndexes: number[],
-  markedtip: any
-): string {
-  if (isNil(markedIndexes) || markedIndexes.length === 0) {
-    return null;
-  }
-  for (const markedIndex of markedIndexes) {
-    if (rowIndex * rowWidth + colIndex === markedIndex) {
-      return markedtip[markedIndex];
-    }
-  }
-
-  return null;
 }
 
 export default Body;

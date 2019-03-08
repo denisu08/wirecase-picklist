@@ -59,7 +59,7 @@ class DateTimeForm extends React.Component<any, any> {
       datesRange: '',
       month: '',
       monthRange: '',
-     };
+    };
   }
 
   public render() {
@@ -68,7 +68,7 @@ class DateTimeForm extends React.Component<any, any> {
     return (
       <Form>
         <DateInput
-          placeholder='Date'
+          placeholder='Sample Picklist 01'
           popupPosition='bottom right'
           className='example-picklist-input'
           name='date'
@@ -87,7 +87,7 @@ class DateTimeForm extends React.Component<any, any> {
         <DateInput
           startMode='year'
           popupPosition='bottom right'
-          placeholder='Date startMode year'
+          placeholder='Sample Picklist 02'
           className='example-picklist-input'
           name='dateStartYear'
           animation='fly left'
@@ -107,7 +107,7 @@ class DateTimeForm extends React.Component<any, any> {
   private handleChange = (
     event: React.SyntheticEvent,
     { name, value }: DateTimeFormHandleChangeData,
-   ) => {
+  ) => {
     if (this.state.hasOwnProperty(name)) {
       this.setState({ [name]: value });
     }
@@ -126,7 +126,7 @@ class DateTimeFormInline extends React.Component<any, any> {
       dateTime: '',
       datesRange: '',
       monthRange: '',
-     };
+    };
   }
 
   public render() {
@@ -143,7 +143,7 @@ class DateTimeFormInline extends React.Component<any, any> {
           markedtip={[
             { date: '01/03/2019', tip: 'XMast' },
             { date: '20/03/2019', tip: 'Lebaran' },
-           ]}
+          ]}
           markColor='orange'
         />
       </Form>
@@ -153,7 +153,7 @@ class DateTimeFormInline extends React.Component<any, any> {
   private handleChange = (
     event: React.SyntheticEvent,
     { name, value }: DateTimeFormHandleChangeData,
-  )  => {
+  ) => {
     if (this.state.hasOwnProperty(name)) {
       this.setState({ [name]: value });
     }

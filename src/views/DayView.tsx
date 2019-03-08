@@ -9,7 +9,7 @@ import BasePicklistView, {
 import Picklist from './Picklist';
 import Body from './Body/Body';
 import Header from './Header/Header';
-
+ 
 import { findHTMLElement } from '../lib';
 
 export const DAY_CALENDAR_ROW_WIDTH = 7;
@@ -69,9 +69,6 @@ class DayView extends BasePicklistView<DayViewProps, any> {
           onCellClick={onValueClick}
           active={activeItemIndex}
           disabled={disabledItemIndexes}
-          marked={markedItemIndexes}
-          markedtip={markedtipIndexes}
-          markColor={markColor}
         />
       </Picklist>
     );
