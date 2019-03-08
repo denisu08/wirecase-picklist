@@ -53,7 +53,7 @@ describe('<HeaderWeeks />', () => {
 
 describe('<HeaderRange />', () => {
   it('consists of proper elements and sets its content correctly', () => {
-    const wrapper = shallow(<HeaderRange content="any text" />);
+    const wrapper = shallow(<HeaderRange content='any text' />);
     assert(wrapper.is(Table.Row), 'the top node is <Table.Row />');
     assert(wrapper.children().first().is(Table.HeaderCell), 'top node contains <Table.HeaderCell />');
     assert.equal(wrapper.children().getElements().length, 1, 'top node contains just one <Table.HeaderCell />');
@@ -61,7 +61,7 @@ describe('<HeaderRange />', () => {
   });
 
   it('has proper styling', () => {
-    const wrapper = shallow(<HeaderRange content="any text" />);
+    const wrapper = shallow(<HeaderRange content='any text' />);
     wrapper.children().forEach((child) => {
       const style = child.prop('style');
       assert.equal(_.keys(style).length, 1, 'each child of top node has prop style: { border: "none" }');
@@ -77,13 +77,13 @@ describe('<Header />', () => {
   it('consists of proper elements', () => {
     const wrapper = shallow(
       <Header
-        title="any text"
+        title='any text'
         hasNextPage
         hasPrevPage
         displayWeeks
-        width="7"
+        width='7'
         onNextPageBtnClick={() => {}}
-        onPrevPageBtnClick={() => {}} />
+        onPrevPageBtnClick={() => {}} />,
     );
     assert(wrapper.is(Table.Header), 'top node is Table.Header');
     assert.equal(wrapper.find(Table.Row).getElements().length, 1, 'has one <Table.Row />');
@@ -94,13 +94,13 @@ describe('<Header />', () => {
   it('sets title properly', () => {
     const wrapper = shallow(
       <Header
-        title="any text"
+        title='any text'
         hasNextPage
         hasPrevPage
         displayWeeks
-        width="7"
+        width='7'
         onNextPageBtnClick={() => {}}
-        onPrevPageBtnClick={() => {}} />
+        onPrevPageBtnClick={() => {}} />,
     );
     assert.equal(wrapper.find(Table.HeaderCell)
       .at(1).children().first().text(), 'any text', 'node contains value from `title` prop');
@@ -109,13 +109,13 @@ describe('<Header />', () => {
   it('does not display weeks row if `displayWeeks` is false', () => {
     const wrapper = shallow(
       <Header
-        title="any text"
+        title='any text'
         hasNextPage
         hasPrevPage
         displayWeeks={false}
-        width="7"
+        width='7'
         onNextPageBtnClick={() => {}}
-        onPrevPageBtnClick={() => {}} />
+        onPrevPageBtnClick={() => {}} />,
     );
     assert.isFalse(wrapper.find(HeaderWeeks).exists(), 'does not have <HeaderWeeks />');
   });
@@ -123,14 +123,14 @@ describe('<Header />', () => {
   it('display range row if `rangeRowContent` provided', () => {
     const wrapper = shallow(
       <Header
-        title="any text"
+        title='any text'
         hasNextPage
         hasPrevPage
         displayWeeks
-        width="7"
+        width='7'
         onNextPageBtnClick={() => {}}
         onPrevPageBtnClick={() => {}}
-        rangeRowContent="any text" />
+        rangeRowContent='any text' />,
     );
     assert(wrapper.find(HeaderRange).exists(), 'has <HeaderRange />');
   });
@@ -138,13 +138,13 @@ describe('<Header />', () => {
   it('sets central cell colSpan to 5 if `width` 7', () => {
     const wrapper = shallow(
       <Header
-        title="any text"
+        title='any text'
         hasNextPage
         hasPrevPage
         displayWeeks
-        width="7"
+        width='7'
         onNextPageBtnClick={() => {}}
-        onPrevPageBtnClick={() => {}} />
+        onPrevPageBtnClick={() => {}} />,
     );
     assert.equal(wrapper.find(Table.HeaderCell)
       .at(1).prop('colSpan'), (7 - 2).toString(), 'central cell colSpan === (7 - 2)');
@@ -153,13 +153,13 @@ describe('<Header />', () => {
   it('sets central cell colSpan to 2 if `width` 4', () => {
     const wrapper = shallow(
       <Header
-        title="any text"
+        title='any text'
         hasNextPage
         hasPrevPage
         displayWeeks
-        width="4"
+        width='4'
         onNextPageBtnClick={() => {}}
-        onPrevPageBtnClick={() => {}} />
+        onPrevPageBtnClick={() => {}} />,
     );
     assert.equal(wrapper.find(Table.HeaderCell)
       .at(1).prop('colSpan'), (4 - 2).toString(), 'central cell colSpan === (4 - 2)');
@@ -168,13 +168,13 @@ describe('<Header />', () => {
   it('sets central cell colSpan to 1 if `width` 3', () => {
     const wrapper = shallow(
       <Header
-        title="any text"
+        title='any text'
         hasNextPage
         hasPrevPage
         displayWeeks
-        width="3"
+        width='3'
         onNextPageBtnClick={() => {}}
-        onPrevPageBtnClick={() => {}} />
+        onPrevPageBtnClick={() => {}} />,
     );
     assert.equal(wrapper.find(Table.HeaderCell)
       .at(1).prop('colSpan'), (3 - 2).toString(), 'central cell colSpan === (3 - 2)');
@@ -185,13 +185,13 @@ describe('<Header />', () => {
     const onNextPageBtnClick = sinon.fake();
     const wrapper = shallow(
       <Header
-        title="title"
+        title='title'
         hasNextPage
         hasPrevPage
         displayWeeks
-        width="7"
+        width='7'
         onNextPageBtnClick={onNextPageBtnClick}
-        onPrevPageBtnClick={onPrevPageBtnClick} />
+        onPrevPageBtnClick={onPrevPageBtnClick} />,
     );
     const prevBtn = wrapper.find(Icon).first();
     prevBtn.simulate('click');
@@ -203,13 +203,13 @@ describe('<Header />', () => {
     const onNextPageBtnClick = sinon.fake();
     const wrapper = shallow(
       <Header
-        title="title"
+        title='title'
         hasNextPage
         hasPrevPage
         displayWeeks
-        width="7"
+        width='7'
         onNextPageBtnClick={onNextPageBtnClick}
-        onPrevPageBtnClick={onPrevPageBtnClick} />
+        onPrevPageBtnClick={onPrevPageBtnClick} />,
     );
     const nextBtn = wrapper.find(Icon).last();
     nextBtn.simulate('click');
@@ -221,13 +221,13 @@ describe('<Header />', () => {
     const onNextPageBtnClick = sinon.fake();
     const wrapper = shallow(
       <Header
-        title="title"
+        title='title'
         hasNextPage={false}
         hasPrevPage
         displayWeeks
-        width="7"
+        width='7'
         onNextPageBtnClick={onNextPageBtnClick}
-        onPrevPageBtnClick={onPrevPageBtnClick} />
+        onPrevPageBtnClick={onPrevPageBtnClick} />,
     );
     const nextBtn = wrapper.find(Icon).last();
     nextBtn.simulate('click');
@@ -239,13 +239,13 @@ describe('<Header />', () => {
     const onNextPageBtnClick = sinon.fake();
     const wrapper = shallow(
       <Header
-        title="title"
+        title='title'
         hasNextPage
         hasPrevPage={false}
         displayWeeks
-        width="7"
+        width='7'
         onNextPageBtnClick={onNextPageBtnClick}
-        onPrevPageBtnClick={onPrevPageBtnClick} />
+        onPrevPageBtnClick={onPrevPageBtnClick} />,
     );
     const prevBtn = wrapper.find(Icon).first();
     prevBtn.simulate('click');
@@ -256,14 +256,14 @@ describe('<Header />', () => {
     const onHeaderClick = sinon.fake();
     const wrapper = shallow(
       <Header
-        title="title"
+        title='title'
         hasNextPage
         hasPrevPage
         displayWeeks
-        width="7"
+        width='7'
         onHeaderClick={onHeaderClick}
         onNextPageBtnClick={() => {}}
-        onPrevPageBtnClick={() => {}} />
+        onPrevPageBtnClick={() => {}} />,
     );
     wrapper.find(Table.HeaderCell).at(1).simulate('click');
     assert(onHeaderClick.calledOnce, 'onHeaderClick is called once');

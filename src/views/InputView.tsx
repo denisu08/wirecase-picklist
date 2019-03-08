@@ -9,12 +9,12 @@ import {
   Popup,
   SemanticICONS,
   SemanticTRANSITIONS,
-  Transition
+  Transition,
 } from 'semantic-ui-react';
 
 const popupStyle = {
   padding: '0',
-  filter: 'none' // prevents bluring popup when used inside Modal with dimmer="bluring" #28 #26
+  filter: 'none', // prevents bluring popup when used inside Modal with dimmer="bluring" #28 #26
 };
 
 class FormInputWithRef extends React.Component<FormInputProps, any> {
@@ -119,7 +119,7 @@ class InputView extends React.Component<InputViewProps, any> {
     clearIcon: 'remove',
     animation: 'scale',
     duration: 200,
-    iconPosition: 'right'
+    iconPosition: 'right',
   };
 
   private inputNode: HTMLElement | undefined;
@@ -152,7 +152,7 @@ class InputView extends React.Component<InputViewProps, any> {
       ...rest
     } = this.props;
 
-    const onBlur = e => {
+    const onBlur = (e) => {
       if (
         e.relatedTarget !== this.popupNode &&
         e.relatedTarget !== this.inputNode
@@ -161,7 +161,7 @@ class InputView extends React.Component<InputViewProps, any> {
       }
     };
 
-    const onMouseLeave = e => {
+    const onMouseLeave = (e) => {
       if (
         e.relatedTarget !== this.popupNode &&
         e.relatedTarget !== this.inputNode
@@ -176,7 +176,7 @@ class InputView extends React.Component<InputViewProps, any> {
       }
     };
 
-    const onMouseEnter = e => {
+    const onMouseEnter = (e) => {
       if (
         e.currentTarget === this.popupNode ||
         e.currentTarget === this.inputNode
@@ -195,15 +195,15 @@ class InputView extends React.Component<InputViewProps, any> {
         iconPosition={
           icon && iconPosition !== 'right' ? iconPosition : undefined
         }
-        innerRef={e => {
+        innerRef={(e) => {
           this.inputNode = e;
           onMount(e);
         }}
         value={value}
         tabIndex={tabIndex}
         inline={inlineLabel}
-        onClear={e => (onClear || onChange)(e, { ...rest, value: '' })}
-        onFocus={e => {
+        onClear={(e) => (onClear || onChange)(e, { ...rest, value: '' })}
+        onFocus={(e) => {
           invoke(this.props, 'onFocus', e, this.props);
           openPopup();
         }}
@@ -245,7 +245,7 @@ class InputView extends React.Component<InputViewProps, any> {
             flowing
             style={popupStyle}
             context={this.inputNode}
-            on="hover"
+            on='hover'
             mountNode={mountNode}
           >
             <div
@@ -254,7 +254,7 @@ class InputView extends React.Component<InputViewProps, any> {
               onMouseEnter={onMouseEnter}
               style={{ outline: 'none' }}
               tabIndex={0}
-              ref={ref => (this.popupNode = ref)}
+              ref={(ref) => (this.popupNode = ref)}
             >
               {renderPicker()}
             </div>
@@ -267,7 +267,7 @@ class InputView extends React.Component<InputViewProps, any> {
   public scrollListener = () => {
     const { closePopup } = this.props;
     closePopup();
-  };
+  }
 
   private setScrollListener() {
     window.addEventListener('scroll', this.scrollListener);
