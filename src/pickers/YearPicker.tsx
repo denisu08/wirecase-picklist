@@ -18,7 +18,7 @@ import {
   DisableValuesProps,
   EnableValuesProps,
   MinMaxValueProps,
-  SingleSelectionPicker
+  SingleSelectionPicker,
 } from './BasePicker';
 
 const PAGE_WIDTH = 3;
@@ -130,7 +130,7 @@ class YearPicker extends SingleSelectionPicker<YearPickerProps> {
   protected getSelectableCellPositions(): number[] {
     return filter(
       range(0, YEARS_ON_PAGE),
-      y => !includes(this.getDisabledPositions(), y)
+      (y) => !includes(this.getDisabledPositions(), y),
     );
   }
 
@@ -142,22 +142,22 @@ class YearPicker extends SingleSelectionPicker<YearPickerProps> {
     let disabled = [];
     const years = this.buildCalendarValues();
     if (isArray(this.props.enable)) {
-      const enabledYears = this.props.enable.map(yearMoment =>
-        yearMoment.year().toString()
+      const enabledYears = this.props.enable.map((yearMoment) =>
+        yearMoment.year().toString(),
       );
       disabled = concat(
         disabled,
         years
-          .filter(year => !includes(enabledYears, year))
-          .map(year => years.indexOf(year))
+          .filter((year) => !includes(enabledYears, year))
+          .map((year) => years.indexOf(year)),
       );
     }
     if (isArray(this.props.disable)) {
       disabled = concat(
         disabled,
         this.props.disable
-          .filter(yearMoment => includes(years, yearMoment.year().toString()))
-          .map(yearMoment => years.indexOf(yearMoment.year().toString()))
+          .filter((yearMoment) => includes(years, yearMoment.year().toString()))
+          .map((yearMoment) => years.indexOf(yearMoment.year().toString())),
       );
     }
     if (!isNil(this.props.maxDate)) {
@@ -168,8 +168,8 @@ class YearPicker extends SingleSelectionPicker<YearPickerProps> {
           disabled,
           range(
             years.indexOf(this.props.maxDate.year().toString()) + 1,
-            years.length
-          )
+            years.length,
+          ),
         );
       }
     }
@@ -179,7 +179,7 @@ class YearPicker extends SingleSelectionPicker<YearPickerProps> {
       } else if (includes(years, this.props.minDate.year().toString())) {
         disabled = concat(
           disabled,
-          range(0, years.indexOf(this.props.minDate.year().toString()))
+          range(0, years.indexOf(this.props.minDate.year().toString())),
         );
       }
     }
@@ -193,7 +193,7 @@ class YearPicker extends SingleSelectionPicker<YearPickerProps> {
     const lastOnPage = parseInt(last(this.buildCalendarValues()), 10);
 
     if (isArray(enable)) {
-      return some(enable, enabledYear => enabledYear.year() > lastOnPage);
+      return some(enable, (enabledYear) => enabledYear.year() > lastOnPage);
     }
     if (isNil(maxDate)) {
       return true;
@@ -207,7 +207,7 @@ class YearPicker extends SingleSelectionPicker<YearPickerProps> {
     const firstOnPage = parseInt(first(this.buildCalendarValues()), 10);
 
     if (isArray(enable)) {
-      return some(enable, enabledYear => enabledYear.year() < firstOnPage);
+      return some(enable, (enabledYear) => enabledYear.year() < firstOnPage);
     }
     if (isNil(minDate)) {
       return true;
@@ -218,19 +218,19 @@ class YearPicker extends SingleSelectionPicker<YearPickerProps> {
 
   protected handleChange = (
     e: React.SyntheticEvent<HTMLElement>,
-    { value }
+    { value },
   ): void => {
     const data: YearPickerOnChangeData = {
       ...this.props,
-      value: { year: parseInt(value, 10) }
+      value: { year: parseInt(value, 10) },
     };
     this.props.onChange(e, data);
-  };
+  }
 
   protected switchToNextPage = (
     e: React.SyntheticEvent<HTMLElement>,
     data: any,
-    callback: () => void
+    callback: () => void,
   ): void => {
     this.setState(({ date }) => {
       const nextDate = date.clone();
@@ -238,12 +238,12 @@ class YearPicker extends SingleSelectionPicker<YearPickerProps> {
 
       return { date: nextDate };
     }, callback);
-  };
+  }
 
   protected switchToPrevPage = (
     e: React.SyntheticEvent<HTMLElement>,
     data: any,
-    callback: () => void
+    callback: () => void,
   ): void => {
     this.setState(({ date }) => {
       const prevDate = date.clone();
@@ -251,7 +251,7 @@ class YearPicker extends SingleSelectionPicker<YearPickerProps> {
 
       return { date: prevDate };
     }, callback);
-  };
+  }
 }
 
 export default YearPicker;

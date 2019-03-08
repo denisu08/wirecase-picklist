@@ -14,7 +14,7 @@ import {
   MinMaxValueProps,
   OptionalHeaderProps,
   ProvideHeadingValue,
-  SingleSelectionPicker
+  SingleSelectionPicker,
 } from '../BasePicker';
 import { MONTH_PAGE_WIDTH, MONTHS_IN_YEAR } from './const';
 import {
@@ -22,7 +22,7 @@ import {
   getDisabledPositions,
   getInitialDatePosition,
   isNextPageAvailable,
-  isPrevPageAvailable
+  isPrevPageAvailable,
 } from './sharedFunctions';
 
 type MonthPickerProps = BasePickerProps &
@@ -104,7 +104,7 @@ class MonthPicker extends SingleSelectionPicker<MonthPickerProps>
   protected getSelectableCellPositions(): number[] {
     return filter(
       range(0, MONTHS_IN_YEAR),
-      m => !includes(this.getDisabledPositions(), m)
+      (m) => !includes(this.getDisabledPositions(), m),
     );
   }
 
@@ -134,7 +134,7 @@ class MonthPicker extends SingleSelectionPicker<MonthPickerProps>
       disable,
       maxDate,
       minDate,
-      this.state.date
+      this.state.date,
     );
   }
 
@@ -152,22 +152,22 @@ class MonthPicker extends SingleSelectionPicker<MonthPickerProps>
 
   protected handleChange = (
     e: React.SyntheticEvent<HTMLElement>,
-    { value }
+    { value },
   ): void => {
     const data: MonthPickerOnChangeData = {
       ...this.props,
       value: {
         year: parseInt(this.getCurrentDate(), 10),
-        month: this.buildCalendarValues().indexOf(value)
-      }
+        month: this.buildCalendarValues().indexOf(value),
+      },
     };
     this.props.onChange(e, data);
-  };
+  }
 
   protected switchToNextPage = (
     e: React.SyntheticEvent<HTMLElement>,
     data: any,
-    callback: () => void
+    callback: () => void,
   ): void => {
     this.setState(({ date }) => {
       const nextDate = date.clone();
@@ -175,12 +175,12 @@ class MonthPicker extends SingleSelectionPicker<MonthPickerProps>
 
       return { date: nextDate };
     }, callback);
-  };
+  }
 
   protected switchToPrevPage = (
     e: React.SyntheticEvent<HTMLElement>,
     data: any,
-    callback: () => void
+    callback: () => void,
   ): void => {
     this.setState(({ date }) => {
       const prevDate = date.clone();
@@ -188,7 +188,7 @@ class MonthPicker extends SingleSelectionPicker<MonthPickerProps>
 
       return { date: prevDate };
     }, callback);
-  };
+  }
 }
 
 export default MonthPicker;

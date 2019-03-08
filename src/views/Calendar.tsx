@@ -21,7 +21,7 @@ interface CalendarProps {
 class Calendar extends React.Component<CalendarProps, any> {
   public static readonly propTypes: object;
   public static readonly defaultProps = {
-    pickerWidth: '100%'
+    pickerWidth: '100%',
   };
 
   public render() {
@@ -38,11 +38,11 @@ class Calendar extends React.Component<CalendarProps, any> {
       // Prevent poped up picker from beeing outlined on focus.
       // Inline picker should be outlined when in focus.
       outline: outlineOnFocus ? undefined : 'none',
-      ...pickerStyle
+      ...pickerStyle,
     };
 
     return (
-      <Table style={style} unstackable celled {...rest} textAlign="center">
+      <Table style={style} unstackable celled {...rest} textAlign='center'>
         {children}
       </Table>
     );

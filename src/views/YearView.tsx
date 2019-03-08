@@ -6,7 +6,7 @@ import React from 'react';
 import BaseCalendarView, {
   BaseCalendarViewProps,
   CalendarWithHeaderViewProps,
-  SingleSelectionCalendarViewProps
+  SingleSelectionCalendarViewProps,
 } from './BaseCalendarView';
 import Calendar from './Calendar';
 import Body from './CalendarBody/Body';
@@ -43,7 +43,7 @@ class YearView extends BaseCalendarView<YearViewProps, any> {
 
     return (
       <Calendar
-        ref={e => (this.calendarNode = findHTMLElement(e))}
+        ref={(e) => (this.calendarNode = findHTMLElement(e))}
         outlineOnFocus={inline}
         {...rest}
       >

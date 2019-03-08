@@ -41,34 +41,34 @@ function Header(props: HeaderProps) {
     onHeaderClick,
     width,
     title,
-    localization
+    localization,
   } = props;
 
   const cellStyle = {
     border: 'none',
-    borderBottom: displayWeeks ? 'none' : '1px solid rgba(34,36,38,.1)'
+    borderBottom: displayWeeks ? 'none' : '1px solid rgba(34,36,38,.1)',
   };
   const prevPageBtnStyle = {
-    cursor: hasPrevPage ? 'pointer' : 'auto'
+    cursor: hasPrevPage ? 'pointer' : 'auto',
   };
   const nextPageBtnStyle = {
-    cursor: hasNextPage ? 'pointer' : 'auto'
+    cursor: hasNextPage ? 'pointer' : 'auto',
   };
   const headerTitleStyle = {
-    cursor: onHeaderClick ? 'pointer' : 'default'
+    cursor: onHeaderClick ? 'pointer' : 'default',
   };
 
   return (
     <Table.Header>
       {!isNil(rangeRowContent) && <HeaderRange content={rangeRowContent} />}
       <Table.Row>
-        <Table.HeaderCell style={cellStyle} colSpan="1">
+        <Table.HeaderCell style={cellStyle} colSpan='1'>
           <Icon
             fitted
             style={prevPageBtnStyle}
             disabled={!hasPrevPage}
             onClick={hasPrevPage ? onPrevPageBtnClick : undefined}
-            name="chevron left"
+            name='chevron left'
           />
         </Table.HeaderCell>
 
@@ -80,13 +80,13 @@ function Header(props: HeaderProps) {
           <span style={headerTitleStyle}>{title}</span>
         </Table.HeaderCell>
 
-        <Table.HeaderCell style={cellStyle} colSpan="1">
+        <Table.HeaderCell style={cellStyle} colSpan='1'>
           <Icon
             fitted
             style={nextPageBtnStyle}
             disabled={!hasNextPage}
             onClick={hasNextPage ? onNextPageBtnClick : undefined}
-            name="chevron right"
+            name='chevron right'
           />
         </Table.HeaderCell>
       </Table.Row>

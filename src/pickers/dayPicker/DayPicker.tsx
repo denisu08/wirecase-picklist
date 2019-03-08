@@ -16,7 +16,7 @@ import {
   MinMaxValueProps,
   MarkedValuesProps,
   ProvideHeadingValue,
-  SingleSelectionPicker
+  SingleSelectionPicker,
 } from '../BasePicker';
 import {
   buildDays,
@@ -25,7 +25,7 @@ import {
   getMarkedTips,
   getInitialDatePosition,
   isNextPageAvailable,
-  isPrevPageAvailable
+  isPrevPageAvailable,
 } from './sharedFunctions';
 
 const PAGE_WIDTH = 7;
@@ -114,7 +114,7 @@ class DayPicker extends SingleSelectionPicker<DayPickerProps>
   protected getSelectableCellPositions(): number[] {
     return filter(
       range(0, DAYS_ON_PAGE),
-      d => !includes(this.getDisabledPositions(), d)
+      (d) => !includes(this.getDisabledPositions(), d),
     );
   }
 
@@ -122,7 +122,7 @@ class DayPicker extends SingleSelectionPicker<DayPickerProps>
     return getInitialDatePosition(
       this.state.date.date().toString(),
       this.buildCalendarValues(),
-      this.getSelectableCellPositions()
+      this.getSelectableCellPositions(),
     );
   }
 
@@ -155,7 +155,7 @@ class DayPicker extends SingleSelectionPicker<DayPickerProps>
       minDate,
       this.state.date,
       DAYS_ON_PAGE,
-      enable
+      enable,
     );
   }
 
@@ -190,28 +190,28 @@ class DayPicker extends SingleSelectionPicker<DayPickerProps>
   protected isNextPageAvailable = (): boolean => {
     const { maxDate, enable } = this.props;
     if (isArray(enable)) {
-      return some(enable, enabledDate =>
-        enabledDate.isAfter(this.state.date, 'month')
+      return some(enable, (enabledDate) =>
+        enabledDate.isAfter(this.state.date, 'month'),
       );
     }
 
     return isNextPageAvailable(this.state.date, maxDate);
-  };
+  }
 
   protected isPrevPageAvailable = (): boolean => {
     const { minDate, enable } = this.props;
     if (isArray(enable)) {
-      return some(enable, enabledDate =>
-        enabledDate.isBefore(this.state.date, 'month')
+      return some(enable, (enabledDate) =>
+        enabledDate.isBefore(this.state.date, 'month'),
       );
     }
 
     return isPrevPageAvailable(this.state.date, minDate);
-  };
+  }
 
   protected handleChange = (
     e: React.SyntheticEvent<HTMLElement>,
-    { value }
+    { value },
   ): void => {
     // `value` is selected date(string) like '31' or '1'
     const data: DayPickerOnChangeData = {
@@ -219,17 +219,17 @@ class DayPicker extends SingleSelectionPicker<DayPickerProps>
       value: {
         year: this.state.date.year(),
         month: this.state.date.month(),
-        date: parseInt(value, 10)
-      }
+        date: parseInt(value, 10),
+      },
     };
 
     this.props.onChange(e, data);
-  };
+  }
 
   protected switchToNextPage = (
     e: React.SyntheticEvent<HTMLElement>,
     data: any,
-    callback: () => void
+    callback: () => void,
   ): void => {
     this.setState(({ date }) => {
       const nextDate = date.clone();
@@ -237,12 +237,12 @@ class DayPicker extends SingleSelectionPicker<DayPickerProps>
 
       return { date: nextDate };
     }, callback);
-  };
+  }
 
   protected switchToPrevPage = (
     e: React.SyntheticEvent<HTMLElement>,
     data: any,
-    callback: () => void
+    callback: () => void,
   ): void => {
     this.setState(({ date }) => {
       const prevDate = date.clone();
@@ -250,7 +250,7 @@ class DayPicker extends SingleSelectionPicker<DayPickerProps>
 
       return { date: prevDate };
     }, callback);
-  };
+  }
 }
 
 export default DayPicker;

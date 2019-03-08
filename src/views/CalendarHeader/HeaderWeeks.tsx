@@ -23,12 +23,12 @@ const getWeekDays = (m, localization) => {
 
 const cellStyle = {
   border: 'none',
-  borderBottom: '1px solid rgba(34,36,38,.1)'
+  borderBottom: '1px solid rgba(34,36,38,.1)',
 };
 
 const getWeekDayCells = (m, localization) =>
-  getWeekDays(m, localization).map(weekDay => (
-    <Table.HeaderCell key={weekDay} style={cellStyle} colSpan="1">
+  getWeekDays(m, localization).map((weekDay) => (
+    <Table.HeaderCell key={weekDay} style={cellStyle} colSpan='1'>
       {weekDay}
     </Table.HeaderCell>
   ));

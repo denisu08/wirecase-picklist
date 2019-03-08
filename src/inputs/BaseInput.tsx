@@ -3,7 +3,7 @@ import * as React from 'react';
 import {
   SemanticTRANSITIONS,
   SemanticCOLORS,
-  SemanticICONS
+  SemanticICONS,
 } from 'semantic-ui-react';
 
 import { TimeFormat } from '../pickers/BasePicker';
@@ -117,7 +117,7 @@ abstract class BaseInput<
 > extends React.Component<P, S> {
   public static defaultProps = {
     inline: false,
-    localization: moment.locale()
+    localization: moment.locale(),
   };
 
   private calendarNode: HTMLElement;
@@ -126,19 +126,19 @@ abstract class BaseInput<
 
   protected closePopup = (): void => {
     this.setState({ popupIsClosed: true });
-  };
+  }
 
   protected openPopup = (): void => {
     this.setState({ popupIsClosed: false });
-  };
+  }
 
   protected isPickerInFocus = (): boolean => {
     return document.activeElement === this.calendarNode;
-  };
+  }
 
   protected isTriggerInFocus = (): boolean => {
     return document.activeElement === this.inputNode;
-  };
+  }
 
   protected onModeSwitch = (): void => {
     // when using keyboard for selecting values on inline calendar
@@ -150,15 +150,15 @@ abstract class BaseInput<
     if (this.props.inline && !this.isPickerInFocus() && this.calendarNode) {
       this.calendarNode.focus();
     }
-  };
+  }
 
   protected onCalendarViewMount = (calendarNode: HTMLElement): void => {
     this.calendarNode = calendarNode;
-  };
+  }
 
   protected onInputViewMount = (inputNode: HTMLElement): void => {
     this.inputNode = inputNode;
-  };
+  }
 }
 
 export default BaseInput;

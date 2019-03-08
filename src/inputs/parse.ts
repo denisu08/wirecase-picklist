@@ -8,7 +8,7 @@ import moment, { Moment } from 'moment';
 export const TIME_FORMAT = {
   24: 'HH:mm',
   AMPM: 'hh:mm A',
-  ampm: 'hh:mm a'
+  ampm: 'hh:mm a',
 };
 
 type ParseValueData = string | moment.Moment | Date;
@@ -20,7 +20,7 @@ type ParseValueData = string | moment.Moment | Date;
 export function parseValue(
   value: ParseValueData,
   dateFormat: string,
-  localization: string
+  localization: string,
 ): moment.Moment {
   if (!isNil(value) && !isNil(dateFormat)) {
     const date = moment(value, dateFormat);
@@ -42,13 +42,13 @@ type ParseArrayOrValueData = ParseValueData | ParseValueData[];
 export function parseArrayOrValue(
   data: ParseArrayOrValueData,
   dateFormat: string,
-  localization: string
+  localization: string,
 ) {
   if (isArray(data)) {
     const parsed = compact(
-      (data as ParseValueData[]).map(item =>
-        parseValue(item, dateFormat, localization)
-      )
+      (data as ParseValueData[]).map((item) =>
+        parseValue(item, dateFormat, localization),
+      ),
     );
     if (parsed.length > 0) {
       return parsed;
@@ -57,7 +57,7 @@ export function parseArrayOrValue(
   const parsedValue = parseValue(
     data as ParseValueData,
     dateFormat,
-    localization
+    localization,
   );
 
   return parsedValue && [parsedValue];
@@ -112,7 +112,7 @@ export function buildValue(
   initialDate: InitialDate,
   localization: string,
   dateFormat: string,
-  defaultVal = moment()
+  defaultVal = moment(),
 ): Moment {
   const valueParsed = parseValue(value, dateFormat, localization);
   if (valueParsed) {
@@ -133,7 +133,7 @@ export function buildValue(
 export function dateValueToString(
   value: DateValue,
   dateFormat: string,
-  locale: string
+  locale: string,
 ): string {
   if (isString(value)) {
     return value;
@@ -176,11 +176,11 @@ interface Range {
 export function parseDatesRange(
   inputString: string = '',
   dateFormat: string = '',
-  inputSeparator: string = ' - '
+  inputSeparator: string = ' - ',
 ): Range {
   const dates = inputString
     .split(inputSeparator)
-    .map(date => cleanDate(date, dateFormat));
+    .map((date) => cleanDate(date, dateFormat));
   const result: Range = {};
   let start;
   let end;

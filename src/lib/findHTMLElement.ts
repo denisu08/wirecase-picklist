@@ -2,7 +2,7 @@ import { ReactInstance } from 'react';
 import ReactDOM from 'react-dom';
 
 export default function findHTMLElement(
-  e: ReactInstance
+  e: ReactInstance,
 ): HTMLElement | undefined {
   const el = ReactDOM.findDOMNode(e);
   if (el && (el as HTMLElement).focus) {

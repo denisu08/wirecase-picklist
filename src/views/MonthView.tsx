@@ -3,7 +3,7 @@ import React from 'react';
 import BaseCalendarView, {
   BaseCalendarViewProps,
   CalendarWithOptionalHeaderViewProps,
-  SingleSelectionCalendarViewProps
+  SingleSelectionCalendarViewProps,
 } from './BaseCalendarView';
 import Calendar from './Calendar';
 import Body from './CalendarBody/Body';
@@ -47,12 +47,12 @@ class MonthView extends BaseCalendarView<MonthViewProps, any> {
       title: currentHeadingValue,
       displayWeeks: false,
       width: MONTH_CALENDAR_ROW_WIDTH,
-      localization
+      localization,
     };
 
     return (
       <Calendar
-        ref={e => (this.calendarNode = findHTMLElement(e))}
+        ref={(e) => (this.calendarNode = findHTMLElement(e))}
         outlineOnFocus={inline}
         {...rest}
       >

@@ -1,5 +1,5 @@
 export {
   default as DateInput,
   DateInputProps,
-  DateInputOnChangeData
+  DateInputOnChangeData,
 } from './DateInput';

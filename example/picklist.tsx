@@ -14,18 +14,18 @@ class App extends React.Component<any, any> {
     super(props);
 
     this.state = {
-      clearable: false
+      clearable: false,
     };
   }
 
   public render() {
     return (
-      <div className="example-calendar-container">
-        <Header as="h2" dividing>
+      <div className='example-calendar-container'>
+        <Header as='h2' dividing>
           As text fields
           <Header.Subheader>
             <Checkbox
-              label="Make data inputs clearable"
+              label='Make data inputs clearable'
               checked={this.state.clearable}
               onChange={this.handleCheckboxChange.bind(this)}
             />
@@ -41,7 +41,7 @@ class App extends React.Component<any, any> {
 
   private handleCheckboxChange() {
     this.setState(() => ({
-      clearable: !this.state.clearable
+      clearable: !this.state.clearable,
     }));
   }
 }
@@ -58,8 +58,8 @@ class DateTimeForm extends React.Component<any, any> {
       dateTime: '',
       datesRange: '',
       month: '',
-      monthRange: ''
-    };
+      monthRange: '',
+     };
   }
 
   public render() {
@@ -68,35 +68,35 @@ class DateTimeForm extends React.Component<any, any> {
     return (
       <Form>
         <DateInput
-          placeholder="Date"
-          popupPosition="bottom right"
-          className="example-calendar-input"
-          name="date"
+          placeholder='Date'
+          popupPosition='bottom right'
+          className='example-calendar-input'
+          name='date'
           closable
-          clearIcon={<Icon name="remove" color="red" />}
+          clearIcon={<Icon name='remove' color='red' />}
           clearable={clearable}
-          animation="scale"
+          animation='scale'
           duration={200}
           value={this.state.date}
-          iconPosition="left"
+          iconPosition='left'
           preserveViewMode={false}
-          autoComplete="off"
+          autoComplete='off'
           onChange={this.handleChange}
         />
         <br />
         <DateInput
-          startMode="year"
-          popupPosition="bottom right"
-          placeholder="Date startMode year"
-          className="example-calendar-input"
-          name="dateStartYear"
-          animation="fly left"
+          startMode='year'
+          popupPosition='bottom right'
+          placeholder='Date startMode year'
+          className='example-calendar-input'
+          name='dateStartYear'
+          animation='fly left'
           duration={300}
           closable
           clearable={clearable}
           value={this.state.dateStartYear}
-          iconPosition="left"
-          autoComplete="off"
+          iconPosition='left'
+          autoComplete='off'
           preserveViewMode={false}
           onChange={this.handleChange}
         />
@@ -106,12 +106,12 @@ class DateTimeForm extends React.Component<any, any> {
 
   private handleChange = (
     event: React.SyntheticEvent,
-    { name, value }: DateTimeFormHandleChangeData
-  ) => {
+    { name, value }: DateTimeFormHandleChangeData,
+   ) => {
     if (this.state.hasOwnProperty(name)) {
       this.setState({ [name]: value });
     }
-  };
+  }
 }
 
 class DateTimeFormInline extends React.Component<any, any> {
@@ -125,25 +125,26 @@ class DateTimeFormInline extends React.Component<any, any> {
       time: '',
       dateTime: '',
       datesRange: '',
-      monthRange: ''
-    };
+      monthRange: '',
+     };
   }
 
   public render() {
     return (
       <Form>
         <DateInput
-          className="example-calendar-input"
+          className='example-calendar-input'
           value={this.state.date}
-          name="date"
+          name='date'
+          inline
           onChange={this.handleChange}
           disable={new Date('03/01/2019')}
           marked={[new Date('03/01/2019'), new Date('03/20/2019')]}
           markedtip={[
             { date: '01/03/2019', tip: 'XMast' },
-            { date: '20/03/2019', tip: 'Lebaran' }
-          ]}
-          markColor="orange"
+            { date: '20/03/2019', tip: 'Lebaran' },
+           ]}
+          markColor='orange'
         />
       </Form>
     );
@@ -151,12 +152,12 @@ class DateTimeFormInline extends React.Component<any, any> {
 
   private handleChange = (
     event: React.SyntheticEvent,
-    { name, value }: DateTimeFormHandleChangeData
-  ) => {
+    { name, value }: DateTimeFormHandleChangeData,
+  )  => {
     if (this.state.hasOwnProperty(name)) {
       this.setState({ [name]: value });
     }
-  };
+  }
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));

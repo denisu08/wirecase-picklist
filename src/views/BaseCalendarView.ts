@@ -13,7 +13,7 @@ export interface BaseCalendarViewProps {
   /** Called after clicking on particular value (date, year or anything like that). */
   onValueClick: (
     e: React.SyntheticEvent<HTMLElement>,
-    data: OnValueClickData
+    data: OnValueClickData,
   ) => void;
   /** Called on calendar cell hover. */
   onCellHover: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
@@ -52,13 +52,13 @@ export interface CalendarWithHeaderViewProps {
   onNextPageBtnClick: (
     e?: React.SyntheticEvent<HTMLElement>,
     data?: any,
-    cb?: () => void
+    cb?: () => void,
   ) => void;
   /** Called after click on previous page button. */
   onPrevPageBtnClick: (
     e?: React.SyntheticEvent<HTMLElement>,
     data?: any,
-    cb?: () => void
+    cb?: () => void,
   ) => void;
   /** Whether to display previous page button as active or disabled. */
   hasPrevPage: boolean;
@@ -85,13 +85,13 @@ export interface CalendarWithOptionalHeaderViewProps {
   onNextPageBtnClick?: (
     e?: React.SyntheticEvent<HTMLElement>,
     data?: any,
-    cb?: () => void
+    cb?: () => void,
   ) => void;
   /** Called after click on previous page button. */
   onPrevPageBtnClick?: (
     e?: React.SyntheticEvent<HTMLElement>,
     data?: any,
-    cb?: () => void
+    cb?: () => void,
   ) => void;
   /** Whether to display previous page button as active or disabled. */
   hasPrevPage?: boolean;

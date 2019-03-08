@@ -2,7 +2,7 @@ import React from 'react';
 import { Table } from 'semantic-ui-react';
 
 const cellStyle = {
-  border: 'none'
+  border: 'none',
 };
 
 interface HeaderRangeProps {
@@ -15,7 +15,7 @@ function HeaderRange(props: HeaderRangeProps) {
 
   return (
     <Table.Row>
-      <Table.HeaderCell style={cellStyle} colSpan="7">
+      <Table.HeaderCell style={cellStyle} colSpan='7'>
         {content}
       </Table.HeaderCell>
     </Table.Row>

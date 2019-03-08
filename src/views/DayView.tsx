@@ -4,7 +4,7 @@ import BaseCalendarView, {
   BaseCalendarViewProps,
   CalendarWithHeaderViewProps,
   HeadingValueProps,
-  SingleSelectionCalendarViewProps
+  SingleSelectionCalendarViewProps,
 } from './BaseCalendarView';
 import Calendar from './Calendar';
 import Body from './CalendarBody/Body';
@@ -46,7 +46,7 @@ class DayView extends BaseCalendarView<DayViewProps, any> {
 
     return (
       <Calendar
-        ref={e => (this.calendarNode = findHTMLElement(e))}
+        ref={(e) => (this.calendarNode = findHTMLElement(e))}
         outlineOnFocus={inline}
         {...rest}
       >

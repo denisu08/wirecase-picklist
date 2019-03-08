@@ -10,7 +10,7 @@ import {
   cellStyleWidth3,
   cellStyleWidth4,
   cellStyleWidth7,
-  CellWidthStyle
+  CellWidthStyle,
 } from './Cell';
 
 export type BodyWidth = 3 | 4 | 7;
@@ -23,7 +23,7 @@ interface BodyProps {
   /** Called after a click on calendar's cell. */
   onCellClick: (
     e: React.SyntheticEvent<HTMLElement>,
-    data: OnValueClickData
+    data: OnValueClickData,
   ) => void;
   /** Called on cell hover. */
   onCellHover: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
@@ -51,7 +51,7 @@ function Body(props: BodyProps) {
     onCellHover,
     marked,
     markColor,
-    markedtip
+    markedtip,
   } = props;
   const content = buildRows(data, width).map((row, rowIndex) => (
     <Table.Row key={`${rowIndex}${row[0]}`}>
@@ -67,7 +67,7 @@ function Body(props: BodyProps) {
             width,
             itemIndex,
             marked,
-            markedtip
+            markedtip,
           )}
           markColor={markColor}
           key={`${rowIndex * width + itemIndex}`}
@@ -97,7 +97,7 @@ function isActive(
   rowIndex: number,
   rowWidth: number,
   colIndex: number,
-  active: number | number[]
+  active: number | number[],
 ): boolean {
   if (isNil(active)) {
     return false;
@@ -117,7 +117,7 @@ function isHovered(
   rowIndex: number,
   rowWidth: number,
   colIndex: number,
-  hovered: number
+  hovered: number,
 ): boolean {
   if (isNil(hovered)) {
     return false;
@@ -130,7 +130,7 @@ function isDisabled(
   rowIndex: number,
   rowWidth: number,
   colIndex: number,
-  disabledIndexes: number[]
+  disabledIndexes: number[],
 ): boolean {
   if (isNil(disabledIndexes) || disabledIndexes.length === 0) {
     return false;
@@ -161,7 +161,7 @@ function isMarked(
   rowIndex: number,
   rowWidth: number,
   colIndex: number,
-  markedIndexes: number[]
+  markedIndexes: number[],
 ): boolean {
   if (isNil(markedIndexes) || markedIndexes.length === 0) {
     return false;
@@ -180,7 +180,7 @@ function getMarkedTip(
   rowWidth: number,
   colIndex: number,
   markedIndexes: number[],
-  markedtip: any
+  markedtip: any,
 ): string {
   if (isNil(markedIndexes) || markedIndexes.length === 0) {
     return null;

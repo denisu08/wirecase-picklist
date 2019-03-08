@@ -22,7 +22,7 @@ const buildCalendarValues = (localization?: string): string[] => {
 
 const getInitialDatePosition = (
   selectable: number[],
-  currentDate: moment.Moment
+  currentDate: moment.Moment,
 ): number => {
   if (selectable.indexOf(currentDate.month()) < 0) {
     return selectable[0];
@@ -36,7 +36,7 @@ const getDisabledPositions = (
   disable: moment.Moment[],
   maxDate: moment.Moment,
   minDate: moment.Moment,
-  currentDate: moment.Moment
+  currentDate: moment.Moment,
 ): number[] => {
   /*
     Return position numbers of months that should be displayed as disabled
@@ -45,19 +45,19 @@ const getDisabledPositions = (
   let disabled = [];
   if (isArray(enable)) {
     const enabledMonthPositions = enable
-      .filter(monthMoment => monthMoment.isSame(currentDate, 'year'))
-      .map(monthMoment => monthMoment.month());
+      .filter((monthMoment) => monthMoment.isSame(currentDate, 'year'))
+      .map((monthMoment) => monthMoment.month());
     disabled = disabled.concat(
       range(0, MONTHS_IN_YEAR).filter(
-        monthPosition => !includes(enabledMonthPositions, monthPosition)
-      )
+        (monthPosition) => !includes(enabledMonthPositions, monthPosition),
+      ),
     );
   }
   if (isArray(disable)) {
     disabled = disabled.concat(
       disable
-        .filter(monthMoment => monthMoment.year() === currentDate.year())
-        .map(monthMoment => monthMoment.month())
+        .filter((monthMoment) => monthMoment.year() === currentDate.year())
+        .map((monthMoment) => monthMoment.month()),
     );
   }
   if (!isNil(maxDate)) {
@@ -84,11 +84,11 @@ const getDisabledPositions = (
 const isNextPageAvailable = (
   maxDate: moment.Moment,
   enable: moment.Moment[],
-  currentDate: moment.Moment
+  currentDate: moment.Moment,
 ): boolean => {
   if (isArray(enable)) {
-    return some(enable, enabledMonth =>
-      enabledMonth.isAfter(currentDate, 'year')
+    return some(enable, (enabledMonth) =>
+      enabledMonth.isAfter(currentDate, 'year'),
     );
   }
   if (isNil(maxDate)) {
@@ -101,11 +101,11 @@ const isNextPageAvailable = (
 const isPrevPageAvailable = (
   minDate: moment.Moment,
   enable: moment.Moment[],
-  currentDate: moment.Moment
+  currentDate: moment.Moment,
 ): boolean => {
   if (isArray(enable)) {
-    return some(enable, enabledMonth =>
-      enabledMonth.isBefore(currentDate, 'year')
+    return some(enable, (enabledMonth) =>
+      enabledMonth.isBefore(currentDate, 'year'),
     );
   }
   if (isNil(minDate)) {
@@ -120,5 +120,5 @@ export {
   getInitialDatePosition,
   getDisabledPositions,
   isNextPageAvailable,
-  isPrevPageAvailable
+  isPrevPageAvailable,
 };

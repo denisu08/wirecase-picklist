@@ -7,12 +7,12 @@ export function momentObj(props, propName, componentName) {
     if (moment.isMoment(value)) {
       if (!value.isValid()) {
         return new Error(
-          `${propName} in ${componentName} is invalid 'moment' object`
+          `${propName} in ${componentName} is invalid 'moment' object`,
         );
       }
     } else {
       return new Error(
-        `${propName} in ${componentName} is not 'moment' object`
+        `${propName} in ${componentName} is not 'moment' object`,
       );
     }
   }
@@ -26,7 +26,7 @@ export function dateObject(props, propName, componentName) {
     if (value && value.constructor && value.constructor.name) {
       if (value.constructor.name !== 'Date') {
         return new Error(
-          `${propName} in ${componentName} is not 'Date' object`
+          `${propName} in ${componentName} is not 'Date' object`,
         );
       }
     }
@@ -42,5 +42,5 @@ export interface MarkedType {
 
 export default {
   momentObj,
-  dateObject
+  dateObject,
 };

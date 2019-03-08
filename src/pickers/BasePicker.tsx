@@ -38,7 +38,7 @@ export interface BasePickerProps {
   /** Called after day is selected. */
   onChange: (
     e: React.SyntheticEvent<HTMLElement>,
-    data: BasePickerOnChangeData
+    data: BasePickerOnChangeData,
   ) => void;
   /** Currently selected date. */
   value?: Moment;
@@ -117,7 +117,7 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
     super(props);
     this.state = {
       hoveredCellPosition: undefined,
-      date: this.props.initializeWith.clone()
+      date: this.props.initializeWith.clone(),
     };
   }
 
@@ -131,12 +131,12 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
 
   protected onHoveredCellPositionChange = (
     e: React.SyntheticEvent<HTMLElement>,
-    { itemPosition }: { itemPosition: number }
+    { itemPosition }: { itemPosition: number },
   ): void => {
     this.setState({
-      hoveredCellPosition: itemPosition
+      hoveredCellPosition: itemPosition,
     });
-  };
+  }
 
   protected canCalendarCatchKeyboardEvents = (): boolean => {
     if (this.props.inline) {
@@ -144,7 +144,7 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
     }
 
     return this.props.isTriggerInFocus();
-  };
+  }
 
   protected handleKeyPress = (event: KeyboardEvent): void => {
     if (!this.canCalendarCatchKeyboardEvents()) {
@@ -162,7 +162,7 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
       default:
         this.handleArrowKeyPress(event);
     }
-  };
+  }
 
   protected handleEnterKeyPress = (event: KeyboardEvent): void => {
     const key = keyboardKey.getKey(event);
@@ -173,14 +173,14 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
       ];
       this.handleChange(null, {
         value: selectedValue,
-        itemPosition: this.state.hoveredCellPosition
+        itemPosition: this.state.hoveredCellPosition,
       });
     }
-  };
+  }
 
   protected handleBlur = (): void => {
     this.props.closePopup();
-  };
+  }
 
   protected handleArrowKeyPress = (event: KeyboardEvent): void => {
     if (!this.canCalendarCatchKeyboardEvents()) {
@@ -192,14 +192,14 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
       .slice(0, selectableCells.indexOf(this.state.hoveredCellPosition))
       .pop();
     const nextSelectableCellPositionRight = selectableCells.slice(
-      selectableCells.indexOf(this.state.hoveredCellPosition) + 1
+      selectableCells.indexOf(this.state.hoveredCellPosition) + 1,
     )[0];
     switch (key) {
       case 'ArrowLeft':
         event.preventDefault();
         if (!isNil(nextSelectableCellPositionLeft)) {
           this.onHoveredCellPositionChange(null, {
-            itemPosition: nextSelectableCellPositionLeft
+            itemPosition: nextSelectableCellPositionLeft,
           });
         } else {
           if (this.isPrevPageAvailable()) {
@@ -207,7 +207,7 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
               const selectableCellsPrevPage = this.getSelectableCellPositions();
               this.onHoveredCellPositionChange(null, {
                 itemPosition:
-                  selectableCellsPrevPage[selectableCellsPrevPage.length - 1]
+                  selectableCellsPrevPage[selectableCellsPrevPage.length - 1],
               });
             });
           }
@@ -217,14 +217,14 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
         event.preventDefault();
         if (!isNil(nextSelectableCellPositionRight)) {
           this.onHoveredCellPositionChange(null, {
-            itemPosition: nextSelectableCellPositionRight
+            itemPosition: nextSelectableCellPositionRight,
           });
         } else {
           if (this.isNextPageAvailable()) {
             this.switchToNextPage(null, null, () => {
               const selectableCellsNextPage = this.getSelectableCellPositions();
               this.onHoveredCellPositionChange(null, {
-                itemPosition: selectableCellsNextPage[0]
+                itemPosition: selectableCellsNextPage[0],
               });
             });
           }
@@ -235,11 +235,11 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
         if (
           includes(
             selectableCells,
-            this.state.hoveredCellPosition - this.PAGE_WIDTH
+            this.state.hoveredCellPosition - this.PAGE_WIDTH,
           )
         ) {
           this.onHoveredCellPositionChange(null, {
-            itemPosition: this.state.hoveredCellPosition - this.PAGE_WIDTH
+            itemPosition: this.state.hoveredCellPosition - this.PAGE_WIDTH,
           });
         }
         break;
@@ -248,18 +248,18 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
         if (
           includes(
             selectableCells,
-            this.state.hoveredCellPosition + this.PAGE_WIDTH
+            this.state.hoveredCellPosition + this.PAGE_WIDTH,
           )
         ) {
           this.onHoveredCellPositionChange(null, {
-            itemPosition: this.state.hoveredCellPosition + this.PAGE_WIDTH
+            itemPosition: this.state.hoveredCellPosition + this.PAGE_WIDTH,
           });
         }
         break;
       default:
         break;
     }
-  };
+  }
 
   /** Return a position of a value (date, year, month ...) with wich a calendar was initialized. */
   protected abstract getInitialDatePosition(): number;
@@ -270,7 +270,7 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
   /** Handles currently selected value change. */
   protected abstract handleChange(
     e: React.SyntheticEvent<HTMLElement>,
-    data: HandleChangeParams
+    data: HandleChangeParams,
   ): void;
 
   /** Return positions of all values on calendar that can be selected. */
@@ -286,14 +286,14 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
   protected abstract switchToPrevPage(
     e?: React.SyntheticEvent<HTMLElement>,
     data?: any,
-    cb?: () => void
+    cb?: () => void,
   ): void;
 
   /** Change currently displayed page (i.e. year, month, day) to next one. */
   protected abstract switchToNextPage(
     e?: React.SyntheticEvent<HTMLElement>,
     data?: any,
-    cb?: () => void
+    cb?: () => void,
   ): void;
 
   /** Return position numbers of cells that should be displayed as disabled */
@@ -320,7 +320,7 @@ export abstract class RangeSelectionPicker<
       hoveredPos = this.getInitialDatePosition();
     }
     this.setState({
-      hoveredCellPosition: hoveredPos
+      hoveredCellPosition: hoveredPos,
     });
   }
 
@@ -339,7 +339,7 @@ export abstract class SingleSelectionPicker<
     this.setState({
       hoveredCellPosition: isNumber(active)
         ? active
-        : this.getInitialDatePosition()
+        : this.getInitialDatePosition(),
     });
   }
 
