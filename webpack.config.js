@@ -3,11 +3,11 @@ const webpack = require('webpack');
 
 const config = {
   entry: {
-    calendar: './example/calendar.tsx',
+    picklist: './example/picklist.tsx'
   },
   output: {
     path: path.resolve(__dirname, 'example'),
-    filename: '[name].bundle.js',
+    filename: '[name].bundle.js'
   },
   mode: 'development',
   module: {
@@ -15,14 +15,14 @@ const config = {
       {
         test: /\.tsx?$/,
         exclude: /node-modules/,
-        loader: 'ts-loader',
+        loader: 'ts-loader'
       },
       {
         test: /\.jsx?$/,
         exclude: /node-modules/,
-        loader: 'babel-loader',
-      },
-    ],
+        loader: 'babel-loader'
+      }
+    ]
   },
   resolve: {
     extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', 'jsx']
@@ -30,12 +30,10 @@ const config = {
   devServer: {
     contentBase: path.resolve(__dirname, 'example'),
     port: 9000,
-    hot: true,
+    hot: true
   },
   devtool: 'source-map',
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-  ],
+  plugins: [new webpack.HotModuleReplacementPlugin()]
 };
 
 module.exports = config;
