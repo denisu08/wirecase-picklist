@@ -59,38 +59,46 @@ function Header(props: HeaderProps) {
   };
 
   return (
+    // <Table.Header>
+    //   {!isNil(rangeRowContent) && <HeaderRange content={rangeRowContent} />}
+    //   <Table.Row>
+    //     <Table.HeaderCell style={cellStyle} colSpan='1'>
+    //       <Icon
+    //         fitted
+    //         style={prevPageBtnStyle}
+    //         disabled={!hasPrevPage}
+    //         onClick={hasPrevPage ? onPrevPageBtnClick : undefined}
+    //         name='chevron left'
+    //       />
+    //     </Table.HeaderCell>
+
+    //     <Table.HeaderCell
+    //       onClick={onHeaderClick ? onHeaderClick : undefined}
+    //       style={cellStyle}
+    //       colSpan={(width - 2).toString()}
+    //     >
+    //       <span style={headerTitleStyle}>{title}</span>
+    //     </Table.HeaderCell>
+
+    //     <Table.HeaderCell style={cellStyle} colSpan='1'>
+    //       <Icon
+    //         fitted
+    //         style={nextPageBtnStyle}
+    //         disabled={!hasNextPage}
+    //         onClick={hasNextPage ? onNextPageBtnClick : undefined}
+    //         name='chevron right'
+    //       />
+    //     </Table.HeaderCell>
+    //   </Table.Row>
+    //   {displayWeeks && <HeaderWeeks localization={localization} />}
+    // </Table.Header>
+
     <Table.Header>
-      {!isNil(rangeRowContent) && <HeaderRange content={rangeRowContent} />}
       <Table.Row>
-        <Table.HeaderCell style={cellStyle} colSpan='1'>
-          <Icon
-            fitted
-            style={prevPageBtnStyle}
-            disabled={!hasPrevPage}
-            onClick={hasPrevPage ? onPrevPageBtnClick : undefined}
-            name='chevron left'
-          />
-        </Table.HeaderCell>
-
-        <Table.HeaderCell
-          onClick={onHeaderClick ? onHeaderClick : undefined}
-          style={cellStyle}
-          colSpan={(width - 2).toString()}
-        >
-          <span style={headerTitleStyle}>{title}</span>
-        </Table.HeaderCell>
-
-        <Table.HeaderCell style={cellStyle} colSpan='1'>
-          <Icon
-            fitted
-            style={nextPageBtnStyle}
-            disabled={!hasNextPage}
-            onClick={hasNextPage ? onNextPageBtnClick : undefined}
-            name='chevron right'
-          />
-        </Table.HeaderCell>
+        <Table.HeaderCell>Name</Table.HeaderCell>
+        <Table.HeaderCell>Status</Table.HeaderCell>
+        <Table.HeaderCell>Notes</Table.HeaderCell>
       </Table.Row>
-      {displayWeeks && <HeaderWeeks localization={localization} />}
     </Table.Header>
   );
 }

@@ -3,7 +3,7 @@ import first from 'lodash/first';
 
 import React from 'react';
 
-import BaseCalendarView, {
+import BasePicklistView, {
   BasePicklistViewProps,
   PicklistWithHeaderViewProps,
   SingleSelectionPicklistViewProps,
@@ -20,7 +20,7 @@ type YearViewProps = BasePicklistViewProps &
   SingleSelectionPicklistViewProps &
   PicklistWithHeaderViewProps;
 
-class YearView extends BaseCalendarView<YearViewProps, any> {
+class YearView extends BasePicklistView<YearViewProps, any> {
   public render() {
     const {
       values,
