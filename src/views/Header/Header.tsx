@@ -3,7 +3,7 @@ import isNil from 'lodash/isNil';
 import React from 'react';
 import { Icon, Table } from 'semantic-ui-react';
 
-import { BodyWidth } from '../CalendarBody/Body';
+import { BodyWidth } from '../Body/Body';
 import HeaderRange from './HeaderRange';
 import HeaderWeeks from './HeaderWeeks';
 
@@ -24,7 +24,7 @@ export interface HeaderProps {
   width: BodyWidth;
   /** Text content to display in dates-range row. */
   rangeRowContent?: string;
-  /** Called after click on calendar header. */
+  /** Called after click on picklist header. */
   onHeaderClick?: () => void;
   /** Moment date localization */
   localization?: string;

@@ -30,9 +30,9 @@ import {
 } from './parse';
 import { getDisabledMonths, getDisabledYears } from './shared';
 
-type CalendarMode = 'year' | 'month' | 'day';
+type PicklistMode = 'year' | 'month' | 'day';
 
-function getNextMode(currentMode: CalendarMode) {
+function getNextMode(currentMode: PicklistMode) {
   if (currentMode === 'year') {
     return 'month';
   }
@@ -43,7 +43,7 @@ function getNextMode(currentMode: CalendarMode) {
   return 'year';
 }
 
-function getPrevMode(currentMode: CalendarMode) {
+function getPrevMode(currentMode: PicklistMode) {
   if (currentMode === 'day') {
     return 'month';
   }
@@ -63,7 +63,7 @@ export interface DateInputProps
     MarkedValuesProps,
     MinMaxValueProps {
   /** Display mode to start. */
-  startMode?: CalendarMode;
+  startMode?: PicklistMode;
 }
 
 export interface DateInputOnChangeData extends DateInputProps {
@@ -71,7 +71,7 @@ export interface DateInputOnChangeData extends DateInputProps {
 }
 
 interface DateInputState extends BaseInputState {
-  mode: CalendarMode;
+  mode: PicklistMode;
   year: number;
   month: number;
   date: number;
@@ -151,7 +151,7 @@ class DateInput extends BaseInput<DateInputProps, DateInputState> {
      * @param {object} data - All props and proposed value.
      */
     onClear: PropTypes.func,
-    /** Using the clearable setting will let users remove their selection from a calendar. */
+    /** Using the clearable setting will let users remove their selection from a picklist. */
     clearable: PropTypes.bool,
     /** Optional Icon to display inside the clearable Input. */
     clearIcon: PropTypes.any,
@@ -259,7 +259,7 @@ class DateInput extends BaseInput<DateInputProps, DateInputState> {
       isPickerInFocus: this.isPickerInFocus,
       isTriggerInFocus: this.isTriggerInFocus,
       inline,
-      onCalendarViewMount: this.onCalendarViewMount,
+      onPicklistViewMount: this.onPicklistViewMount,
       closePopup: this.closePopup,
       tabIndex,
       pickerWidth,

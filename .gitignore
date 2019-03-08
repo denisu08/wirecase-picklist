@@ -1,7 +1,7 @@
 node_modules
 dist
-calendar.bundle.js
-calendar.bundle.js.map
+picklist.bundle.js
+picklist.bundle.js.map
 # rely on yarn.lock instead
 package-lock.json
 src_old

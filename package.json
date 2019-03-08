@@ -1,5 +1,5 @@
 {
-  "name": "wirecase-calendar",
+  "name": "wirecase-picklist",
   "version": "0.14.7",
   "description": "date/time picker built from semantic-ui elements",
   "main": "dist/index.js",
@@ -15,14 +15,14 @@
   "keywords": [
     "semantic",
     "react",
-    "calendar",
+    "picklist",
     "datepicker"
   ],
   "types": "./dist/index.d.ts",
   "author": "Denis Prasetio <denisu08@gmail.com>",
-  "homepage": "https://github.com/denisu08/wirecase-calendar#readme",
+  "homepage": "https://github.com/denisu08/wirecase-picklist#readme",
   "bugs": {
-    "url": "https://github.com/denisu08/wirecase-calendar/issues"
+    "url": "https://github.com/denisu08/wirecase-picklist/issues"
   },
   "files": [
     "src",
@@ -30,7 +30,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/denisu08/wirecase-calendar.git"
+    "url": "https://github.com/denisu08/wirecase-picklist.git"
   },
   "license": "MIT",
   "peerDependencies": {

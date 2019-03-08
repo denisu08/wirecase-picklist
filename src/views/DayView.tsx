@@ -1,26 +1,26 @@
 import React from 'react';
 
-import BaseCalendarView, {
-  BaseCalendarViewProps,
-  CalendarWithHeaderViewProps,
+import BasePicklistView, {
+  BasePicklistViewProps,
+  PicklistWithHeaderViewProps,
   HeadingValueProps,
-  SingleSelectionCalendarViewProps,
-} from './BaseCalendarView';
-import Calendar from './Calendar';
-import Body from './CalendarBody/Body';
-import Header from './CalendarHeader/Header';
+  SingleSelectionPicklistViewProps,
+} from './BasePicklistView';
+import Picklist from './Picklist';
+import Body from './Body/Body';
+import Header from './Header/Header';
 
 import { findHTMLElement } from '../lib';
 
 export const DAY_CALENDAR_ROW_WIDTH = 7;
 export const WEEKS_TO_DISPLAY = 6;
 
-type DayViewProps = BaseCalendarViewProps &
+type DayViewProps = BasePicklistViewProps &
   HeadingValueProps &
-  SingleSelectionCalendarViewProps &
-  CalendarWithHeaderViewProps;
+  SingleSelectionPicklistViewProps &
+  PicklistWithHeaderViewProps;
 
-class DayView extends BaseCalendarView<DayViewProps, any> {
+class DayView extends BasePicklistView<DayViewProps, any> {
   public render() {
     const {
       values,
@@ -45,8 +45,8 @@ class DayView extends BaseCalendarView<DayViewProps, any> {
     } = this.props;
 
     return (
-      <Calendar
-        ref={(e) => (this.calendarNode = findHTMLElement(e))}
+      <Picklist
+        ref={(e) => (this.picklistNode = findHTMLElement(e))}
         outlineOnFocus={inline}
         {...rest}
       >
@@ -73,7 +73,7 @@ class DayView extends BaseCalendarView<DayViewProps, any> {
           markedtip={markedtipIndexes}
           markColor={markColor}
         />
-      </Calendar>
+      </Picklist>
     );
   }
 }

@@ -1,21 +1,21 @@
 import React from 'react';
 import { SemanticCOLORS } from 'semantic-ui-react';
 
-export interface BaseCalendarViewProps {
-  /** Used for passing calendar dom element to parent component. */
+export interface BasePicklistViewProps {
+  /** Used for passing picklist dom element to parent component. */
   onMount: (e: HTMLElement) => void;
-  /** Called on calendar blur. */
+  /** Called on picklist blur. */
   onBlur: () => void;
-  /** Whether a calendar is inside a popup or inline. */
+  /** Whether a picklist is inside a popup or inline. */
   inline: boolean;
-  /** An array of values to fill a calendar with (dates, or years, or anything like that). */
+  /** An array of values to fill a picklist with (dates, or years, or anything like that). */
   values: string[];
   /** Called after clicking on particular value (date, year or anything like that). */
   onValueClick: (
     e: React.SyntheticEvent<HTMLElement>,
     data: OnValueClickData,
   ) => void;
-  /** Called on calendar cell hover. */
+  /** Called on picklist cell hover. */
   onCellHover: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
   /** Index of a cell that should be displayed as hovered. */
   hoveredItemIndex?: number;
@@ -30,7 +30,7 @@ export interface BaseCalendarViewProps {
   localization?: string;
 }
 
-export interface SingleSelectionCalendarViewProps {
+export interface SingleSelectionPicklistViewProps {
   /** Position of a cell to display as active. */
   activeItemIndex?: number;
 }
@@ -40,14 +40,14 @@ export interface RangeIndexes {
   end: number | undefined;
 }
 
-export interface RangeSelectionCalendarViewProps {
-  /** Currently selected range value (from - to) that is displayed in calendar header. */
+export interface RangeSelectionPicklistViewProps {
+  /** Currently selected range value (from - to) that is displayed in picklist header. */
   currentRangeHeadingValue: string;
   /** Indexes of start and end values of currently selected range (to display as active). */
   activeRange: RangeIndexes;
 }
 
-export interface CalendarWithHeaderViewProps {
+export interface PicklistWithHeaderViewProps {
   /** Called after click on next page button. */
   onNextPageBtnClick: (
     e?: React.SyntheticEvent<HTMLElement>,
@@ -64,22 +64,22 @@ export interface CalendarWithHeaderViewProps {
   hasPrevPage: boolean;
   /** Whether to display next page button as active or disabled. */
   hasNextPage: boolean;
-  /** Called after click on calendar header. */
+  /** Called after click on picklist header. */
   onHeaderClick: () => void;
 }
 
 export interface HeadingValueProps {
-  /** A value (date, year or anything like that) that is displayed in calendar header. */
+  /** A value (date, year or anything like that) that is displayed in picklist header. */
   currentHeadingValue: string;
 }
 
-// export interface CalendarWithHeaderViewProps extends CalendarWithHeaderViewPropsBase {
-//   /** A value (date, year or anything like that) that is displayed in calendar header. */
+// export interface PicklistWithHeaderViewProps extends PicklistWithHeaderViewPropsBase {
+//   /** A value (date, year or anything like that) that is displayed in picklist header. */
 //   currentHeadingValue: string;
 // }
 
-export interface CalendarWithOptionalHeaderViewProps {
-  /** Whether a calendar has header. */
+export interface PicklistWithOptionalHeaderViewProps {
+  /** Whether a picklist has header. */
   hasHeader: boolean;
   /** Called after click on next page button. */
   onNextPageBtnClick?: (
@@ -97,9 +97,9 @@ export interface CalendarWithOptionalHeaderViewProps {
   hasPrevPage?: boolean;
   /** Whether to display next page button as active or disabled. */
   hasNextPage?: boolean;
-  /** A value (date, year or anything like that) that is displayed in calendar header. */
+  /** A value (date, year or anything like that) that is displayed in picklist header. */
   currentHeadingValue?: string;
-  /** Called after click on calendar header. */
+  /** Called after click on picklist header. */
   onHeaderClick?: () => void;
 }
 
@@ -112,17 +112,17 @@ export interface OnValueClickData {
 }
 
 /** Base class for picker view components. */
-class BaseCalendarView<
-  P extends BaseCalendarViewProps,
+class BasePicklistView<
+  P extends BasePicklistViewProps,
   S
 > extends React.Component<P, S> {
-  protected calendarNode: HTMLElement | undefined;
+  protected picklistNode: HTMLElement | undefined;
 
   public componentDidMount() {
     if (this.props.onMount) {
-      this.props.onMount(this.calendarNode);
+      this.props.onMount(this.picklistNode);
     }
   }
 }
 
-export default BaseCalendarView;
+export default BasePicklistView;

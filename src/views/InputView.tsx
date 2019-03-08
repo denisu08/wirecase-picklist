@@ -56,7 +56,7 @@ class FormInputWithRef extends React.Component<FormInputProps, any> {
 }
 
 interface InputViewProps {
-  /** Used for passing input dom node (input field or inline calendar) to parent component. */
+  /** Used for passing input dom node (input field or inline picklist) to parent component. */
   onMount: (e: HTMLElement) => void;
   /** Called after input field value has changed. */
   onChange: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
@@ -72,7 +72,7 @@ interface InputViewProps {
   closeOnMouseLeave?: boolean;
   /** A field can have its label next to instead of above it. */
   inlineLabel?: boolean;
-  /** Using the clearable setting will let users remove their selection from a calendar. */
+  /** Using the clearable setting will let users remove their selection from a picklist. */
   clearable?: boolean;
   /** Optional Icon to display inside the Input. */
   icon?: SemanticICONS | boolean;

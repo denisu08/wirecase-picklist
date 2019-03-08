@@ -4,7 +4,7 @@ import isArray from 'lodash/isArray';
 import React from 'react';
 import { Table } from 'semantic-ui-react';
 
-import { OnValueClickData } from '../BaseCalendarView';
+import { OnValueClickData } from '../BasePicklistView';
 import Cell from './Cell';
 import {
   cellStyleWidth3,
@@ -18,9 +18,9 @@ export type BodyWidth = 3 | 4 | 7;
 interface BodyProps {
   /** A number of columns in a row. */
   width: BodyWidth;
-  /** Data that is used to fill a calendar. */
+  /** Data that is used to fill a picklist. */
   data: string[];
-  /** Called after a click on calendar's cell. */
+  /** Called after a click on picklist's cell. */
   onCellClick: (
     e: React.SyntheticEvent<HTMLElement>,
     data: OnValueClickData,
@@ -36,7 +36,7 @@ interface BodyProps {
   /** Array of element indexes in `data` array that should be displayed as marked. */
   marked?: number[];
   markedtip?: object[];
-  /** The color of the mark that will be displayed on the calendar. */
+  /** The color of the mark that will be displayed on the picklist. */
   markColor?: string;
 }
 

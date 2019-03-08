@@ -4,21 +4,21 @@ import first from 'lodash/first';
 import React from 'react';
 
 import BaseCalendarView, {
-  BaseCalendarViewProps,
-  CalendarWithHeaderViewProps,
-  SingleSelectionCalendarViewProps,
-} from './BaseCalendarView';
-import Calendar from './Calendar';
-import Body from './CalendarBody/Body';
-import Header from './CalendarHeader/Header';
+  BasePicklistViewProps,
+  PicklistWithHeaderViewProps,
+  SingleSelectionPicklistViewProps,
+} from './BasePicklistView';
+import Picklist from './Picklist';
+import Body from './Body/Body';
+import Header from './Header/Header';
 
 import { findHTMLElement } from '../lib';
 
 const YEAR_CALENDAR_ROW_WIDTH = 3;
 
-type YearViewProps = BaseCalendarViewProps &
-  SingleSelectionCalendarViewProps &
-  CalendarWithHeaderViewProps;
+type YearViewProps = BasePicklistViewProps &
+  SingleSelectionPicklistViewProps &
+  PicklistWithHeaderViewProps;
 
 class YearView extends BaseCalendarView<YearViewProps, any> {
   public render() {
@@ -42,8 +42,8 @@ class YearView extends BaseCalendarView<YearViewProps, any> {
     const headerTitle = `${first(values)} - ${last(values)}`;
 
     return (
-      <Calendar
-        ref={(e) => (this.calendarNode = findHTMLElement(e))}
+      <Picklist
+        ref={(e) => (this.picklistNode = findHTMLElement(e))}
         outlineOnFocus={inline}
         {...rest}
       >
@@ -67,7 +67,7 @@ class YearView extends BaseCalendarView<YearViewProps, any> {
           active={activeItemIndex}
           disabled={disabledItemIndexes}
         />
-      </Calendar>
+      </Picklist>
     );
   }
 }

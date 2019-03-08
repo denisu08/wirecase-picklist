@@ -18,8 +18,8 @@ describe('<YearPicker />', () => {
   });
 });
 
-describe('<YearPicker />: buildCalendarValues', function() {
-  it('has `buildCalendarValues` method that works properly', () => {
+describe('<YearPicker />: buildPicklistValues', function() {
+  it('has `buildPicklistValues` method that works properly', () => {
     const date = moment('2015-05-01');
     const shouldBuildYears = [
       '2004', '2005', '2006',
@@ -28,13 +28,13 @@ describe('<YearPicker />: buildCalendarValues', function() {
       '2013', '2014', '2015',
     ];
     const wrapper = mount(<YearPicker initializeWith={date} />);
-    assert(_.isFunction(wrapper.instance().buildCalendarValues), 'has the method');
-    assert(_.isArray(wrapper.instance().buildCalendarValues()), 'method returns array');
-    assert.equal(wrapper.instance().buildCalendarValues().length, 12, 'method returns array');
-    _.forEach(wrapper.instance().buildCalendarValues(), (year) => {
+    assert(_.isFunction(wrapper.instance().buildPicklistValues), 'has the method');
+    assert(_.isArray(wrapper.instance().buildPicklistValues()), 'method returns array');
+    assert.equal(wrapper.instance().buildPicklistValues().length, 12, 'method returns array');
+    _.forEach(wrapper.instance().buildPicklistValues(), (year) => {
       assert(_.isString(year), 'contains string');
     });
-    _.forEach(wrapper.instance().buildCalendarValues(), (year, i) => {
+    _.forEach(wrapper.instance().buildPicklistValues(), (year, i) => {
       assert.equal(year, shouldBuildYears[i], 'contains expected year');
     });
   });

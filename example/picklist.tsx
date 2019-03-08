@@ -20,7 +20,7 @@ class App extends React.Component<any, any> {
 
   public render() {
     return (
-      <div className='example-calendar-container'>
+      <div className='example-picklist-container'>
         <Header as='h2' dividing>
           As text fields
           <Header.Subheader>
@@ -70,7 +70,7 @@ class DateTimeForm extends React.Component<any, any> {
         <DateInput
           placeholder='Date'
           popupPosition='bottom right'
-          className='example-calendar-input'
+          className='example-picklist-input'
           name='date'
           closable
           clearIcon={<Icon name='remove' color='red' />}
@@ -88,7 +88,7 @@ class DateTimeForm extends React.Component<any, any> {
           startMode='year'
           popupPosition='bottom right'
           placeholder='Date startMode year'
-          className='example-calendar-input'
+          className='example-picklist-input'
           name='dateStartYear'
           animation='fly left'
           duration={300}
@@ -133,7 +133,7 @@ class DateTimeFormInline extends React.Component<any, any> {
     return (
       <Form>
         <DateInput
-          className='example-calendar-input'
+          className='example-picklist-input'
           value={this.state.date}
           name='date'
           inline

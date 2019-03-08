@@ -18,7 +18,7 @@ import {
 } from '../BasePicker';
 import { MONTH_PAGE_WIDTH, MONTHS_IN_YEAR } from './const';
 import {
-  buildCalendarValues,
+  buildPicklistValues,
   getDisabledPositions,
   getInitialDatePosition,
   isNextPageAvailable,
@@ -59,7 +59,7 @@ class MonthPicker extends SingleSelectionPicker<MonthPickerProps>
       inline,
       isPickerInFocus,
       isTriggerInFocus,
-      onCalendarViewMount,
+      onPicklistViewMount,
       disable,
       enable,
       minDate,
@@ -71,7 +71,7 @@ class MonthPicker extends SingleSelectionPicker<MonthPickerProps>
     return (
       <MonthView
         {...rest}
-        values={this.buildCalendarValues()}
+        values={this.buildPicklistValues()}
         onValueClick={this.handleChange}
         onCellHover={this.onHoveredCellPositionChange}
         onNextPageBtnClick={this.switchToNextPage}
@@ -80,7 +80,7 @@ class MonthPicker extends SingleSelectionPicker<MonthPickerProps>
         hasNextPage={this.isNextPageAvailable()}
         onBlur={this.handleBlur}
         inline={this.props.inline}
-        onMount={this.props.onCalendarViewMount}
+        onMount={this.props.onPicklistViewMount}
         disabledItemIndexes={this.getDisabledPositions()}
         activeItemIndex={this.getActiveCellPosition()}
         hoveredItemIndex={this.state.hoveredCellPosition}
@@ -91,14 +91,14 @@ class MonthPicker extends SingleSelectionPicker<MonthPickerProps>
   }
 
   public getCurrentDate(): string {
-    /* Return current year(string) to display in calendar header. */
+    /* Return current year(string) to display in picklist header. */
     return this.state.date.year().toString();
   }
 
-  protected buildCalendarValues(): string[] {
+  protected buildPicklistValues(): string[] {
     const { localization } = this.props;
 
-    return buildCalendarValues(localization);
+    return buildPicklistValues(localization);
   }
 
   protected getSelectableCellPositions(): number[] {
@@ -117,7 +117,7 @@ class MonthPicker extends SingleSelectionPicker<MonthPickerProps>
   protected getActiveCellPosition(): number {
     /*
       Return position of a month that should be displayed as active
-      (position in array returned by `this.buildCalendarValues`).
+      (position in array returned by `this.buildPicklistValues`).
     */
     if (!isNil(this.props.value)) {
       if (this.props.value.year() === this.state.date.year()) {
@@ -158,7 +158,7 @@ class MonthPicker extends SingleSelectionPicker<MonthPickerProps>
       ...this.props,
       value: {
         year: parseInt(this.getCurrentDate(), 10),
-        month: this.buildCalendarValues().indexOf(value),
+        month: this.buildPicklistValues().indexOf(value),
       },
     };
     this.props.onChange(e, data);

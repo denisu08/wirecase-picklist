@@ -56,7 +56,7 @@ class YearPicker extends SingleSelectionPicker<YearPickerProps> {
       inline,
       isPickerInFocus,
       isTriggerInFocus,
-      onCalendarViewMount,
+      onPicklistViewMount,
       disable,
       enable,
       minDate,
@@ -68,13 +68,13 @@ class YearPicker extends SingleSelectionPicker<YearPickerProps> {
     return (
       <YearView
         {...rest}
-        values={this.buildCalendarValues()}
+        values={this.buildPicklistValues()}
         onNextPageBtnClick={this.switchToNextPage}
         onPrevPageBtnClick={this.switchToPrevPage}
         onValueClick={this.handleChange}
         onBlur={this.handleBlur}
         inline={this.props.inline}
-        onMount={this.props.onCalendarViewMount}
+        onMount={this.props.onPicklistViewMount}
         hoveredItemIndex={this.state.hoveredCellPosition}
         onCellHover={this.onHoveredCellPositionChange}
         hasPrevPage={this.isPrevPageAvailable()}
@@ -86,10 +86,10 @@ class YearPicker extends SingleSelectionPicker<YearPickerProps> {
     );
   }
 
-  protected buildCalendarValues(): string[] {
+  protected buildPicklistValues(): string[] {
     /*
       Return array of years (strings) like ['2012', '2013', ...]
-      that used to populate calendar's page.
+      that used to populate picklist's page.
     */
     const years = [];
     const date = this.state.date;
@@ -104,7 +104,7 @@ class YearPicker extends SingleSelectionPicker<YearPickerProps> {
 
   protected getInitialDatePosition(): number {
     const selectable = this.getSelectableCellPositions();
-    const values = this.buildCalendarValues();
+    const values = this.buildPicklistValues();
     const currentYearIndex = values.indexOf(this.state.date.year().toString());
     if (selectable.indexOf(currentYearIndex) < 0) {
       return selectable[0];
@@ -116,10 +116,10 @@ class YearPicker extends SingleSelectionPicker<YearPickerProps> {
   protected getActiveCellPosition(): number {
     /*
       Return position of a year that should be displayed as active
-      (position in array returned by `this.buildCalendarValues`).
+      (position in array returned by `this.buildPicklistValues`).
     */
     if (!isNil(this.props.value)) {
-      const years = this.buildCalendarValues();
+      const years = this.buildPicklistValues();
       const yearIndex = years.indexOf(this.props.value.year().toString());
       if (yearIndex >= 0) {
         return yearIndex;
@@ -137,10 +137,10 @@ class YearPicker extends SingleSelectionPicker<YearPickerProps> {
   protected getDisabledPositions(): number[] {
     /*
       Return position numbers of years that should be displayed as disabled
-      (position in array returned by `this.buildCalendarValues`).
+      (position in array returned by `this.buildPicklistValues`).
     */
     let disabled = [];
-    const years = this.buildCalendarValues();
+    const years = this.buildPicklistValues();
     if (isArray(this.props.enable)) {
       const enabledYears = this.props.enable.map((yearMoment) =>
         yearMoment.year().toString(),
@@ -190,7 +190,7 @@ class YearPicker extends SingleSelectionPicker<YearPickerProps> {
 
   protected isNextPageAvailable(): boolean {
     const { maxDate, enable } = this.props;
-    const lastOnPage = parseInt(last(this.buildCalendarValues()), 10);
+    const lastOnPage = parseInt(last(this.buildPicklistValues()), 10);
 
     if (isArray(enable)) {
       return some(enable, (enabledYear) => enabledYear.year() > lastOnPage);
@@ -204,7 +204,7 @@ class YearPicker extends SingleSelectionPicker<YearPickerProps> {
 
   protected isPrevPageAvailable(): boolean {
     const { minDate, enable } = this.props;
-    const firstOnPage = parseInt(first(this.buildCalendarValues()), 10);
+    const firstOnPage = parseInt(first(this.buildPicklistValues()), 10);
 
     if (isArray(enable)) {
       return some(enable, (enabledYear) => enabledYear.year() < firstOnPage);

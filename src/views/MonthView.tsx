@@ -1,23 +1,23 @@
 import React from 'react';
 
-import BaseCalendarView, {
-  BaseCalendarViewProps,
-  CalendarWithOptionalHeaderViewProps,
-  SingleSelectionCalendarViewProps,
-} from './BaseCalendarView';
-import Calendar from './Calendar';
-import Body from './CalendarBody/Body';
-import Header, { HeaderProps } from './CalendarHeader/Header';
+import BasePicklistView, {
+  BasePicklistViewProps,
+  PicklistWithOptionalHeaderViewProps,
+  SingleSelectionPicklistViewProps,
+} from './BasePicklistView';
+import Picklist from './Picklist';
+import Body from './Body/Body';
+import Header, { HeaderProps } from './Header/Header';
 
 import { findHTMLElement } from '../lib';
 
 export const MONTH_CALENDAR_ROW_WIDTH = 3;
 
-type MonthViewProps = BaseCalendarViewProps &
-  SingleSelectionCalendarViewProps &
-  CalendarWithOptionalHeaderViewProps;
+type MonthViewProps = BasePicklistViewProps &
+  SingleSelectionPicklistViewProps &
+  PicklistWithOptionalHeaderViewProps;
 
-class MonthView extends BaseCalendarView<MonthViewProps, any> {
+class MonthView extends BasePicklistView<MonthViewProps, any> {
   public render() {
     const {
       values,
@@ -51,8 +51,8 @@ class MonthView extends BaseCalendarView<MonthViewProps, any> {
     };
 
     return (
-      <Calendar
-        ref={(e) => (this.calendarNode = findHTMLElement(e))}
+      <Picklist
+        ref={(e) => (this.picklistNode = findHTMLElement(e))}
         outlineOnFocus={inline}
         {...rest}
       >
@@ -66,7 +66,7 @@ class MonthView extends BaseCalendarView<MonthViewProps, any> {
           hovered={hoveredItemIndex}
           disabled={disabledItemIndexes}
         />
-      </Calendar>
+      </Picklist>
     );
   }
 }

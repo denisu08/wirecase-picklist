@@ -5,7 +5,7 @@ import includes from 'lodash/includes';
 import { Moment } from 'moment';
 import React from 'react';
 
-import { RangeIndexes } from '../views/BaseCalendarView';
+import { RangeIndexes } from '../views/BasePicklistView';
 import { SemanticCOLORS } from 'semantic-ui-react';
 import { MarkedType } from 'src/lib/CustomPropTypes';
 
@@ -53,8 +53,8 @@ export interface BasePickerProps {
   /** Whether popup-trigger in focus. */
   isTriggerInFocus: () => boolean;
   /** Used to pass underlying picker's html element to parent component. */
-  onCalendarViewMount: (e: HTMLElement) => void;
-  /** Called on calendar's header click. */
+  onPicklistViewMount: (e: HTMLElement) => void;
+  /** Called on picklist's header click. */
   onHeaderClick: () => void;
   /** Moment date localization */
   localization?: string;
@@ -64,7 +64,7 @@ export interface BasePickerProps {
 }
 
 export interface OptionalHeaderProps {
-  /** Whether to display calendar's header. */
+  /** Whether to display picklist's header. */
   hasHeader: boolean;
 }
 
@@ -138,7 +138,7 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
     });
   }
 
-  protected canCalendarCatchKeyboardEvents = (): boolean => {
+  protected canPicklistCatchKeyboardEvents = (): boolean => {
     if (this.props.inline) {
       return this.props.isPickerInFocus();
     }
@@ -147,7 +147,7 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
   }
 
   protected handleKeyPress = (event: KeyboardEvent): void => {
-    if (!this.canCalendarCatchKeyboardEvents()) {
+    if (!this.canPicklistCatchKeyboardEvents()) {
       return;
     }
     const key = keyboardKey.getKey(event);
@@ -166,9 +166,9 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
 
   protected handleEnterKeyPress = (event: KeyboardEvent): void => {
     const key = keyboardKey.getKey(event);
-    if (key === 'Enter' && this.canCalendarCatchKeyboardEvents()) {
+    if (key === 'Enter' && this.canPicklistCatchKeyboardEvents()) {
       event.preventDefault();
-      const selectedValue = this.buildCalendarValues()[
+      const selectedValue = this.buildPicklistValues()[
         this.state.hoveredCellPosition
       ];
       this.handleChange(null, {
@@ -183,7 +183,7 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
   }
 
   protected handleArrowKeyPress = (event: KeyboardEvent): void => {
-    if (!this.canCalendarCatchKeyboardEvents()) {
+    if (!this.canPicklistCatchKeyboardEvents()) {
       return;
     }
     const key = keyboardKey.getKey(event);
@@ -261,11 +261,11 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
     }
   }
 
-  /** Return a position of a value (date, year, month ...) with wich a calendar was initialized. */
+  /** Return a position of a value (date, year, month ...) with wich a picklist was initialized. */
   protected abstract getInitialDatePosition(): number;
 
-  /** Creates values with wich calendar filled. */
-  protected abstract buildCalendarValues(): string[];
+  /** Creates values with wich picklist filled. */
+  protected abstract buildPicklistValues(): string[];
 
   /** Handles currently selected value change. */
   protected abstract handleChange(
@@ -273,13 +273,13 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
     data: HandleChangeParams,
   ): void;
 
-  /** Return positions of all values on calendar that can be selected. */
+  /** Return positions of all values on picklist that can be selected. */
   protected abstract getSelectableCellPositions(): number[];
 
-  /** Check if calendar has selectable values on previous page (i.e. prev year, month, day). */
+  /** Check if picklist has selectable values on previous page (i.e. prev year, month, day). */
   protected abstract isPrevPageAvailable(): boolean;
 
-  /** Check if calendar has selectable values on next page (i.e. next year, month, day). */
+  /** Check if picklist has selectable values on next page (i.e. next year, month, day). */
   protected abstract isNextPageAvailable(): boolean;
 
   /** Change currently displayed page (i.e. year, month, day) to previous one. */
@@ -301,7 +301,7 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
 }
 
 export interface ProvideHeadingValue {
-  /** Return currently selected value to display in calendar header. */
+  /** Return currently selected value to display in picklist header. */
   getCurrentDate(): string;
 }
 

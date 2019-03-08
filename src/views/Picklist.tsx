@@ -7,10 +7,10 @@ import { Table } from 'semantic-ui-react';
 //   minWidth?: string;
 // }
 
-interface CalendarProps {
+interface PicklistProps {
   /** Table content. */
   children: React.ReactNode[];
-  /** Whether to outline the calendar on focus. */
+  /** Whether to outline the picklist on focus. */
   outlineOnFocus: boolean;
   /** Picker width (any value that `style.width` can take). */
   pickerWidth?: string;
@@ -18,7 +18,7 @@ interface CalendarProps {
   pickerStyle?: object;
 }
 
-class Calendar extends React.Component<CalendarProps, any> {
+class Picklist extends React.Component<PicklistProps, any> {
   public static readonly propTypes: object;
   public static readonly defaultProps = {
     pickerWidth: '100%',
@@ -49,4 +49,4 @@ class Calendar extends React.Component<CalendarProps, any> {
   }
 }
 
-export default Calendar;
+export default Picklist;

@@ -31,7 +31,7 @@ export interface BaseInputProps {
    * @param {object} data - All props and proposed value.
    */
   onClear?: (event: React.SyntheticEvent<HTMLInputElement>, data: any) => void;
-  /** Using the clearable setting will let users remove their selection from a calendar. */
+  /** Using the clearable setting will let users remove their selection from a picklist. */
   clearable?: boolean;
   /** Optional Icon to display inside the clearable Input. */
   clearIcon?: any;
@@ -45,7 +45,7 @@ export interface BaseInputProps {
     | 'left center'
     | 'top center'
     | 'bottom center';
-  /** Should close when cursor leaves calendar popup. */
+  /** Should close when cursor leaves picklist popup. */
   closeOnMouseLeave?: boolean;
   /** The node where the picker should mount. */
   mountNode?: any;
@@ -120,7 +120,7 @@ abstract class BaseInput<
     localization: moment.locale(),
   };
 
-  private calendarNode: HTMLElement;
+  private picklistNode: HTMLElement;
 
   private inputNode: HTMLElement;
 
@@ -133,7 +133,7 @@ abstract class BaseInput<
   }
 
   protected isPickerInFocus = (): boolean => {
-    return document.activeElement === this.calendarNode;
+    return document.activeElement === this.picklistNode;
   }
 
   protected isTriggerInFocus = (): boolean => {
@@ -141,19 +141,19 @@ abstract class BaseInput<
   }
 
   protected onModeSwitch = (): void => {
-    // when using keyboard for selecting values on inline calendar
+    // when using keyboard for selecting values on inline picklist
     // and when mode switches, picker looses focus.
     // In order to preserve focus on active picker
-    // we call focus() on `calendarNode`.
-    // `calendarNode` goes from *View component via
-    // `this.onCalendarViewMount` callback
-    if (this.props.inline && !this.isPickerInFocus() && this.calendarNode) {
-      this.calendarNode.focus();
+    // we call focus() on `picklistNode`.
+    // `picklistNode` goes from *View component via
+    // `this.onPicklistViewMount` callback
+    if (this.props.inline && !this.isPickerInFocus() && this.picklistNode) {
+      this.picklistNode.focus();
     }
   }
 
-  protected onCalendarViewMount = (calendarNode: HTMLElement): void => {
-    this.calendarNode = calendarNode;
+  protected onPicklistViewMount = (picklistNode: HTMLElement): void => {
+    this.picklistNode = picklistNode;
   }
 
   protected onInputViewMount = (inputNode: HTMLElement): void => {

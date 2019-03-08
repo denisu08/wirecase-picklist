@@ -25,4 +25,4 @@ Provide version numbers of following packages:
 
 * semantic-ui-react
 * semantic-ui-css (or any alternative)
-* wirecase-calendar
+* wirecase-picklist

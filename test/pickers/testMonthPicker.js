@@ -18,13 +18,13 @@ describe('<MonthPicker />', () => {
   });
 });
 
-describe('<MonthPicker />: buildCalendarValues', () => {
+describe('<MonthPicker />: buildPicklistValues', () => {
   const date = moment('2015-05-01');
   /* current year 2015 */
   it('return array of strings', () => {
     const wrapper = mount(<MonthPicker initializeWith={date} />);
-    assert(_.isArray(wrapper.instance().buildCalendarValues()), 'return array');
-    wrapper.instance().buildCalendarValues().forEach((month) => {
+    assert(_.isArray(wrapper.instance().buildPicklistValues()), 'return array');
+    wrapper.instance().buildPicklistValues().forEach((month) => {
       assert(_.isString(month), 'contains strings');
     });
   });

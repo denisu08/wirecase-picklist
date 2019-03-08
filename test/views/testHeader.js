@@ -17,7 +17,7 @@ import {
   Header,
   HeaderRange,
   HeaderWeeks,
-} from '../../src/views/CalendarHeader';
+} from '../../src/views/PicklistHeader';
 
 describe('<HeaderWeeks />', () => {
   it('consists of proper elements', () => {

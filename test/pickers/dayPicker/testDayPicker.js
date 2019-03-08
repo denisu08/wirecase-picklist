@@ -22,7 +22,7 @@ describe('<DayPicker />', () => {
   });
 });
 
-describe('<DayPicker />: buildCalendarValues', () => {
+describe('<DayPicker />: buildPicklistValues', () => {
 
   describe('current date is 2018-08-12', () => {
     const date = moment('2018-08-12');
@@ -37,9 +37,9 @@ describe('<DayPicker />: buildCalendarValues', () => {
         '26', '27', '28', '29', '30', '31', '1',
         '2', '3', '4', '5', '6', '7', '8',
       ];
-      assert(_.isArray(wrapper.instance().buildCalendarValues()), 'return array');
-      assert.equal(wrapper.instance().buildCalendarValues().length, 42, 'return array of length 42');
-      wrapper.instance().buildCalendarValues().forEach((date, i) => {
+      assert(_.isArray(wrapper.instance().buildPicklistValues()), 'return array');
+      assert.equal(wrapper.instance().buildPicklistValues().length, 42, 'return array of length 42');
+      wrapper.instance().buildPicklistValues().forEach((date, i) => {
         assert.equal(date, shouldReturn[i], 'contains corect dates');
       });
     });
@@ -58,9 +58,9 @@ describe('<DayPicker />: buildCalendarValues', () => {
         '23', '24', '25', '26', '27', '28', '29',
         '30', '1', '2', '3', '4', '5', '6',
       ];
-      assert(_.isArray(wrapper.instance().buildCalendarValues()), 'return array');
-      assert.equal(wrapper.instance().buildCalendarValues().length, 42, 'return array of length 42');
-      wrapper.instance().buildCalendarValues().forEach((date, i) => {
+      assert(_.isArray(wrapper.instance().buildPicklistValues()), 'return array');
+      assert.equal(wrapper.instance().buildPicklistValues().length, 42, 'return array of length 42');
+      wrapper.instance().buildPicklistValues().forEach((date, i) => {
         assert.equal(date, shouldReturn[i], 'contains corect dates');
       });
     });
@@ -80,9 +80,9 @@ describe('<DayPicker />: buildCalendarValues', () => {
         '5', '6', '7', '8', '9', '10', '11',
       ];
 
-      assert(_.isArray(wrapper.instance().buildCalendarValues()), 'return array');
-      assert.equal(wrapper.instance().buildCalendarValues().length, 42, 'return array of length 42');
-      wrapper.instance().buildCalendarValues().forEach((date, i) => {
+      assert(_.isArray(wrapper.instance().buildPicklistValues()), 'return array');
+      assert.equal(wrapper.instance().buildPicklistValues().length, 42, 'return array of length 42');
+      wrapper.instance().buildPicklistValues().forEach((date, i) => {
         assert.equal(date, shouldReturn[i], 'contains corect dates');
       });
     });
@@ -102,9 +102,9 @@ describe('<DayPicker />: buildCalendarValues', () => {
         '2', '3', '4', '5', '6', '7', '8',
       ];
 
-      assert(_.isArray(wrapper.instance().buildCalendarValues()), 'return array');
-      assert.equal(wrapper.instance().buildCalendarValues().length, 42, 'return array of length 42');
-      wrapper.instance().buildCalendarValues().forEach((date, i) => {
+      assert(_.isArray(wrapper.instance().buildPicklistValues()), 'return array');
+      assert.equal(wrapper.instance().buildPicklistValues().length, 42, 'return array of length 42');
+      wrapper.instance().buildPicklistValues().forEach((date, i) => {
         assert.equal(date, shouldReturn[i], 'contains corect dates');
       });
     });

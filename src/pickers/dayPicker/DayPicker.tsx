@@ -61,7 +61,7 @@ class DayPicker extends SingleSelectionPicker<DayPickerProps>
       inline,
       isPickerInFocus,
       isTriggerInFocus,
-      onCalendarViewMount,
+      onPicklistViewMount,
       disable,
       enable,
       minDate,
@@ -76,7 +76,7 @@ class DayPicker extends SingleSelectionPicker<DayPickerProps>
     return (
       <DayView
         {...rest}
-        values={this.buildCalendarValues()}
+        values={this.buildPicklistValues()}
         hasNextPage={this.isNextPageAvailable()}
         hasPrevPage={this.isPrevPageAvailable()}
         onNextPageBtnClick={this.switchToNextPage}
@@ -84,7 +84,7 @@ class DayPicker extends SingleSelectionPicker<DayPickerProps>
         onValueClick={this.handleChange}
         onBlur={this.handleBlur}
         inline={this.props.inline}
-        onMount={this.props.onCalendarViewMount}
+        onMount={this.props.onPicklistViewMount}
         hoveredItemIndex={this.state.hoveredCellPosition}
         onCellHover={this.onHoveredCellPositionChange}
         currentHeadingValue={this.getCurrentDate()}
@@ -99,14 +99,14 @@ class DayPicker extends SingleSelectionPicker<DayPickerProps>
   }
 
   public getCurrentDate(): string {
-    /* Return currently selected year and month(string) to display in calendar header. */
+    /* Return currently selected year and month(string) to display in picklist header. */
     return this.state.date.format('MMMM YYYY');
   }
 
-  protected buildCalendarValues(): string[] {
+  protected buildPicklistValues(): string[] {
     /*
       Return array of dates (strings) like ['31', '1', ...]
-      that used to populate calendar's page.
+      that used to populate picklist's page.
     */
     return buildDays(this.state.date, DAYS_ON_PAGE);
   }
@@ -121,7 +121,7 @@ class DayPicker extends SingleSelectionPicker<DayPickerProps>
   protected getInitialDatePosition(): number {
     return getInitialDatePosition(
       this.state.date.date().toString(),
-      this.buildCalendarValues(),
+      this.buildPicklistValues(),
       this.getSelectableCellPositions(),
     );
   }
@@ -129,11 +129,11 @@ class DayPicker extends SingleSelectionPicker<DayPickerProps>
   protected getActiveCellPosition(): number {
     /*
       Return position of a date that should be displayed as active
-      (position in array returned by `this.buildCalendarValues`).
+      (position in array returned by `this.buildPicklistValues`).
     */
     if (this.props.value && this.props.value.isSame(this.state.date, 'month')) {
       const disabledPositions = this.getDisabledPositions();
-      const active = this.buildCalendarValues()
+      const active = this.buildPicklistValues()
         .map((day, i) => (includes(disabledPositions, i) ? undefined : day))
         .indexOf(this.props.value.date().toString());
       if (active >= 0) {
@@ -145,7 +145,7 @@ class DayPicker extends SingleSelectionPicker<DayPickerProps>
   protected getDisabledPositions(): number[] {
     /*
       Return position numbers of dates that should be displayed as disabled
-      (position in array returned by `this.buildCalendarValues`).
+      (position in array returned by `this.buildPicklistValues`).
     */
     const { disable, maxDate, minDate, enable } = this.props;
 
@@ -162,7 +162,7 @@ class DayPicker extends SingleSelectionPicker<DayPickerProps>
   protected getMarkedPositions(): number[] {
     /*
       Return position numbers of dates that should be displayed as marked
-      (position in array returned by `this.buildCalendarValues`).
+      (position in array returned by `this.buildPicklistValues`).
     */
     const { marked } = this.props;
 
@@ -176,7 +176,7 @@ class DayPicker extends SingleSelectionPicker<DayPickerProps>
   protected getMarkedTipsPositions(): string[] {
     /*
       Return position numbers of dates that should be displayed as marked
-      (position in array returned by `this.buildCalendarValues`).
+      (position in array returned by `this.buildPicklistValues`).
     */
     const { marked, markedtip } = this.props;
 

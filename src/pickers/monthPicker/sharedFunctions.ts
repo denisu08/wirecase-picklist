@@ -8,10 +8,10 @@ import some from 'lodash/some';
 import moment from 'moment';
 import { MONTHS_IN_YEAR } from './const';
 
-const buildCalendarValues = (localization?: string): string[] => {
+const buildPicklistValues = (localization?: string): string[] => {
   /*
     Return array of months (strings) like ['Aug', 'Sep', ...]
-    that used to populate calendar's page.
+    that used to populate picklist's page.
   */
   const localLocale = localization
     ? moment.localeData(localization)
@@ -40,7 +40,7 @@ const getDisabledPositions = (
 ): number[] => {
   /*
     Return position numbers of months that should be displayed as disabled
-    (position in array returned by `this.buildCalendarValues`).
+    (position in array returned by `this.buildPicklistValues`).
   */
   let disabled = [];
   if (isArray(enable)) {
@@ -116,7 +116,7 @@ const isPrevPageAvailable = (
 };
 
 export {
-  buildCalendarValues,
+  buildPicklistValues,
   getInitialDatePosition,
   getDisabledPositions,
   isNextPageAvailable,
