@@ -1,21 +1,29 @@
 import isNil from 'lodash/isNil';
 import isArray from 'lodash/isArray';
+import invoke from 'lodash/invoke';
 
 import React from 'react';
 import { Table } from 'semantic-ui-react';
 
 import { OnValueClickData } from '../BasePicklistView';
-import Cell from './Cell';
-import {
-  cellStyleWidth3,
-  cellStyleWidth4,
-  cellStyleWidth7,
-  CellWidthStyle,
-} from './Cell';
+// import Cell from './Cell';
+// import {
+//   cellStyleWidth3,
+//   cellStyleWidth4,
+//   cellStyleWidth7,
+//   CellWidthStyle,
+// } from './Cell';
 
 const rowBtnStyle = {
   cursor: 'pointer',
 };
+
+const dataDummy = [
+  { name: 'Jamie', status: 'Approved', notes: 'Requires call' },
+  { name: 'John', status: 'Selected', notes: 'None' },
+  { name: 'Jakun', status: 'Approved', notes: 'Requires call' },
+  { name: 'Jill', status: 'Approved', notes: 'None' },
+];
 
 export type BodyWidth = 3 | 4 | 7;
 
@@ -43,15 +51,15 @@ function Body(props: BodyProps) {
   const {
     data,
     width,
-    onCellClick,
+    // onCellClick,
     active,
-    disabled,
-    hovered,
+    // disabled,
+    // hovered,
     onCellHover,
   } = props;
 
   console.log('Data', data, width);
-  console.log('Body', buildRows(data, width));
+  // console.log('Body', buildRows(data, width));
 
   // const content = buildRows(data, width).map((row, rowIndex) => (
   //   <Table.Row key={`${rowIndex}${row[0]}`}>
@@ -83,44 +91,46 @@ function Body(props: BodyProps) {
 
   return (
     <Table.Body>
-      <Table.Row style={rowBtnStyle}>
-        <Table.Cell>Jamie</Table.Cell>
-        <Table.Cell>Approved</Table.Cell>
-        <Table.Cell>Requires call</Table.Cell>
-      </Table.Row>
-      <Table.Row style={rowBtnStyle}>
-        <Table.Cell>John</Table.Cell>
-        <Table.Cell>Selected</Table.Cell>
-        <Table.Cell>None</Table.Cell>
-      </Table.Row>
-      <Table.Row style={rowBtnStyle}>
-        <Table.Cell>Jamie</Table.Cell>
-        <Table.Cell>Approved</Table.Cell>
-        <Table.Cell>Requires call</Table.Cell>
-      </Table.Row>
-      <Table.Row style={rowBtnStyle}>
-        <Table.Cell>Jill</Table.Cell>
-        <Table.Cell>Approved</Table.Cell>
-        <Table.Cell>None</Table.Cell>
-      </Table.Row>
-    </Table.Body >
+      {dataDummy.map((data, rowIndex) => (
+        <Table.Row
+          key={`${rowIndex}`}
+          style={rowBtnStyle}
+          onClick={onCellClick}
+          onMouseOver={onCellHover}
+          active={isActive(rowIndex, active)}
+        >
+          <Table.Cell>{data.name}</Table.Cell>
+          <Table.Cell>{data.status}</Table.Cell>
+          <Table.Cell>{data.notes}</Table.Cell>
+        </Table.Row>
+      ))}
+    </Table.Body>
   );
 }
 
-function buildRows(data: string[], width: number): string[][] {
-  const height = data.length / width;
-  const rows = [];
-  for (let i = 0; i < height; i++) {
-    rows.push(data.slice(i * width, i * width + width));
-  }
+// function buildRows(data: string[], width: number): string[][] {
+//   const height = data.length / width;
+//   const rows = [];
+//   for (let i = 0; i < height; i++) {
+//     rows.push(data.slice(i * width, i * width + width));
+//   }
 
-  return rows;
+//   return rows;
+// }
+
+function onCellClick(event) {
+  const { itemPosition, content } = this.props;
+  invoke(this.props, 'onClick', event, {
+    ...this.props,
+    itemPosition,
+    value: content,
+  });
 }
 
 function isActive(
   rowIndex: number,
-  rowWidth: number,
-  colIndex: number,
+  // rowWidth: number,
+  // colIndex: number,
   active: number | number[],
 ): boolean {
   if (isNil(active)) {
@@ -128,13 +138,13 @@ function isActive(
   }
   if (isArray(active)) {
     for (const activeIndex of active as number[]) {
-      if (rowIndex * rowWidth + colIndex === activeIndex) {
+      if (rowIndex === activeIndex) {
         return true;
       }
     }
   }
 
-  return rowIndex * rowWidth + colIndex === active;
+  return rowIndex === active;
 }
 
 export default Body;
