@@ -3,7 +3,7 @@ import invoke from 'lodash/invoke';
 import React from 'react';
 import { Table, Label } from 'semantic-ui-react';
 
-import { OnValueClickData } from '../BaseCalendarView';
+import { OnValueClickData } from '../BasePicklistView';
 
 const hoverCellStyles = {
   outline: '1px solid #85b7d9',
