@@ -2,8 +2,6 @@ import React from "react";
 
 import BasePicklistView, {
   BasePicklistViewProps,
-  // PicklistWithHeaderViewProps,
-  HeadingValueProps,
   SingleSelectionPicklistViewProps
 } from "./BasePicklistView";
 import Picklist from "./Picklist";
@@ -12,24 +10,16 @@ import Header from "./Header/Header";
 
 import { findHTMLElement } from "../lib";
 
-export const DAY_CALENDAR_ROW_WIDTH = 7;
-export const WEEKS_TO_DISPLAY = 6;
+export const PICKLIST_ROW_WIDTH = 7;
 
-type DayViewProps = BasePicklistViewProps &
-  // HeadingValueProps &
-  SingleSelectionPicklistViewProps /*&
-  PicklistWithHeaderViewProps */;
+type PicklistViewProps = BasePicklistViewProps &
+  SingleSelectionPicklistViewProps;
 
-class DayView extends BasePicklistView<DayViewProps, any> {
+class PicklistView extends BasePicklistView<PicklistViewProps, any> {
   public render() {
     const {
       values,
-      // onNextPageBtnClick,
-      // onPrevPageBtnClick,
       onValueClick,
-      // hasNextPage,
-      // hasPrevPage,
-      // currentHeadingValue,
       disabledItemIndexes,
       activeItemIndex,
       hoveredItemIndex,
@@ -49,18 +39,9 @@ class DayView extends BasePicklistView<DayViewProps, any> {
         outlineOnFocus={inline}
         {...rest}
       >
-        <Header
-          width={DAY_CALENDAR_ROW_WIDTH}
-          // displayWeeks
-          // onNextPageBtnClick={onNextPageBtnClick}
-          // onPrevPageBtnClick={onPrevPageBtnClick}
-          // hasNextPage={hasNextPage}
-          // hasPrevPage={hasPrevPage}
-          // title={currentHeadingValue}
-          localization={localization}
-        />
+        <Header width={PICKLIST_ROW_WIDTH} localization={localization} />
         <Body
-          width={DAY_CALENDAR_ROW_WIDTH}
+          width={PICKLIST_ROW_WIDTH}
           data={values}
           hovered={hoveredItemIndex}
           onCellHover={onCellHover}
@@ -73,4 +54,4 @@ class DayView extends BasePicklistView<DayViewProps, any> {
   }
 }
 
-export default DayView;
+export default PicklistView;

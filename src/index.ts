@@ -1,5 +1,5 @@
 export {
-  default as DateInput,
-  DateInputProps,
-  DateInputOnChangeData,
-} from './inputs/DateInput';
+  default as PicklistInput,
+  PicklistInputProps as DateInputProps,
+  PicklistInputOnChangeData
+} from "./inputs/PicklistInput";

@@ -1,14 +1,5 @@
-import { Moment } from "moment";
 import * as React from "react";
-import {
-  SemanticTRANSITIONS,
-  SemanticCOLORS,
-  SemanticICONS
-} from "semantic-ui-react";
-
-// import { TimeFormat } from "../pickers/BasePicker";
-import moment = require("moment");
-import { MarkedType } from "../lib/CustomPropTypes";
+import { SemanticTRANSITIONS, SemanticICONS } from "semantic-ui-react";
 
 export interface BaseInputProps {
   [key: string]: any;
@@ -59,11 +50,11 @@ export interface BaseInputProps {
   duration?: number;
   /** Named animation event to used. Must be defined in CSS. */
   animation?: SemanticTRANSITIONS;
-  /** Moment date localization. */
+  /** picklist localization. */
   localization?: string;
 }
-export interface DateRelatedProps {
-  /** Moment date formatting string. */
+export interface PicklistRelatedProps {
+  /** Picklist formatting string. */
   valueFormat?: string;
   /** Date to display initially when no date is selected. */
   initialValue?: string;

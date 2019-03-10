@@ -3,11 +3,11 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Checkbox, Form, Header, Icon } from "semantic-ui-react";
 
-import { DateInput, DateInputOnChangeData } from "../src/inputs";
+import { PicklistInput, PicklistInputOnChangeData } from "../src/inputs";
 
 moment.locale("en");
 
-type DateTimeFormHandleChangeData = DateInputOnChangeData;
+type DateTimeFormHandleChangeData = PicklistInputOnChangeData;
 
 class App extends React.Component<any, any> {
   constructor(props) {
@@ -67,7 +67,7 @@ class DateTimeForm extends React.Component<any, any> {
 
     return (
       <Form>
-        <DateInput
+        <PicklistInput
           placeholder="Sample Picklist 01"
           popupPosition="bottom right"
           className="example-picklist-input"
@@ -84,7 +84,7 @@ class DateTimeForm extends React.Component<any, any> {
           onChange={this.handleChange}
         />
         <br />
-        <DateInput
+        <PicklistInput
           startMode="single"
           popupPosition="bottom right"
           placeholder="Sample Picklist 02"
@@ -132,7 +132,7 @@ class DateTimeFormInline extends React.Component<any, any> {
   public render() {
     return (
       <Form>
-        <DateInput
+        <PicklistInput
           className="example-picklist-input"
           value={this.state.date}
           name="date"

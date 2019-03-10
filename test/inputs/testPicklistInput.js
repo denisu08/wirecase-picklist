@@ -4,18 +4,16 @@ import sinon from "sinon";
 import React from "react";
 import _ from "lodash";
 
-import DateInput from "../../src/inputs/DateInput";
+import PicklistInput from "../../src/inputs/PicklistInput";
 
-describe("<DateInput />: handleSelect", () => {
+describe("<PicklistInput />: handleSelect", () => {
   it("call `onChange` when in `day` mode (default)", () => {
     const onChangeFake = sinon.fake();
     const wrapper = mount(
-      <DateInput dateFormat="YYYY-MM-DD" onChange={onChangeFake} />
+      <PicklistInput valueFormat="${id}" onChange={onChangeFake} />
     );
 
-    wrapper
-      .instance()
-      .handleSelect("click", { value: { year: 2030, month: 4, date: 3 } });
+    wrapper.instance().handleSelect("click", { value: { data: "test" } });
     const calledWithArgs = onChangeFake.args[0];
 
     assert(onChangeFake.calledOnce, "`onChange` callback called once");
@@ -28,8 +26,8 @@ describe("<DateInput />: handleSelect", () => {
   it.skip("does not switch to next mode if in single mode", () => {
     const onChangeFake = sinon.fake();
     const wrapper = mount(
-      <DateInput
-        dateFormat="YYYY-MM-DD"
+      <PicklistInput
+        valueFormat="${id}"
         startMode="single"
         onChange={onChangeFake}
       />
@@ -41,8 +39,8 @@ describe("<DateInput />: handleSelect", () => {
   });
 });
 
-describe("<DateInput />: switchToPrevMode", () => {
-  const wrapper = mount(<DateInput />);
+describe("<PicklistInput />: switchToPrevMode", () => {
+  const wrapper = mount(<PicklistInput />);
 
   beforeEach(function(done) {
     setTimeout(done);
@@ -58,8 +56,8 @@ describe("<DateInput />: switchToPrevMode", () => {
   }).timeout(0);
 });
 
-describe("<DateInput />: switchToNextMode", () => {
-  const wrapper = mount(<DateInput />);
+describe("<PicklistInput />: switchToNextMode", () => {
+  const wrapper = mount(<PicklistInput />);
 
   beforeEach(function(done) {
     setTimeout(done);
