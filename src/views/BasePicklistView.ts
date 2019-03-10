@@ -47,24 +47,24 @@ export interface RangeSelectionPicklistViewProps {
   activeRange: RangeIndexes;
 }
 
-export interface PicklistWithHeaderViewProps {
-  /** Called after click on next page button. */
-  onNextPageBtnClick: (
-    e?: React.SyntheticEvent<HTMLElement>,
-    data?: any,
-    cb?: () => void
-  ) => void;
-  /** Called after click on previous page button. */
-  onPrevPageBtnClick: (
-    e?: React.SyntheticEvent<HTMLElement>,
-    data?: any,
-    cb?: () => void
-  ) => void;
-  /** Whether to display previous page button as active or disabled. */
-  hasPrevPage: boolean;
-  /** Whether to display next page button as active or disabled. */
-  hasNextPage: boolean;
-}
+// export interface PicklistWithHeaderViewProps {
+//   /** Called after click on next page button. */
+//   onNextPageBtnClick: (
+//     e?: React.SyntheticEvent<HTMLElement>,
+//     data?: any,
+//     cb?: () => void
+//   ) => void;
+//   /** Called after click on previous page button. */
+//   onPrevPageBtnClick: (
+//     e?: React.SyntheticEvent<HTMLElement>,
+//     data?: any,
+//     cb?: () => void
+//   ) => void;
+//   /** Whether to display previous page button as active or disabled. */
+//   hasPrevPage: boolean;
+//   /** Whether to display next page button as active or disabled. */
+//   hasNextPage: boolean;
+// }
 
 export interface HeadingValueProps {
   /** A value (date, year or anything like that) that is displayed in picklist header. */

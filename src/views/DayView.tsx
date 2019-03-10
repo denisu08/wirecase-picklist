@@ -2,7 +2,7 @@ import React from "react";
 
 import BasePicklistView, {
   BasePicklistViewProps,
-  PicklistWithHeaderViewProps,
+  // PicklistWithHeaderViewProps,
   HeadingValueProps,
   SingleSelectionPicklistViewProps
 } from "./BasePicklistView";
@@ -16,20 +16,20 @@ export const DAY_CALENDAR_ROW_WIDTH = 7;
 export const WEEKS_TO_DISPLAY = 6;
 
 type DayViewProps = BasePicklistViewProps &
-  HeadingValueProps &
-  SingleSelectionPicklistViewProps &
-  PicklistWithHeaderViewProps;
+  // HeadingValueProps &
+  SingleSelectionPicklistViewProps /*&
+  PicklistWithHeaderViewProps */;
 
 class DayView extends BasePicklistView<DayViewProps, any> {
   public render() {
     const {
       values,
-      onNextPageBtnClick,
-      onPrevPageBtnClick,
+      // onNextPageBtnClick,
+      // onPrevPageBtnClick,
       onValueClick,
-      hasNextPage,
-      hasPrevPage,
-      currentHeadingValue,
+      // hasNextPage,
+      // hasPrevPage,
+      // currentHeadingValue,
       disabledItemIndexes,
       activeItemIndex,
       hoveredItemIndex,
@@ -51,12 +51,12 @@ class DayView extends BasePicklistView<DayViewProps, any> {
       >
         <Header
           width={DAY_CALENDAR_ROW_WIDTH}
-          displayWeeks
-          onNextPageBtnClick={onNextPageBtnClick}
-          onPrevPageBtnClick={onPrevPageBtnClick}
-          hasNextPage={hasNextPage}
-          hasPrevPage={hasPrevPage}
-          title={currentHeadingValue}
+          // displayWeeks
+          // onNextPageBtnClick={onNextPageBtnClick}
+          // onPrevPageBtnClick={onPrevPageBtnClick}
+          // hasNextPage={hasNextPage}
+          // hasPrevPage={hasPrevPage}
+          // title={currentHeadingValue}
           localization={localization}
         />
         <Body

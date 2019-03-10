@@ -6,7 +6,7 @@ import {
   SemanticICONS
 } from "semantic-ui-react";
 
-import { TimeFormat } from "../pickers/BasePicker";
+// import { TimeFormat } from "../pickers/BasePicker";
 import moment = require("moment");
 import { MarkedType } from "../lib/CustomPropTypes";
 
@@ -78,8 +78,7 @@ abstract class BaseInput<
   S extends BaseInputState
 > extends React.Component<P, S> {
   public static defaultProps = {
-    inline: false,
-    localization: moment.locale()
+    inline: false
   };
 
   private picklistNode: HTMLElement;

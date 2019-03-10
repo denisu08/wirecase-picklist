@@ -1,25 +1,25 @@
-import isNil from "lodash/isNil";
+// import isNil from "lodash/isNil";
 
 import React from "react";
 import { Icon, Table } from "semantic-ui-react";
 
 import { BodyWidth } from "../Body/Body";
-import HeaderRange from "./HeaderRange";
-import HeaderWeeks from "./HeaderWeeks";
+// import HeaderRange from "./HeaderRange";
+// import HeaderWeeks from "./HeaderWeeks";
 
 export interface HeaderProps {
-  /** Header text content. */
-  title: string;
-  /** Called after click on next page button. */
-  onNextPageBtnClick: () => void;
-  /** Called after click on previous page button. */
-  onPrevPageBtnClick: () => void;
-  /** Whether to display previous page button as active or disabled. */
-  hasPrevPage: boolean;
-  /** Whether to display next page button as active or disabled. */
-  hasNextPage: boolean;
-  /** Whether to display weeks row or not. */
-  displayWeeks: boolean;
+  // /** Header text content. */
+  // title: string;
+  // /** Called after click on next page button. */
+  // onNextPageBtnClick: () => void;
+  // /** Called after click on previous page button. */
+  // onPrevPageBtnClick: () => void;
+  // /** Whether to display previous page button as active or disabled. */
+  // hasPrevPage: boolean;
+  // /** Whether to display next page button as active or disabled. */
+  // hasNextPage: boolean;
+  // /** Whether to display weeks row or not. */
+  // displayWeeks: boolean;
   /** Header width. */
   width: BodyWidth;
   /** Text content to display in dates-range row. */
@@ -30,27 +30,27 @@ export interface HeaderProps {
 
 function Header(props: HeaderProps) {
   const {
-    rangeRowContent,
-    displayWeeks,
-    onNextPageBtnClick,
-    onPrevPageBtnClick,
-    hasPrevPage,
-    hasNextPage,
-    width,
-    title,
-    localization
+    // rangeRowContent,
+    // displayWeeks,
+    // onNextPageBtnClick,
+    // onPrevPageBtnClick,
+    // hasPrevPage,
+    // hasNextPage
+    // width,
+    // title,
+    // localization
   } = props;
 
-  const cellStyle = {
-    border: "none",
-    borderBottom: displayWeeks ? "none" : "1px solid rgba(34,36,38,.1)"
-  };
-  const prevPageBtnStyle = {
-    cursor: hasPrevPage ? "pointer" : "auto"
-  };
-  const nextPageBtnStyle = {
-    cursor: hasNextPage ? "pointer" : "auto"
-  };
+  // const cellStyle = {
+  //   border: "none",
+  //   borderBottom: displayWeeks ? "none" : "1px solid rgba(34,36,38,.1)"
+  // };
+  // const prevPageBtnStyle = {
+  //   cursor: hasPrevPage ? "pointer" : "auto"
+  // };
+  // const nextPageBtnStyle = {
+  //   cursor: hasNextPage ? "pointer" : "auto"
+  // };
 
   return (
     // <Table.Header>
