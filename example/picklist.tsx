@@ -1,11 +1,11 @@
-import moment from 'moment';
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Checkbox, Form, Header, Icon } from 'semantic-ui-react';
+import moment from "moment";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { Checkbox, Form, Header, Icon } from "semantic-ui-react";
 
-import { DateInput, DateInputOnChangeData } from '../src/inputs';
+import { DateInput, DateInputOnChangeData } from "../src/inputs";
 
-moment.locale('en');
+moment.locale("en");
 
 type DateTimeFormHandleChangeData = DateInputOnChangeData;
 
@@ -14,18 +14,18 @@ class App extends React.Component<any, any> {
     super(props);
 
     this.state = {
-      clearable: false,
+      clearable: false
     };
   }
 
   public render() {
     return (
-      <div className='example-picklist-container'>
-        <Header as='h2' dividing>
+      <div className="example-picklist-container">
+        <Header as="h2" dividing>
           As text fields
           <Header.Subheader>
             <Checkbox
-              label='Make data inputs clearable'
+              label="Make data inputs clearable"
               checked={this.state.clearable}
               onChange={this.handleCheckboxChange.bind(this)}
             />
@@ -41,7 +41,7 @@ class App extends React.Component<any, any> {
 
   private handleCheckboxChange() {
     this.setState(() => ({
-      clearable: !this.state.clearable,
+      clearable: !this.state.clearable
     }));
   }
 }
@@ -51,14 +51,14 @@ class DateTimeForm extends React.Component<any, any> {
     super(props);
 
     this.state = {
-      year: '',
-      date: '',
-      dateStartYear: '',
-      time: '',
-      dateTime: '',
-      datesRange: '',
-      month: '',
-      monthRange: '',
+      year: "",
+      date: "",
+      dateStartYear: "",
+      time: "",
+      dateTime: "",
+      datesRange: "",
+      month: "",
+      monthRange: ""
     };
   }
 
@@ -68,35 +68,35 @@ class DateTimeForm extends React.Component<any, any> {
     return (
       <Form>
         <DateInput
-          placeholder='Sample Picklist 01'
-          popupPosition='bottom right'
-          className='example-picklist-input'
-          name='date'
+          placeholder="Sample Picklist 01"
+          popupPosition="bottom right"
+          className="example-picklist-input"
+          name="date"
           closable
-          clearIcon={<Icon name='remove' color='red' />}
+          clearIcon={<Icon name="remove" color="red" />}
           clearable={clearable}
-          animation='scale'
+          animation="scale"
           duration={200}
           value={this.state.date}
-          iconPosition='left'
+          iconPosition="left"
           preserveViewMode={false}
-          autoComplete='off'
+          autoComplete="off"
           onChange={this.handleChange}
         />
         <br />
         <DateInput
-          startMode='year'
-          popupPosition='bottom right'
-          placeholder='Sample Picklist 02'
-          className='example-picklist-input'
-          name='dateStartYear'
-          animation='fly left'
+          startMode="year"
+          popupPosition="bottom right"
+          placeholder="Sample Picklist 02"
+          className="example-picklist-input"
+          name="dateStartYear"
+          animation="fly left"
           duration={300}
           closable
           clearable={clearable}
           value={this.state.dateStartYear}
-          iconPosition='left'
-          autoComplete='off'
+          iconPosition="left"
+          autoComplete="off"
           preserveViewMode={false}
           onChange={this.handleChange}
         />
@@ -106,12 +106,12 @@ class DateTimeForm extends React.Component<any, any> {
 
   private handleChange = (
     event: React.SyntheticEvent,
-    { name, value }: DateTimeFormHandleChangeData,
+    { name, value }: DateTimeFormHandleChangeData
   ) => {
     if (this.state.hasOwnProperty(name)) {
       this.setState({ [name]: value });
     }
-  }
+  };
 }
 
 class DateTimeFormInline extends React.Component<any, any> {
@@ -119,13 +119,13 @@ class DateTimeFormInline extends React.Component<any, any> {
     super(props);
 
     this.state = {
-      year: '',
-      month: '',
-      date: '',
-      time: '',
-      dateTime: '',
-      datesRange: '',
-      monthRange: '',
+      year: "",
+      month: "",
+      date: "",
+      time: "",
+      dateTime: "",
+      datesRange: "",
+      monthRange: ""
     };
   }
 
@@ -133,18 +133,18 @@ class DateTimeFormInline extends React.Component<any, any> {
     return (
       <Form>
         <DateInput
-          className='example-picklist-input'
+          className="example-picklist-input"
           value={this.state.date}
-          name='date'
+          name="date"
           inline
           onChange={this.handleChange}
-          disable={new Date('03/01/2019')}
-          marked={[new Date('03/01/2019'), new Date('03/20/2019')]}
+          disable={new Date("03/01/2019")}
+          marked={[new Date("03/01/2019"), new Date("03/20/2019")]}
           markedtip={[
-            { date: '01/03/2019', tip: 'XMast' },
-            { date: '20/03/2019', tip: 'Lebaran' },
+            { date: "01/03/2019", tip: "XMast" },
+            { date: "20/03/2019", tip: "Lebaran" }
           ]}
-          markColor='orange'
+          markColor="orange"
         />
       </Form>
     );
@@ -152,12 +152,12 @@ class DateTimeFormInline extends React.Component<any, any> {
 
   private handleChange = (
     event: React.SyntheticEvent,
-    { name, value }: DateTimeFormHandleChangeData,
+    { name, value }: DateTimeFormHandleChangeData
   ) => {
     if (this.state.hasOwnProperty(name)) {
       this.setState({ [name]: value });
     }
-  }
+  };
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));

@@ -1,11 +1,11 @@
-import isNil from 'lodash/isNil';
-import isArray from 'lodash/isArray';
-import invoke from 'lodash/invoke';
+import isNil from "lodash/isNil";
+import isArray from "lodash/isArray";
+import invoke from "lodash/invoke";
 
-import React from 'react';
-import { Table } from 'semantic-ui-react';
+import React from "react";
+import { Table } from "semantic-ui-react";
 
-import { OnValueClickData } from '../BasePicklistView';
+import { OnValueClickData } from "../BasePicklistView";
 // import Cell from './Cell';
 // import {
 //   cellStyleWidth3,
@@ -15,14 +15,14 @@ import { OnValueClickData } from '../BasePicklistView';
 // } from './Cell';
 
 const rowBtnStyle = {
-  cursor: 'pointer',
+  cursor: "pointer"
 };
 
 const dataDummy = [
-  { name: 'Jamie', status: 'Approved', notes: 'Requires call' },
-  { name: 'John', status: 'Selected', notes: 'None' },
-  { name: 'Jakun', status: 'Approved', notes: 'Requires call' },
-  { name: 'Jill', status: 'Approved', notes: 'None' },
+  { name: "Jamie", status: "Approved", notes: "Requires call" },
+  { name: "John", status: "Selected", notes: "None" },
+  { name: "Jakun", status: "Approved", notes: "Requires call" },
+  { name: "Jill", status: "Approved", notes: "None" }
 ];
 
 export type BodyWidth = 3 | 4 | 7;
@@ -35,7 +35,7 @@ interface BodyProps {
   /** Called after a click on picklist's cell. */
   onCellClick: (
     e: React.SyntheticEvent<HTMLElement>,
-    data: OnValueClickData,
+    data: OnValueClickData
   ) => void;
   /** Called on cell hover. */
   onCellHover: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
@@ -47,67 +47,94 @@ interface BodyProps {
   disabled?: number[];
 }
 
-function Body(props: BodyProps) {
-  const {
-    data,
-    width,
-    // onCellClick,
-    active,
-    // disabled,
-    // hovered,
-    onCellHover,
-  } = props;
+class Body extends React.Component<BodyProps, any> {
+  public render() {
+    const {
+      data,
+      width,
+      // onCellClick,
+      active
+      // disabled,
+      // hovered,
+      // onCellHover
+    } = this.props;
 
-  console.log('Data', data, width);
-  // console.log('Body', buildRows(data, width));
+    // console.log("Data", active, data, width);
+    // console.log('Body', buildRows(data, width));
 
-  // const content = buildRows(data, width).map((row, rowIndex) => (
-  //   <Table.Row key={`${rowIndex}${row[0]}`}>
-  //     {row.map((item, itemIndex) => (
-  //       <Cell
-  //         style={getCellStyle(width)}
-  //         active={isActive(rowIndex, width, itemIndex, active)}
-  //         hovered={isHovered(rowIndex, width, itemIndex, hovered)}
-  //         disabled={isDisabled(rowIndex, width, itemIndex, disabled)}
-  //         marked={isMarked(rowIndex, width, itemIndex, marked)}
-  //         markedtip={getMarkedTip(
-  //           rowIndex,
-  //           width,
-  //           itemIndex,
-  //           marked,
-  //           markedtip,
-  //         )}
-  //         markColor={markColor}
-  //         key={`${rowIndex * width + itemIndex}`}
-  //         itemPosition={rowIndex * width + itemIndex}
-  //         content={item}
-  //         onHover={onCellHover}
-  //         onClick={onCellClick}
-  //       />
-  //     ))}
-  //   </Table.Row>
-  // ));
-  // return <Table.Body>{content}</Table.Body>;
+    // const content = buildRows(data, width).map((row, rowIndex) => (
+    //   <Table.Row key={`${rowIndex}${row[0]}`}>
+    //     {row.map((item, itemIndex) => (
+    //       <Cell
+    //         style={getCellStyle(width)}
+    //         active={isActive(rowIndex, width, itemIndex, active)}
+    //         hovered={isHovered(rowIndex, width, itemIndex, hovered)}
+    //         disabled={isDisabled(rowIndex, width, itemIndex, disabled)}
+    //         marked={isMarked(rowIndex, width, itemIndex, marked)}
+    //         markedtip={getMarkedTip(
+    //           rowIndex,
+    //           width,
+    //           itemIndex,
+    //           marked,
+    //           markedtip,
+    //         )}
+    //         markColor={markColor}
+    //         key={`${rowIndex * width + itemIndex}`}
+    //         itemPosition={rowIndex * width + itemIndex}
+    //         content={item}
+    //         onHover={onCellHover}
+    //         onClick={onCellClick}
+    //       />
+    //     ))}
+    //   </Table.Row>
+    // ));
+    // return <Table.Body>{content}</Table.Body>;
 
-  return (
-    <Table.Body>
-      {dataDummy.map((data, rowIndex) => (
-        <Table.Row
-          key={`${rowIndex}`}
-          style={rowBtnStyle}
-          onClick={onCellClick}
-          onMouseOver={onCellHover}
-          active={isActive(rowIndex, active)}
-        >
-          <Table.Cell>{data.name}</Table.Cell>
-          <Table.Cell>{data.status}</Table.Cell>
-          <Table.Cell>{data.notes}</Table.Cell>
-        </Table.Row>
-      ))}
-    </Table.Body>
-  );
+    return (
+      <Table.Body>
+        {dataDummy.map((data, rowIndex) => (
+          <Table.Row
+            key={`${rowIndex}`}
+            id={`${rowIndex}`}
+            style={rowBtnStyle}
+            onClick={this.onCellClick}
+            onMouseOver={this.onCellHover}
+            active={isActive(rowIndex, active)}
+          >
+            <Table.Cell id="name">{data.name}</Table.Cell>
+            <Table.Cell id="status">{data.status}</Table.Cell>
+            <Table.Cell id="notes">{data.notes}</Table.Cell>
+          </Table.Row>
+        ))}
+      </Table.Body>
+    );
+  }
+
+  private onCellClick = event => {
+    // console.log("onCellClick", event);
+    // const { content } = this.props;
+    const itemPosition = event.currentTarget.id;
+    const content = {};
+    const { cells } = event.currentTarget;
+    for (var i = 0; i < cells.length; i++) {
+      const cell = cells[i];
+      content[cell.id] = cell.textContent;
+    }
+    invoke(this.props, "onCellClick", event, {
+      ...this.props,
+      itemPosition,
+      value: content
+    });
+  };
+
+  private onCellHover = event => {
+    // console.log("onCellHover", event);
+
+    // const { itemPosition } = this.props;
+    const itemPosition = event.currentTarget.id;
+    invoke(this.props, "onCellHover", event, { ...this.props, itemPosition });
+  };
 }
-
 // function buildRows(data: string[], width: number): string[][] {
 //   const height = data.length / width;
 //   const rows = [];
@@ -118,20 +145,11 @@ function Body(props: BodyProps) {
 //   return rows;
 // }
 
-function onCellClick(event) {
-  const { itemPosition, content } = this.props;
-  invoke(this.props, 'onClick', event, {
-    ...this.props,
-    itemPosition,
-    value: content,
-  });
-}
-
 function isActive(
   rowIndex: number,
   // rowWidth: number,
   // colIndex: number,
-  active: number | number[],
+  active: number | number[]
 ): boolean {
   if (isNil(active)) {
     return false;
