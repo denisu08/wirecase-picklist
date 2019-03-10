@@ -1,16 +1,16 @@
-import React from 'react';
+import React from "react";
 
 import BasePicklistView, {
   BasePicklistViewProps,
   PicklistWithHeaderViewProps,
   HeadingValueProps,
-  SingleSelectionPicklistViewProps,
-} from './BasePicklistView';
-import Picklist from './Picklist';
-import Body from './Body/Body';
-import Header from './Header/Header';
- 
-import { findHTMLElement } from '../lib';
+  SingleSelectionPicklistViewProps
+} from "./BasePicklistView";
+import Picklist from "./Picklist";
+import Body from "./Body/Body";
+import Header from "./Header/Header";
+
+import { findHTMLElement } from "../lib";
 
 export const DAY_CALENDAR_ROW_WIDTH = 7;
 export const WEEKS_TO_DISPLAY = 6;
@@ -30,7 +30,6 @@ class DayView extends BasePicklistView<DayViewProps, any> {
       hasNextPage,
       hasPrevPage,
       currentHeadingValue,
-      onHeaderClick,
       disabledItemIndexes,
       activeItemIndex,
       hoveredItemIndex,
@@ -46,7 +45,7 @@ class DayView extends BasePicklistView<DayViewProps, any> {
 
     return (
       <Picklist
-        ref={(e) => (this.picklistNode = findHTMLElement(e))}
+        ref={e => (this.picklistNode = findHTMLElement(e))}
         outlineOnFocus={inline}
         {...rest}
       >
@@ -58,7 +57,6 @@ class DayView extends BasePicklistView<DayViewProps, any> {
           hasNextPage={hasNextPage}
           hasPrevPage={hasPrevPage}
           title={currentHeadingValue}
-          onHeaderClick={onHeaderClick}
           localization={localization}
         />
         <Body

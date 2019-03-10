@@ -1,67 +1,31 @@
-import isNil from 'lodash/isNil';
-import invoke from 'lodash/invoke';
-import moment, { Moment } from 'moment';
-import PropTypes from 'prop-types';
-import React from 'react';
+import isNil from "lodash/isNil";
+import invoke from "lodash/invoke";
+import moment, { Moment } from "moment";
+import PropTypes from "prop-types";
+import React from "react";
 
-import CustomPropTypes from '../lib/CustomPropTypes';
-import { BasePickerOnChangeData } from '../pickers/BasePicker';
-import DayPicker from '../pickers/dayPicker/DayPicker';
-import MonthPicker from '../pickers/monthPicker/MonthPicker';
-import YearPicker from '../pickers/YearPicker';
-import InputView from '../views/InputView';
+import CustomPropTypes from "../lib/CustomPropTypes";
+import { BasePickerOnChangeData } from "../pickers/BasePicker";
+import DayPicker from "../pickers/dayPicker/DayPicker";
+import InputView from "../views/InputView";
 import BaseInput, {
   BaseInputProps,
   BaseInputState,
-  DateRelatedProps,
-  DisableValuesProps,
-  EnableValuesProps,
-  MinMaxValueProps,
-  MultimodeProps,
-  MarkedValuesProps,
-} from './BaseInput';
+  DateRelatedProps
+} from "./BaseInput";
 
-import { tick } from '../lib';
+import { tick } from "../lib";
 import {
   buildValue,
   parseArrayOrValue,
   parseValue,
-  dateValueToString,
-} from './parse';
-import { getDisabledMonths, getDisabledYears } from './shared';
+  dateValueToString
+} from "./parse";
+import { getDisabledMonths, getDisabledYears } from "./shared";
 
-type PicklistMode = 'year' | 'month' | 'day';
+type PicklistMode = "single" | "multi";
 
-function getNextMode(currentMode: PicklistMode) {
-  if (currentMode === 'year') {
-    return 'month';
-  }
-  if (currentMode === 'month') {
-    return 'day';
-  }
-
-  return 'year';
-}
-
-function getPrevMode(currentMode: PicklistMode) {
-  if (currentMode === 'day') {
-    return 'month';
-  }
-  if (currentMode === 'month') {
-    return 'year';
-  }
-
-  return 'day';
-}
-
-export interface DateInputProps
-  extends BaseInputProps,
-    DateRelatedProps,
-    MultimodeProps,
-    DisableValuesProps,
-    EnableValuesProps,
-    MarkedValuesProps,
-    MinMaxValueProps {
+export interface DateInputProps extends BaseInputProps, DateRelatedProps {
   /** Display mode to start. */
   startMode?: PicklistMode;
 }
@@ -91,57 +55,23 @@ class DateInput extends BaseInput<DateInputProps, DateInputState> {
    */
   public static readonly defaultProps = {
     ...BaseInput.defaultProps,
-    dateFormat: 'DD-MM-YYYY',
-    startMode: 'day',
+    dateFormat: "DD-MM-YYYY",
+    startMode: "single",
     preserveViewMode: true,
-    icon: 'calendar',
+    icon: "calendar"
   };
 
   public static readonly propTypes = {
     /** Currently selected value. */
     value: PropTypes.string.isRequired,
     /** Moment date formatting string. */
-    dateFormat: PropTypes.string,
+    valueFormat: PropTypes.string,
     /** Date to display initially when no date is selected. */
-    initialDate: PropTypes.oneOfType([
-      PropTypes.string,
-      CustomPropTypes.momentObj,
-      PropTypes.instanceOf(Date),
-    ]),
-    /** Date or list of dates that are displayed as disabled. */
-    disable: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.arrayOf(PropTypes.string),
-      CustomPropTypes.momentObj,
-      PropTypes.arrayOf(CustomPropTypes.momentObj),
-      PropTypes.instanceOf(Date),
-      PropTypes.arrayOf(PropTypes.instanceOf(Date)),
-    ]),
-    /** Date or list of dates that are enabled (the rest are disabled). */
-    enable: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.arrayOf(PropTypes.string),
-      CustomPropTypes.momentObj,
-      PropTypes.arrayOf(CustomPropTypes.momentObj),
-      PropTypes.instanceOf(Date),
-      PropTypes.arrayOf(PropTypes.instanceOf(Date)),
-    ]),
-    /** Maximum date that can be selected. */
-    maxDate: PropTypes.oneOfType([
-      PropTypes.string,
-      CustomPropTypes.momentObj,
-      PropTypes.instanceOf(Date),
-    ]),
-    /** Minimum date that can be selected. */
-    minDate: PropTypes.oneOfType([
-      PropTypes.string,
-      CustomPropTypes.momentObj,
-      PropTypes.instanceOf(Date),
-    ]),
+    initialValue: PropTypes.oneOfType([PropTypes.string]),
     /** Preserve viewmode on focus? */
     preserveViewMode: PropTypes.bool,
     /** Display mode to start. */
-    startMode: PropTypes.oneOf(['year', 'month', 'day']),
+    startMode: PropTypes.oneOf(["single"]),
     /** If true, popup closes after selecting a date-time. */
     closable: PropTypes.bool,
     /**
@@ -159,18 +89,10 @@ class DateInput extends BaseInput<DateInputProps, DateInputState> {
     duration: PropTypes.number,
     /** Named animation event to used. Must be defined in CSS. */
     animation: PropTypes.string,
-    marked: PropTypes.oneOfType([
-      CustomPropTypes.momentObj,
-      CustomPropTypes.dateObject,
-      PropTypes.arrayOf(CustomPropTypes.momentObj),
-      PropTypes.arrayOf(CustomPropTypes.dateObject),
-    ]),
-    markedtip: PropTypes.array,
-    markColor: PropTypes.string,
     /** Moment date localization. */
     localization: PropTypes.string,
     icon: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    iconPosition: PropTypes.oneOf(['left', 'right']),
+    iconPosition: PropTypes.oneOf(["left", "right"])
   };
 
   constructor(props: DateInputProps) {
@@ -178,14 +100,14 @@ class DateInput extends BaseInput<DateInputProps, DateInputState> {
     const parsedValue = parseValue(
       props.value,
       props.dateFormat,
-      props.localization,
+      props.localization
     );
     this.state = {
       mode: props.startMode,
       popupIsClosed: true,
       year: parsedValue ? parsedValue.year() : undefined,
       month: parsedValue ? parsedValue.month() : undefined,
-      date: parsedValue ? parsedValue.date() : undefined,
+      date: parsedValue ? parsedValue.date() : undefined
     };
   }
 
@@ -252,7 +174,7 @@ class DateInput extends BaseInput<DateInputProps, DateInputState> {
       localization,
       tabIndex,
       pickerWidth,
-      pickerStyle,
+      pickerStyle
     } = this.props;
 
     const pickerProps = {
@@ -265,40 +187,20 @@ class DateInput extends BaseInput<DateInputProps, DateInputState> {
       pickerWidth,
       pickerStyle,
       onChange: this.handleSelect,
-      onHeaderClick: this.switchToPrevMode,
       initializeWith: buildValue(
         this.parseInternalValue(),
         initialDate,
         localization,
-        dateFormat,
+        dateFormat
       ),
       value: buildValue(value, null, localization, dateFormat, null),
       enable: parseArrayOrValue(enable, dateFormat, localization),
       minDate: parseValue(minDate, dateFormat, localization),
       maxDate: parseValue(maxDate, dateFormat, localization),
-      localization,
+      localization
     };
     const disableParsed = parseArrayOrValue(disable, dateFormat, localization);
     const markedParsed = parseArrayOrValue(marked, dateFormat, localization);
-
-    const { mode } = this.state;
-    if (mode === 'year') {
-      return (
-        <YearPicker
-          {...pickerProps}
-          disable={getDisabledYears(disableParsed)}
-        />
-      );
-    }
-    if (mode === 'month') {
-      return (
-        <MonthPicker
-          {...pickerProps}
-          hasHeader
-          disable={getDisabledMonths(disableParsed)}
-        />
-      );
-    }
 
     return (
       <DayPicker
@@ -309,55 +211,27 @@ class DateInput extends BaseInput<DateInputProps, DateInputState> {
         markColor={markColor}
       />
     );
-  }
-
-  private switchToNextModeUndelayed = (): void => {
-    this.setState(({ mode }) => {
-      return { mode: getNextMode(mode) };
-    }, this.onModeSwitch);
-  }
-
-  private switchToNextMode = (): void => {
-    tick(this.switchToNextModeUndelayed);
-  }
-
-  private switchToPrevModeUndelayed = (): void => {
-    this.setState(({ mode }) => {
-      return { mode: getPrevMode(mode) };
-    }, this.onModeSwitch);
-  }
-
-  private switchToPrevMode = (): void => {
-    tick(this.switchToPrevModeUndelayed);
-  }
+  };
 
   private onFocus = (): void => {
     if (!this.props.preserveViewMode) {
       this.setState({ mode: this.props.startMode });
     }
-  }
+  };
 
   private handleSelect = (e, { value }: BasePickerOnChangeData) => {
-    if (this.state.mode === 'day' && this.props.closable) {
-      this.closePopup();
-    }
-    this.setState(
-      (prevState) => {
-        const { mode } = prevState;
-        if (mode === 'day') {
-          const outValue = moment(value).format(this.props.dateFormat);
-          invoke(this.props, 'onChange', e, { ...this.props, value: outValue });
-        }
+    this.closePopup();
+    this.setState(prevState => {
+      const outValue = moment(value).format(this.props.dateFormat);
+      invoke(this.props, "onChange", e, { ...this.props, value: outValue });
 
-        return {
-          year: value.year,
-          month: value.month,
-          date: value.date,
-        };
-      },
-      () => this.state.mode !== 'day' && this.switchToNextMode(),
-    );
-  }
+      return {
+        year: value.year,
+        month: value.month,
+        date: value.date
+      };
+    });
+  };
 
   /** Keeps internal state in sync with input field value. */
   private onInputValueChange = (e, { value }) => {
@@ -366,11 +240,11 @@ class DateInput extends BaseInput<DateInputProps, DateInputState> {
       this.setState({
         year: parsedValue.year(),
         month: parsedValue.month(),
-        date: parsedValue.date(),
+        date: parsedValue.date()
       });
     }
-    invoke(this.props, 'onChange', e, { ...this.props, value });
-  }
+    invoke(this.props, "onChange", e, { ...this.props, value });
+  };
 }
 
 export default DateInput;

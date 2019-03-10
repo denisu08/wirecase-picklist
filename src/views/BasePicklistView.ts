@@ -1,5 +1,5 @@
-import React from 'react';
-import { SemanticCOLORS } from 'semantic-ui-react';
+import React from "react";
+import { SemanticCOLORS } from "semantic-ui-react";
 
 export interface BasePicklistViewProps {
   /** Used for passing picklist dom element to parent component. */
@@ -13,7 +13,7 @@ export interface BasePicklistViewProps {
   /** Called after clicking on particular value (date, year or anything like that). */
   onValueClick: (
     e: React.SyntheticEvent<HTMLElement>,
-    data: OnValueClickData,
+    data: OnValueClickData
   ) => void;
   /** Called on picklist cell hover. */
   onCellHover: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
@@ -52,20 +52,18 @@ export interface PicklistWithHeaderViewProps {
   onNextPageBtnClick: (
     e?: React.SyntheticEvent<HTMLElement>,
     data?: any,
-    cb?: () => void,
+    cb?: () => void
   ) => void;
   /** Called after click on previous page button. */
   onPrevPageBtnClick: (
     e?: React.SyntheticEvent<HTMLElement>,
     data?: any,
-    cb?: () => void,
+    cb?: () => void
   ) => void;
   /** Whether to display previous page button as active or disabled. */
   hasPrevPage: boolean;
   /** Whether to display next page button as active or disabled. */
   hasNextPage: boolean;
-  /** Called after click on picklist header. */
-  onHeaderClick: () => void;
 }
 
 export interface HeadingValueProps {
@@ -85,13 +83,13 @@ export interface PicklistWithOptionalHeaderViewProps {
   onNextPageBtnClick?: (
     e?: React.SyntheticEvent<HTMLElement>,
     data?: any,
-    cb?: () => void,
+    cb?: () => void
   ) => void;
   /** Called after click on previous page button. */
   onPrevPageBtnClick?: (
     e?: React.SyntheticEvent<HTMLElement>,
     data?: any,
-    cb?: () => void,
+    cb?: () => void
   ) => void;
   /** Whether to display previous page button as active or disabled. */
   hasPrevPage?: boolean;
@@ -99,8 +97,6 @@ export interface PicklistWithOptionalHeaderViewProps {
   hasNextPage?: boolean;
   /** A value (date, year or anything like that) that is displayed in picklist header. */
   currentHeadingValue?: string;
-  /** Called after click on picklist header. */
-  onHeaderClick?: () => void;
 }
 
 export interface OnValueClickData {

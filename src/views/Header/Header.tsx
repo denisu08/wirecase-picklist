@@ -1,11 +1,11 @@
-import isNil from 'lodash/isNil';
+import isNil from "lodash/isNil";
 
-import React from 'react';
-import { Icon, Table } from 'semantic-ui-react';
+import React from "react";
+import { Icon, Table } from "semantic-ui-react";
 
-import { BodyWidth } from '../Body/Body';
-import HeaderRange from './HeaderRange';
-import HeaderWeeks from './HeaderWeeks';
+import { BodyWidth } from "../Body/Body";
+import HeaderRange from "./HeaderRange";
+import HeaderWeeks from "./HeaderWeeks";
 
 export interface HeaderProps {
   /** Header text content. */
@@ -24,8 +24,6 @@ export interface HeaderProps {
   width: BodyWidth;
   /** Text content to display in dates-range row. */
   rangeRowContent?: string;
-  /** Called after click on picklist header. */
-  onHeaderClick?: () => void;
   /** Moment date localization */
   localization?: string;
 }
@@ -38,24 +36,20 @@ function Header(props: HeaderProps) {
     onPrevPageBtnClick,
     hasPrevPage,
     hasNextPage,
-    onHeaderClick,
     width,
     title,
-    localization,
+    localization
   } = props;
 
   const cellStyle = {
-    border: 'none',
-    borderBottom: displayWeeks ? 'none' : '1px solid rgba(34,36,38,.1)',
+    border: "none",
+    borderBottom: displayWeeks ? "none" : "1px solid rgba(34,36,38,.1)"
   };
   const prevPageBtnStyle = {
-    cursor: hasPrevPage ? 'pointer' : 'auto',
+    cursor: hasPrevPage ? "pointer" : "auto"
   };
   const nextPageBtnStyle = {
-    cursor: hasNextPage ? 'pointer' : 'auto',
-  };
-  const headerTitleStyle = {
-    cursor: onHeaderClick ? 'pointer' : 'default',
+    cursor: hasNextPage ? "pointer" : "auto"
   };
 
   return (

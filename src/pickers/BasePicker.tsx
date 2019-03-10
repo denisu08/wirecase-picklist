@@ -1,13 +1,13 @@
-import keyboardKey from 'keyboard-key';
-import isNumber from 'lodash/isNumber';
-import isNil from 'lodash/isNil';
-import includes from 'lodash/includes';
-import { Moment } from 'moment';
-import React from 'react';
+import keyboardKey from "keyboard-key";
+import isNumber from "lodash/isNumber";
+import isNil from "lodash/isNil";
+import includes from "lodash/includes";
+import { Moment } from "moment";
+import React from "react";
 
-import { RangeIndexes } from '../views/BasePicklistView';
-import { SemanticCOLORS } from 'semantic-ui-react';
-import { MarkedType } from 'src/lib/CustomPropTypes';
+import { RangeIndexes } from "../views/BasePicklistView";
+import { SemanticCOLORS } from "semantic-ui-react";
+import { MarkedType } from "src/lib/CustomPropTypes";
 
 interface HandleChangeParams {
   value?: string;
@@ -38,7 +38,7 @@ export interface BasePickerProps {
   /** Called after day is selected. */
   onChange: (
     e: React.SyntheticEvent<HTMLElement>,
-    data: BasePickerOnChangeData,
+    data: BasePickerOnChangeData
   ) => void;
   /** Currently selected date. */
   value?: Moment;
@@ -54,8 +54,6 @@ export interface BasePickerProps {
   isTriggerInFocus: () => boolean;
   /** Used to pass underlying picker's html element to parent component. */
   onPicklistViewMount: (e: HTMLElement) => void;
-  /** Called on picklist's header click. */
-  onHeaderClick: () => void;
   /** Moment date localization */
   localization?: string;
   tabIndex?: string;
@@ -97,7 +95,7 @@ export interface TimePickerProps {
   timeFormat: TimeFormat;
 }
 
-export type TimeFormat = 'ampm' | 'AMPM' | '24';
+export type TimeFormat = "ampm" | "AMPM" | "24";
 
 export interface BasePickerState extends Readonly<any> {
   /** Position of a cell that is currently hovered on. */
@@ -117,26 +115,26 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
     super(props);
     this.state = {
       hoveredCellPosition: undefined,
-      date: this.props.initializeWith.clone(),
+      date: this.props.initializeWith.clone()
     };
   }
 
   public componentDidMount(): void {
-    document.addEventListener('keydown', this.handleKeyPress);
+    document.addEventListener("keydown", this.handleKeyPress);
   }
 
   public componentWillUnmount(): void {
-    document.removeEventListener('keydown', this.handleKeyPress);
+    document.removeEventListener("keydown", this.handleKeyPress);
   }
 
   protected onHoveredCellPositionChange = (
     e: React.SyntheticEvent<HTMLElement>,
-    { itemPosition }: { itemPosition: number },
+    { itemPosition }: { itemPosition: number }
   ): void => {
     this.setState({
-      hoveredCellPosition: itemPosition,
+      hoveredCellPosition: itemPosition
     });
-  }
+  };
 
   protected canPicklistCatchKeyboardEvents = (): boolean => {
     if (this.props.inline) {
@@ -144,7 +142,7 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
     }
 
     return this.props.isTriggerInFocus();
-  }
+  };
 
   protected handleKeyPress = (event: KeyboardEvent): void => {
     if (!this.canPicklistCatchKeyboardEvents()) {
@@ -153,34 +151,34 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
     const key = keyboardKey.getKey(event);
 
     switch (key) {
-      case 'Enter':
+      case "Enter":
         this.handleEnterKeyPress(event);
         break;
-      case 'Escape':
+      case "Escape":
         this.props.closePopup();
         break;
       default:
         this.handleArrowKeyPress(event);
     }
-  }
+  };
 
   protected handleEnterKeyPress = (event: KeyboardEvent): void => {
     const key = keyboardKey.getKey(event);
-    if (key === 'Enter' && this.canPicklistCatchKeyboardEvents()) {
+    if (key === "Enter" && this.canPicklistCatchKeyboardEvents()) {
       event.preventDefault();
       const selectedValue = this.buildPicklistValues()[
         this.state.hoveredCellPosition
       ];
       this.handleChange(null, {
         value: selectedValue,
-        itemPosition: this.state.hoveredCellPosition,
+        itemPosition: this.state.hoveredCellPosition
       });
     }
-  }
+  };
 
   protected handleBlur = (): void => {
     this.props.closePopup();
-  }
+  };
 
   protected handleArrowKeyPress = (event: KeyboardEvent): void => {
     if (!this.canPicklistCatchKeyboardEvents()) {
@@ -192,14 +190,14 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
       .slice(0, selectableCells.indexOf(this.state.hoveredCellPosition))
       .pop();
     const nextSelectableCellPositionRight = selectableCells.slice(
-      selectableCells.indexOf(this.state.hoveredCellPosition) + 1,
+      selectableCells.indexOf(this.state.hoveredCellPosition) + 1
     )[0];
     switch (key) {
-      case 'ArrowLeft':
+      case "ArrowLeft":
         event.preventDefault();
         if (!isNil(nextSelectableCellPositionLeft)) {
           this.onHoveredCellPositionChange(null, {
-            itemPosition: nextSelectableCellPositionLeft,
+            itemPosition: nextSelectableCellPositionLeft
           });
         } else {
           if (this.isPrevPageAvailable()) {
@@ -207,59 +205,59 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
               const selectableCellsPrevPage = this.getSelectableCellPositions();
               this.onHoveredCellPositionChange(null, {
                 itemPosition:
-                  selectableCellsPrevPage[selectableCellsPrevPage.length - 1],
+                  selectableCellsPrevPage[selectableCellsPrevPage.length - 1]
               });
             });
           }
         }
         break;
-      case 'ArrowRight':
+      case "ArrowRight":
         event.preventDefault();
         if (!isNil(nextSelectableCellPositionRight)) {
           this.onHoveredCellPositionChange(null, {
-            itemPosition: nextSelectableCellPositionRight,
+            itemPosition: nextSelectableCellPositionRight
           });
         } else {
           if (this.isNextPageAvailable()) {
             this.switchToNextPage(null, null, () => {
               const selectableCellsNextPage = this.getSelectableCellPositions();
               this.onHoveredCellPositionChange(null, {
-                itemPosition: selectableCellsNextPage[0],
+                itemPosition: selectableCellsNextPage[0]
               });
             });
           }
         }
         break;
-      case 'ArrowUp':
+      case "ArrowUp":
         event.preventDefault();
         if (
           includes(
             selectableCells,
-            this.state.hoveredCellPosition - this.PAGE_WIDTH,
+            this.state.hoveredCellPosition - this.PAGE_WIDTH
           )
         ) {
           this.onHoveredCellPositionChange(null, {
-            itemPosition: this.state.hoveredCellPosition - this.PAGE_WIDTH,
+            itemPosition: this.state.hoveredCellPosition - this.PAGE_WIDTH
           });
         }
         break;
-      case 'ArrowDown':
+      case "ArrowDown":
         event.preventDefault();
         if (
           includes(
             selectableCells,
-            this.state.hoveredCellPosition + this.PAGE_WIDTH,
+            this.state.hoveredCellPosition + this.PAGE_WIDTH
           )
         ) {
           this.onHoveredCellPositionChange(null, {
-            itemPosition: this.state.hoveredCellPosition + this.PAGE_WIDTH,
+            itemPosition: this.state.hoveredCellPosition + this.PAGE_WIDTH
           });
         }
         break;
       default:
         break;
     }
-  }
+  };
 
   /** Return a position of a value (date, year, month ...) with wich a picklist was initialized. */
   protected abstract getInitialDatePosition(): number;
@@ -270,7 +268,7 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
   /** Handles currently selected value change. */
   protected abstract handleChange(
     e: React.SyntheticEvent<HTMLElement>,
-    data: HandleChangeParams,
+    data: HandleChangeParams
   ): void;
 
   /** Return positions of all values on picklist that can be selected. */
@@ -286,14 +284,14 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
   protected abstract switchToPrevPage(
     e?: React.SyntheticEvent<HTMLElement>,
     data?: any,
-    cb?: () => void,
+    cb?: () => void
   ): void;
 
   /** Change currently displayed page (i.e. year, month, day) to next one. */
   protected abstract switchToNextPage(
     e?: React.SyntheticEvent<HTMLElement>,
     data?: any,
-    cb?: () => void,
+    cb?: () => void
   ): void;
 
   /** Return position numbers of cells that should be displayed as disabled */
@@ -320,7 +318,7 @@ export abstract class RangeSelectionPicker<
       hoveredPos = this.getInitialDatePosition();
     }
     this.setState({
-      hoveredCellPosition: hoveredPos,
+      hoveredCellPosition: hoveredPos
     });
   }
 
@@ -339,7 +337,7 @@ export abstract class SingleSelectionPicker<
     this.setState({
       hoveredCellPosition: isNumber(active)
         ? active
-        : this.getInitialDatePosition(),
+        : this.getInitialDatePosition()
     });
   }
 

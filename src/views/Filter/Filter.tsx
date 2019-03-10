@@ -25,8 +25,6 @@ const buttonStyle = {
 //   width: BodyWidth;
 //   /** Text content to display in dates-range row. */
 //   rangeRowContent?: string;
-//   /** Called after click on picklist header. */
-//   onHeaderClick?: () => void;
 //   /** Moment date localization */
 //   localization?: string;
 // }

@@ -85,7 +85,7 @@ class DateTimeForm extends React.Component<any, any> {
         />
         <br />
         <DateInput
-          startMode="year"
+          startMode="single"
           popupPosition="bottom right"
           placeholder="Sample Picklist 02"
           className="example-picklist-input"
