@@ -58,6 +58,7 @@ class PicklistView extends BasePicklistView<PicklistViewProps, any> {
           hovered={hoveredItemIndex}
           onCellHover={onCellHover}
           onCellClick={onValueClick}
+          active={activeItemIndex}
         />
       </Picklist>
     );

@@ -18,20 +18,13 @@ const rowBtnStyle = {
   cursor: 'pointer',
 };
 
-const dataDummy = [
-  { name: 'Jamie', status: 'Approved', notes: 'Requires call' },
-  { name: 'John', status: 'Selected', notes: 'None' },
-  { name: 'Jakun', status: 'Approved', notes: 'Requires call' },
-  { name: 'Jill', status: 'Approved', notes: 'None' },
-];
-
 export type BodyWidth = 3 | 4 | 7;
 
 interface BodyProps {
   /** A number of columns in a row. */
   width: BodyWidth;
   /** Data that is used to fill a picklist. */
-  data: string[];
+  data: any[];
   /** Called after a click on picklist's cell. */
   onCellClick: (
     e: React.SyntheticEvent<HTMLElement>,
@@ -41,6 +34,8 @@ interface BodyProps {
   onCellHover: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
   /** Index of an element in `data` array that should be displayed as hovered. */
   hovered?: number;
+  /** Index of an element (or array of indexes) in `data` array that should be displayed as active. */
+  active?: number;
 }
 
 class Body extends React.Component<BodyProps, any> {
@@ -49,13 +44,13 @@ class Body extends React.Component<BodyProps, any> {
       data,
       width,
       // onCellClick,
-      // active,
+      active,
       // disabled,
       // hovered,
       // onCellHover
     } = this.props;
 
-    // console.log("Data", active, data, width);
+    console.log('Data', active, data, width);
     // console.log('Body', buildRows(data, width));
 
     // const content = buildRows(data, width).map((row, rowIndex) => (
@@ -88,25 +83,27 @@ class Body extends React.Component<BodyProps, any> {
 
     return (
       <Table.Body>
-        {dataDummy.map((item, rowIndex) => (
+        {data.map((item, rowIndex) => (
           <Table.Row
             key={`${rowIndex}`}
             id={`${rowIndex}`}
             style={rowBtnStyle}
             onClick={this.onCellClick}
             onMouseOver={this.onCellHover}
-            // active={isActive(rowIndex, active)}
+            active={isActive(rowIndex, active)}
           >
-            <Table.Cell id='name'>{item.name}</Table.Cell>
-            <Table.Cell id='status'>{item.status}</Table.Cell>
-            <Table.Cell id='notes'>{item.notes}</Table.Cell>
+            {Object.keys(item).map(key => (
+              <Table.Cell id={key} key={key}>
+                {item[key]}
+              </Table.Cell>
+            ))}
           </Table.Row>
         ))}
       </Table.Body>
     );
   }
 
-  private onCellClick = (event) => {
+  private onCellClick = event => {
     // console.log("onCellClick", event);
     // const { content } = this.props;
     const itemPosition = event.currentTarget.id;
@@ -120,15 +117,15 @@ class Body extends React.Component<BodyProps, any> {
       itemPosition,
       value: content,
     });
-  }
+  };
 
-  private onCellHover = (event) => {
+  private onCellHover = event => {
     // console.log("onCellHover", event);
 
     // const { itemPosition } = this.props;
     const itemPosition = event.currentTarget.id;
     invoke(this.props, 'onCellHover', event, { ...this.props, itemPosition });
-  }
+  };
 }
 // function buildRows(data: string[], width: number): string[][] {
 //   const height = data.length / width;

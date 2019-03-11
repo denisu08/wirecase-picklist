@@ -1,4 +1,5 @@
 import React from 'react';
+import { StringTemplateEngine } from '../../lib';
 
 import PicklistView from '../../views/PicklistView';
 import {
@@ -20,16 +21,18 @@ type ListPickerProps = BasePickerProps;
 class ListPicker extends SingleSelectionPicker<
   ListPickerProps
 > /* implements ProvideHeadingValue */ {
+  private stringTemplateEngine: StringTemplateEngine;
+
   constructor(props) {
     super(props);
     this.PAGE_WIDTH = PAGE_WIDTH;
+    this.stringTemplateEngine = new StringTemplateEngine();
   }
 
   public render() {
     const {
       onChange,
       value,
-      initializeWith,
       closePopup,
       inline,
       isPickerInFocus,
@@ -55,16 +58,51 @@ class ListPicker extends SingleSelectionPicker<
         onCellHover={this.onHoveredCellPositionChange}
         localization={localization}
         currentHeadingValue='test'
+        activeItemIndex={this.getActiveRowPosition()}
       />
     );
   }
 
-  protected buildPicklistValues(): string[] {
+  protected getActiveRowPosition(): number {
+    const { value, format } = this.props;
+    const buildValues = this.buildPicklistValues();
+    console.log('getActiveRowPosition', value || {}, buildValues || {});
+    let active = -1;
+    if (value) {
+      buildValues.forEach((item, index) => {
+        if (active === -1) {
+          const dataFormatted = this.stringTemplateEngine.format(format, {
+            values: item || {},
+          });
+          if (dataFormatted === value) {
+            active = index;
+          }
+        }
+      });
+    }
+
+    return active;
+  }
+
+  protected buildPicklistValues(): any[] {
     /*
       Return array of strings like ['31', '1', ...]
       that used to populate picklist's page.
     */
-    return [];
+    // const { format, value } = this.props;
+    // console.log(
+    //   'test',
+    //   this.stringTemplateEngine.format(format, {
+    //     values: value ? JSON.parse(value) : {},
+    //   }),
+    // );
+    // return this.props.fields;
+    return [
+      { name: 'Jamie', status: 'Approved', notes: 'Requires call' },
+      { name: 'John', status: 'Selected', notes: 'None' },
+      { name: 'Jakun', status: 'Approved', notes: 'Requires call' },
+      { name: 'Jill', status: 'Approved', notes: 'None' },
+    ];
   }
 
   protected handleChange = (
@@ -80,7 +118,7 @@ class ListPicker extends SingleSelectionPicker<
     };
 
     this.props.onChange(e, data);
-  }
+  };
 }
 
 export default ListPicker;

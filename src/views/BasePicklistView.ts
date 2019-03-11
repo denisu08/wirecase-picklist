@@ -69,8 +69,6 @@ export interface PicklistWithHeaderViewProps {
   hasPrevPage: boolean;
   /** Whether to display next page button as active or disabled. */
   hasNextPage: boolean;
-  // /** Called after click on calendar header. */
-  // onHeaderClick: () => void;
 }
 
 export interface OnValueClickData {

@@ -7,18 +7,18 @@ type PicklistValue = InitialValue;
 
 export function picklistValueToString(
   value: PicklistValue,
-  valueFormat: string,
+  format: string,
   locale: string,
 ): string {
   if (isString(value)) {
     return value;
   }
 
-  const date = moment(value, valueFormat);
+  const date = moment(value, format);
   if (date.isValid()) {
     date.locale(locale);
 
-    return date.format(valueFormat);
+    return date.format(format);
   }
 
   return '';

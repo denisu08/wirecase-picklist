@@ -22,8 +22,14 @@ export interface BasePickerProps {
   ) => void;
   /** Currently selected date. */
   value?: string;
+  /** Format Value. */
+  format?: string;
+  /** Currently selected date. */
+  datasource?: object[];
+  /** Field Configuration. */
+  fields?: object[];
   /** A value for initializing day picker's state. */
-  initializeWith: string;
+  initial: string;
   /** Forse popup to close. */
   closePopup: () => void;
   /** Whether to display picker without a popup or inside a popup. */
@@ -64,7 +70,7 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
     super(props);
     this.state = {
       hoveredCellPosition: undefined,
-      data: this.props.initializeWith,
+      data: this.props.initial,
     };
   }
 
@@ -83,7 +89,7 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
     this.setState({
       hoveredCellPosition: itemPosition,
     });
-  }
+  };
 
   protected canPicklistCatchKeyboardEvents = (): boolean => {
     if (this.props.inline) {
@@ -91,7 +97,7 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
     }
 
     return this.props.isTriggerInFocus();
-  }
+  };
 
   protected handleKeyPress = (event: KeyboardEvent): void => {
     if (!this.canPicklistCatchKeyboardEvents()) {
@@ -109,7 +115,7 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
       default:
         this.handleArrowKeyPress(event);
     }
-  }
+  };
 
   protected handleEnterKeyPress = (event: KeyboardEvent): void => {
     const key = keyboardKey.getKey(event);
@@ -119,15 +125,15 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
         this.state.hoveredCellPosition
       ];
       this.handleChange(null, {
-        value: selectedValue,
+        value: `${selectedValue}`,
         itemPosition: this.state.hoveredCellPosition,
       });
     }
-  }
+  };
 
   protected handleBlur = (): void => {
     this.props.closePopup();
-  }
+  };
 
   protected handleArrowKeyPress = (event: KeyboardEvent): void => {
     if (!this.canPicklistCatchKeyboardEvents()) {
@@ -207,13 +213,13 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
       default:
         break;
     }
-  }
+  };
 
   /** Return a position of a value (date, year, month ...) with wich a picklist was initialized. */
   // protected abstract getInitialDatePosition(): number;
 
   /** Creates values with wich picklist filled. */
-  protected abstract buildPicklistValues(): string[];
+  protected abstract buildPicklistValues(): object[];
 
   /** Handles currently selected value change. */
   protected abstract handleChange(

@@ -10,7 +10,7 @@ import BaseInput, {
   BaseInputState,
   PicklistRelatedProps,
 } from './BaseInput';
-
+import { StringTemplateEngine } from '../lib';
 import { picklistValueToString } from './parse';
 
 type PicklistMode = 'single' | 'multi';
@@ -39,19 +39,19 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
    */
   public static readonly defaultProps = {
     ...BaseInput.defaultProps,
-    valueFormat: '${id}',
+    format: '{{name}}',
     startMode: 'single',
     preserveViewMode: true,
-    icon: 'calendar',
+    icon: 'hand lizard outline',
   };
 
   public static readonly propTypes = {
     /** Currently selected value. */
     value: PropTypes.string.isRequired,
     /** Picklist formatting string. */
-    valueFormat: PropTypes.string,
+    format: PropTypes.string,
     /** Date to display initially when no date is selected. */
-    initialValue: PropTypes.oneOfType([PropTypes.string]),
+    initial: PropTypes.string,
     /** Preserve viewmode on focus? */
     preserveViewMode: PropTypes.bool,
     /** Display mode to start. */
@@ -79,6 +79,8 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
     iconPosition: PropTypes.oneOf(['left', 'right']),
   };
 
+  private stringTemplateEngine: StringTemplateEngine;
+
   constructor(props: PicklistInputProps) {
     super(props);
     this.state = {
@@ -86,13 +88,14 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       popupIsClosed: true,
       valueText: props.value,
     };
+    this.stringTemplateEngine = new StringTemplateEngine();
   }
 
   public render() {
     const {
       value,
-      valueFormat,
-      initialValue,
+      format,
+      initial,
       preserveViewMode,
       startMode,
       closable,
@@ -111,7 +114,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
         onChange={this.onInputValueChange}
         {...rest}
         renderPicker={() => this.getPicker()}
-        value={picklistValueToString(value, valueFormat, localization)}
+        value={picklistValueToString(value, format, localization)}
       />
     );
   }
@@ -123,6 +126,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
   private getPicker = () => {
     const {
       value,
+      format,
       inline,
       localization,
       tabIndex,
@@ -140,39 +144,54 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       pickerWidth,
       pickerStyle,
       onChange: this.handleSelect,
-      initializeWith: this.parseInternalValue(),
+      initial: this.parseInternalValue(),
       value,
+      format,
       localization,
     };
 
     return <ListPicker {...pickerProps} />;
-  }
+  };
 
   private onFocus = (): void => {
-    if (!this.props.preserveViewMode) {
-      this.setState({ mode: this.props.startMode });
+    const { preserveViewMode, startMode } = this.props;
+    if (!preserveViewMode) {
+      this.setState({ mode: startMode });
     }
-  }
+  };
 
   private handleSelect = (e, { value }: BasePickerOnChangeData) => {
     this.closePopup();
+
+    const { format } = this.props;
+    const dataFormatted = this.stringTemplateEngine.format(format, {
+      values: value.data || {},
+    });
+
     invoke(this.props, 'onChange', e, {
       ...this.props,
-      value: `${JSON.stringify(value.data)}`,
+      value: `${dataFormatted}`,
     });
 
     return {
-      valueText: `${JSON.stringify(value.data)}`,
+      valueText: `${dataFormatted}`,
     };
-  }
+  };
 
   /** Keeps internal state in sync with input field value. */
   private onInputValueChange = (e, { value }) => {
-    this.setState({
-      valueText: value,
-    });
-    invoke(this.props, 'onChange', e, { ...this.props, value });
-  }
+    let valueFormatted = value;
+    if (valueFormatted) {
+      const { format } = this.props;
+      valueFormatted = this.stringTemplateEngine.format(format, {
+        values: JSON.parse(value),
+      });
+      this.setState({
+        valueText: valueFormatted,
+      });
+    }
+    invoke(this.props, 'onChange', e, { ...this.props, value: valueFormatted });
+  };
 }
 
 export default PicklistInput;

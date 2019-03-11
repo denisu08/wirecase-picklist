@@ -55,9 +55,9 @@ export interface BaseInputProps {
 }
 export interface PicklistRelatedProps {
   /** Picklist formatting string. */
-  valueFormat?: string;
+  format?: string;
   /** Date to display initially when no date is selected. */
-  initialValue?: string;
+  initial?: string;
 }
 
 export interface BaseInputState {
@@ -77,19 +77,19 @@ abstract class BaseInput<
 
   protected closePopup = (): void => {
     this.setState({ popupIsClosed: true });
-  }
+  };
 
   protected openPopup = (): void => {
     this.setState({ popupIsClosed: false });
-  }
+  };
 
   protected isPickerInFocus = (): boolean => {
     return document.activeElement === this.picklistNode;
-  }
+  };
 
   protected isTriggerInFocus = (): boolean => {
     return document.activeElement === this.inputNode;
-  }
+  };
 
   protected onModeSwitch = (): void => {
     // when using keyboard for selecting values on inline picklist
@@ -101,15 +101,15 @@ abstract class BaseInput<
     if (this.props.inline && !this.isPickerInFocus() && this.picklistNode) {
       this.picklistNode.focus();
     }
-  }
+  };
 
   protected onPicklistViewMount = (picklistNode: HTMLElement): void => {
     this.picklistNode = picklistNode;
-  }
+  };
 
   protected onInputViewMount = (inputNode: HTMLElement): void => {
     this.inputNode = inputNode;
-  }
+  };
 }
 
 export default BaseInput;
