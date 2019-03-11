@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import PicklistView from "../../views/PicklistView";
+import PicklistView from '../../views/PicklistView';
 import {
   BasePickerOnChangeData,
   BasePickerProps,
-  SingleSelectionPicker
-} from "../BasePicker";
+  SingleSelectionPicker,
+} from '../BasePicker';
 
 const PAGE_WIDTH = 7;
 
@@ -64,18 +64,18 @@ class ListPicker extends SingleSelectionPicker<
 
   protected handleChange = (
     e: React.SyntheticEvent<HTMLElement>,
-    { value }
+    { value },
   ): void => {
     // `value` is selected string like '31' or '1'
     const data: ListPickerOnChangeData = {
       ...this.props,
       value: {
-        data: value
-      }
+        data: value,
+      },
     };
 
     this.props.onChange(e, data);
-  };
+  }
 }
 
 export default ListPicker;

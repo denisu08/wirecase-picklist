@@ -1,9 +1,9 @@
 // import isNil from "lodash/isNil";
 
-import React from "react";
-import { Icon, Table } from "semantic-ui-react";
+import React from 'react';
+import { Icon, Table } from 'semantic-ui-react';
 
-import { BodyWidth } from "../Body/Body";
+import { BodyWidth } from '../Body/Body';
 // import HeaderRange from "./HeaderRange";
 // import HeaderWeeks from "./HeaderWeeks";
 

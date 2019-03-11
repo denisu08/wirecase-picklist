@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
 
 import BasePicklistView, {
   BasePicklistViewProps,
-  SingleSelectionPicklistViewProps
-} from "./BasePicklistView";
-import Picklist from "./Picklist";
-import Body from "./Body/Body";
-import Header from "./Header/Header";
+  SingleSelectionPicklistViewProps,
+} from './BasePicklistView';
+import Picklist from './Picklist';
+import Body from './Body/Body';
+import Header from './Header/Header';
 
-import { findHTMLElement } from "../lib";
+import { findHTMLElement } from '../lib';
 
 export const PICKLIST_ROW_WIDTH = 7;
 
@@ -35,7 +35,7 @@ class PicklistView extends BasePicklistView<PicklistViewProps, any> {
 
     return (
       <Picklist
-        ref={e => (this.picklistNode = findHTMLElement(e))}
+        ref={(e) => (this.picklistNode = findHTMLElement(e))}
         outlineOnFocus={inline}
         {...rest}
       >

@@ -1,11 +1,11 @@
-import isNil from "lodash/isNil";
-import isArray from "lodash/isArray";
-import invoke from "lodash/invoke";
+import isNil from 'lodash/isNil';
+import isArray from 'lodash/isArray';
+import invoke from 'lodash/invoke';
 
-import React from "react";
-import { Table } from "semantic-ui-react";
+import React from 'react';
+import { Table } from 'semantic-ui-react';
 
-import { OnValueClickData } from "../BasePicklistView";
+import { OnValueClickData } from '../BasePicklistView';
 // import Cell from './Cell';
 // import {
 //   cellStyleWidth3,
@@ -15,14 +15,14 @@ import { OnValueClickData } from "../BasePicklistView";
 // } from './Cell';
 
 const rowBtnStyle = {
-  cursor: "pointer"
+  cursor: 'pointer',
 };
 
 const dataDummy = [
-  { name: "Jamie", status: "Approved", notes: "Requires call" },
-  { name: "John", status: "Selected", notes: "None" },
-  { name: "Jakun", status: "Approved", notes: "Requires call" },
-  { name: "Jill", status: "Approved", notes: "None" }
+  { name: 'Jamie', status: 'Approved', notes: 'Requires call' },
+  { name: 'John', status: 'Selected', notes: 'None' },
+  { name: 'Jakun', status: 'Approved', notes: 'Requires call' },
+  { name: 'Jill', status: 'Approved', notes: 'None' },
 ];
 
 export type BodyWidth = 3 | 4 | 7;
@@ -35,7 +35,7 @@ interface BodyProps {
   /** Called after a click on picklist's cell. */
   onCellClick: (
     e: React.SyntheticEvent<HTMLElement>,
-    data: OnValueClickData
+    data: OnValueClickData,
   ) => void;
   /** Called on cell hover. */
   onCellHover: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
@@ -53,7 +53,7 @@ class Body extends React.Component<BodyProps, any> {
       data,
       width,
       // onCellClick,
-      active
+      active,
       // disabled,
       // hovered,
       // onCellHover
@@ -92,7 +92,7 @@ class Body extends React.Component<BodyProps, any> {
 
     return (
       <Table.Body>
-        {dataDummy.map((data, rowIndex) => (
+        {dataDummy.map((item, rowIndex) => (
           <Table.Row
             key={`${rowIndex}`}
             id={`${rowIndex}`}
@@ -101,39 +101,38 @@ class Body extends React.Component<BodyProps, any> {
             onMouseOver={this.onCellHover}
             active={isActive(rowIndex, active)}
           >
-            <Table.Cell id="name">{data.name}</Table.Cell>
-            <Table.Cell id="status">{data.status}</Table.Cell>
-            <Table.Cell id="notes">{data.notes}</Table.Cell>
+            <Table.Cell id='name'>{item.name}</Table.Cell>
+            <Table.Cell id='status'>{item.status}</Table.Cell>
+            <Table.Cell id='notes'>{item.notes}</Table.Cell>
           </Table.Row>
         ))}
       </Table.Body>
     );
   }
 
-  private onCellClick = event => {
+  private onCellClick = (event) => {
     // console.log("onCellClick", event);
     // const { content } = this.props;
     const itemPosition = event.currentTarget.id;
     const content = {};
     const { cells } = event.currentTarget;
-    for (var i = 0; i < cells.length; i++) {
-      const cell = cells[i];
+    for (const cell of cells) {
       content[cell.id] = cell.textContent;
     }
-    invoke(this.props, "onCellClick", event, {
+    invoke(this.props, 'onCellClick', event, {
       ...this.props,
       itemPosition,
-      value: content
+      value: content,
     });
-  };
+  }
 
-  private onCellHover = event => {
+  private onCellHover = (event) => {
     // console.log("onCellHover", event);
 
     // const { itemPosition } = this.props;
     const itemPosition = event.currentTarget.id;
-    invoke(this.props, "onCellHover", event, { ...this.props, itemPosition });
-  };
+    invoke(this.props, 'onCellHover', event, { ...this.props, itemPosition });
+  }
 }
 // function buildRows(data: string[], width: number): string[][] {
 //   const height = data.length / width;
@@ -149,7 +148,7 @@ function isActive(
   rowIndex: number,
   // rowWidth: number,
   // colIndex: number,
-  active: number | number[]
+  active: number | number[],
 ): boolean {
   if (isNil(active)) {
     return false;

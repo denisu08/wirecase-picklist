@@ -1,6 +1,6 @@
-import isString from "lodash/isString";
+import isString from 'lodash/isString';
 
-import moment, { Moment } from "moment";
+import moment, { Moment } from 'moment';
 
 type InitialValue = string;
 type PicklistValue = InitialValue;
@@ -8,7 +8,7 @@ type PicklistValue = InitialValue;
 export function picklistValueToString(
   value: PicklistValue,
   valueFormat: string,
-  locale: string
+  locale: string,
 ): string {
   if (isString(value)) {
     return value;
@@ -21,5 +21,5 @@ export function picklistValueToString(
     return date.format(valueFormat);
   }
 
-  return "";
+  return '';
 }

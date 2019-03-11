@@ -1,5 +1,5 @@
-import keyboardKey from "keyboard-key";
-import React from "react";
+import keyboardKey from 'keyboard-key';
+import React from 'react';
 
 interface HandleChangeParams {
   value?: string;
@@ -18,7 +18,7 @@ export interface BasePickerProps {
   /** Called after day is selected. */
   onChange: (
     e: React.SyntheticEvent<HTMLElement>,
-    data: BasePickerOnChangeData
+    data: BasePickerOnChangeData,
   ) => void;
   /** Currently selected date. */
   value?: string;
@@ -64,26 +64,26 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
     super(props);
     this.state = {
       hoveredCellPosition: undefined,
-      data: this.props.initializeWith
+      data: this.props.initializeWith,
     };
   }
 
   public componentDidMount(): void {
-    document.addEventListener("keydown", this.handleKeyPress);
+    document.addEventListener('keydown', this.handleKeyPress);
   }
 
   public componentWillUnmount(): void {
-    document.removeEventListener("keydown", this.handleKeyPress);
+    document.removeEventListener('keydown', this.handleKeyPress);
   }
 
   protected onHoveredCellPositionChange = (
     e: React.SyntheticEvent<HTMLElement>,
-    { itemPosition }: { itemPosition: number }
+    { itemPosition }: { itemPosition: number },
   ): void => {
     this.setState({
-      hoveredCellPosition: itemPosition
+      hoveredCellPosition: itemPosition,
     });
-  };
+  }
 
   protected canPicklistCatchKeyboardEvents = (): boolean => {
     if (this.props.inline) {
@@ -91,7 +91,7 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
     }
 
     return this.props.isTriggerInFocus();
-  };
+  }
 
   protected handleKeyPress = (event: KeyboardEvent): void => {
     if (!this.canPicklistCatchKeyboardEvents()) {
@@ -100,34 +100,34 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
     const key = keyboardKey.getKey(event);
 
     switch (key) {
-      case "Enter":
+      case 'Enter':
         this.handleEnterKeyPress(event);
         break;
-      case "Escape":
+      case 'Escape':
         this.props.closePopup();
         break;
       default:
         this.handleArrowKeyPress(event);
     }
-  };
+  }
 
   protected handleEnterKeyPress = (event: KeyboardEvent): void => {
     const key = keyboardKey.getKey(event);
-    if (key === "Enter" && this.canPicklistCatchKeyboardEvents()) {
+    if (key === 'Enter' && this.canPicklistCatchKeyboardEvents()) {
       event.preventDefault();
       const selectedValue = this.buildPicklistValues()[
         this.state.hoveredCellPosition
       ];
       this.handleChange(null, {
         value: selectedValue,
-        itemPosition: this.state.hoveredCellPosition
+        itemPosition: this.state.hoveredCellPosition,
       });
     }
-  };
+  }
 
   protected handleBlur = (): void => {
     this.props.closePopup();
-  };
+  }
 
   protected handleArrowKeyPress = (event: KeyboardEvent): void => {
     if (!this.canPicklistCatchKeyboardEvents()) {
@@ -207,7 +207,7 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
       default:
         break;
     }
-  };
+  }
 
   /** Return a position of a value (date, year, month ...) with wich a picklist was initialized. */
   // protected abstract getInitialDatePosition(): number;
@@ -218,7 +218,7 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
   /** Handles currently selected value change. */
   protected abstract handleChange(
     e: React.SyntheticEvent<HTMLElement>,
-    data: HandleChangeParams
+    data: HandleChangeParams,
   ): void;
 }
 

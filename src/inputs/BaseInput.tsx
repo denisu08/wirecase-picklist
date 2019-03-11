@@ -1,5 +1,5 @@
-import * as React from "react";
-import { SemanticTRANSITIONS, SemanticICONS } from "semantic-ui-react";
+import * as React from 'react';
+import { SemanticTRANSITIONS, SemanticICONS } from 'semantic-ui-react';
 
 export interface BaseInputProps {
   [key: string]: any;
@@ -14,7 +14,7 @@ export interface BaseInputProps {
   /** Optional icon to display inside the Input. */
   icon?: SemanticICONS | false;
   /** Icon position inside Input. Default: 'right'. */
-  iconPosition?: "right" | "left";
+  iconPosition?: 'right' | 'left';
   /**
    * Called on clear.
    *
@@ -28,14 +28,14 @@ export interface BaseInputProps {
   clearIcon?: any;
   /** Position for the popup. */
   popupPosition?:
-    | "top left"
-    | "top right"
-    | "bottom left"
-    | "bottom right"
-    | "right center"
-    | "left center"
-    | "top center"
-    | "bottom center";
+    | 'top left'
+    | 'top right'
+    | 'bottom left'
+    | 'bottom right'
+    | 'right center'
+    | 'left center'
+    | 'top center'
+    | 'bottom center';
   /** Should close when cursor leaves picklist popup. */
   closeOnMouseLeave?: boolean;
   /** The node where the picker should mount. */
@@ -69,7 +69,7 @@ abstract class BaseInput<
   S extends BaseInputState
 > extends React.Component<P, S> {
   public static defaultProps = {
-    inline: false
+    inline: false,
   };
 
   private picklistNode: HTMLElement;
@@ -77,19 +77,19 @@ abstract class BaseInput<
 
   protected closePopup = (): void => {
     this.setState({ popupIsClosed: true });
-  };
+  }
 
   protected openPopup = (): void => {
     this.setState({ popupIsClosed: false });
-  };
+  }
 
   protected isPickerInFocus = (): boolean => {
     return document.activeElement === this.picklistNode;
-  };
+  }
 
   protected isTriggerInFocus = (): boolean => {
     return document.activeElement === this.inputNode;
-  };
+  }
 
   protected onModeSwitch = (): void => {
     // when using keyboard for selecting values on inline picklist
@@ -101,15 +101,15 @@ abstract class BaseInput<
     if (this.props.inline && !this.isPickerInFocus() && this.picklistNode) {
       this.picklistNode.focus();
     }
-  };
+  }
 
   protected onPicklistViewMount = (picklistNode: HTMLElement): void => {
     this.picklistNode = picklistNode;
-  };
+  }
 
   protected onInputViewMount = (inputNode: HTMLElement): void => {
     this.inputNode = inputNode;
-  };
+  }
 }
 
 export default BaseInput;

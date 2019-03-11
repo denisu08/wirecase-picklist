@@ -1,38 +1,38 @@
-const path = require('path');
-const webpack = require('webpack');
+const path = require("path");
+const webpack = require("webpack");
 
 const config = {
   entry: {
-    picklist: './example/picklist.tsx'
+    picklistExample: "./example/picklist-example.tsx"
   },
   output: {
-    path: path.resolve(__dirname, 'example'),
-    filename: '[name].bundle.js'
+    path: path.resolve(__dirname, "example"),
+    filename: "[name].bundle.js"
   },
-  mode: 'development',
+  mode: "development",
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         exclude: /node-modules/,
-        loader: 'ts-loader'
+        loader: "ts-loader"
       },
       {
         test: /\.jsx?$/,
         exclude: /node-modules/,
-        loader: 'babel-loader'
+        loader: "babel-loader"
       }
     ]
   },
   resolve: {
-    extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', 'jsx']
+    extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js", "jsx"]
   },
   devServer: {
-    contentBase: path.resolve(__dirname, 'example'),
+    contentBase: path.resolve(__dirname, "example"),
     port: 9000,
     hot: true
   },
-  devtool: 'source-map',
+  devtool: "source-map",
   plugins: [new webpack.HotModuleReplacementPlugin()]
 };
 

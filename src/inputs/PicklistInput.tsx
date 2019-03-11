@@ -1,19 +1,19 @@
-import invoke from "lodash/invoke";
-import PropTypes from "prop-types";
-import React from "react";
+import invoke from 'lodash/invoke';
+import PropTypes from 'prop-types';
+import React from 'react';
 
-import { BasePickerOnChangeData } from "../pickers/BasePicker";
-import ListPicker from "../pickers/listPicker/ListPicker";
-import InputView from "../views/InputView";
+import { BasePickerOnChangeData } from '../pickers/BasePicker';
+import ListPicker from '../pickers/listPicker/ListPicker';
+import InputView from '../views/InputView';
 import BaseInput, {
   BaseInputProps,
   BaseInputState,
-  PicklistRelatedProps
-} from "./BaseInput";
+  PicklistRelatedProps,
+} from './BaseInput';
 
-import { picklistValueToString } from "./parse";
+import { picklistValueToString } from './parse';
 
-type PicklistMode = "single" | "multi";
+type PicklistMode = 'single' | 'multi';
 
 export interface PicklistInputProps
   extends BaseInputProps,
@@ -39,10 +39,10 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
    */
   public static readonly defaultProps = {
     ...BaseInput.defaultProps,
-    valueFormat: "${id}",
-    startMode: "single",
+    valueFormat: '${id}',
+    startMode: 'single',
     preserveViewMode: true,
-    icon: "calendar"
+    icon: 'calendar',
   };
 
   public static readonly propTypes = {
@@ -55,7 +55,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
     /** Preserve viewmode on focus? */
     preserveViewMode: PropTypes.bool,
     /** Display mode to start. */
-    startMode: PropTypes.oneOf(["single"]),
+    startMode: PropTypes.oneOf(['single']),
     /** If true, popup closes after selecting a date-time. */
     closable: PropTypes.bool,
     /**
@@ -76,7 +76,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
     /** Picklist localization. */
     localization: PropTypes.string,
     icon: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    iconPosition: PropTypes.oneOf(["left", "right"])
+    iconPosition: PropTypes.oneOf(['left', 'right']),
   };
 
   constructor(props: PicklistInputProps) {
@@ -84,7 +84,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
     this.state = {
       mode: props.startMode,
       popupIsClosed: true,
-      valueText: props.value
+      valueText: props.value,
     };
   }
 
@@ -127,7 +127,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       localization,
       tabIndex,
       pickerWidth,
-      pickerStyle
+      pickerStyle,
     } = this.props;
 
     const pickerProps = {
@@ -142,37 +142,37 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       onChange: this.handleSelect,
       initializeWith: this.parseInternalValue(),
       value,
-      localization
+      localization,
     };
 
     return <ListPicker {...pickerProps} />;
-  };
+  }
 
   private onFocus = (): void => {
     if (!this.props.preserveViewMode) {
       this.setState({ mode: this.props.startMode });
     }
-  };
+  }
 
   private handleSelect = (e, { value }: BasePickerOnChangeData) => {
     this.closePopup();
-    invoke(this.props, "onChange", e, {
+    invoke(this.props, 'onChange', e, {
       ...this.props,
-      value: `${JSON.stringify(value.data)}`
+      value: `${JSON.stringify(value.data)}`,
     });
 
     return {
-      valueText: `${JSON.stringify(value.data)}`
+      valueText: `${JSON.stringify(value.data)}`,
     };
-  };
+  }
 
   /** Keeps internal state in sync with input field value. */
   private onInputValueChange = (e, { value }) => {
     this.setState({
-      valueText: value
+      valueText: value,
     });
-    invoke(this.props, "onChange", e, { ...this.props, value });
-  };
+    invoke(this.props, 'onChange', e, { ...this.props, value });
+  }
 }
 
 export default PicklistInput;

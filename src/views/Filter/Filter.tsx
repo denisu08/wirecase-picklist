@@ -1,10 +1,10 @@
 // import isNil from 'lodash/isNil';
 
-import React from "react";
-import { Form, Button } from "semantic-ui-react";
+import React from 'react';
+import { Button, Form } from 'semantic-ui-react';
 const buttonStyle = {
-  display: "flex",
-  justifyContent: "center"
+  display: 'flex',
+  justifyContent: 'center',
 };
 
 // import { BodyWidth } from '../Body/Body';
@@ -44,17 +44,17 @@ function Filter(/* props: FilterProps */) {
   //   } = props;
 
   return (
-    <Form style={{ margin: "5px" }} size="tiny">
+    <Form style={{ margin: '5px' }} size='tiny'>
       <Form.Field>
         <label>First Name</label>
-        <input placeholder="First Name" id="firstName" />
+        <input placeholder='First Name' id='firstName' />
       </Form.Field>
       <Form.Field>
         <label>Last Name</label>
-        <input placeholder="Last Name" id="lastName" />
+        <input placeholder='Last Name' id='lastName' />
       </Form.Field>
       <Form.Field style={buttonStyle}>
-        <Button type="button" fluid size="tiny" primary>
+        <Button type='button' fluid size='tiny' primary>
           Search
         </Button>
       </Form.Field>
