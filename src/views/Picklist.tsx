@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Form, Button } from 'semantic-ui-react';
+import { Table, Pagination, Segment } from 'semantic-ui-react';
 import { Filter } from './Filter';
 
 // interface PickerStyle {
@@ -19,11 +19,37 @@ interface PicklistProps {
   pickerStyle?: object;
 }
 
+const rowBtnStyle = {
+  cursor: 'pointer',
+};
+
 class Picklist extends React.Component<PicklistProps, any> {
   public static readonly propTypes: object;
   public static readonly defaultProps = {
     pickerWidth: '100%',
   };
+
+  public state = {
+    activePage: 5,
+    boundaryRange: 1,
+    siblingRange: 1,
+    showEllipsis: true,
+    showFirstAndLastNav: true,
+    showPreviousAndNextNav: true,
+    totalPages: 50,
+  };
+
+  constructor(props) {
+    super(props);
+
+    this.handlePaginationChange = this.handlePaginationChange.bind(this);
+  }
+
+  public handlePaginationChange(e, data) {
+    const { activePage } = data;
+    console.log('activePage', activePage);
+    this.setState({ activePage });
+  }
 
   public render() {
     const {
@@ -33,6 +59,7 @@ class Picklist extends React.Component<PicklistProps, any> {
       pickerStyle,
       ...rest
     } = this.props;
+
     const style = {
       width: pickerWidth,
       minWidth: '22em',
@@ -41,17 +68,47 @@ class Picklist extends React.Component<PicklistProps, any> {
       outline: outlineOnFocus ? undefined : 'none',
       ...pickerStyle,
     };
-    const rowBtnStyle = {
-      cursor: 'pointer',
-    };
+
+    const {
+      activePage,
+      boundaryRange,
+      siblingRange,
+      showEllipsis,
+      showFirstAndLastNav,
+      showPreviousAndNextNav,
+      totalPages,
+    } = this.state;
 
     return (
-      <React.Fragment>
+      <div>
         <Filter />
-        <Table style={style} unstackable celled {...rest} textAlign='center' className='selectable' size='small'>
+        <Table
+          style={style}
+          unstackable
+          celled
+          {...rest}
+          textAlign='center'
+          className='selectable'
+          size='small'
+        >
           {children}
         </Table>
-      </React.Fragment>
+        <div style={{ textAlign: 'right', margin: '0 10px 10px 0' }}>
+          <Pagination
+            onPageChange={this.handlePaginationChange}
+            size='mini'
+            totalPages={totalPages}
+            prevItem={showPreviousAndNextNav ? undefined : null}
+            nextItem={showPreviousAndNextNav ? undefined : null}
+            boundaryRange={0}
+            defaultActivePage={1}
+            ellipsisItem={null}
+            firstItem={showFirstAndLastNav ? undefined : null}
+            lastItem={showFirstAndLastNav ? undefined : null}
+            siblingRange={1}
+          />
+        </div>
+      </div>
     );
   }
 }

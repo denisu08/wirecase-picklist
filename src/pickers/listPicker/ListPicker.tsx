@@ -43,6 +43,10 @@ class ListPicker extends SingleSelectionPicker<
       <PicklistView
         {...rest}
         values={this.buildPicklistValues()}
+        hasNextPage
+        hasPrevPage
+        onNextPageBtnClick={null}
+        onPrevPageBtnClick={null}
         onValueClick={this.handleChange}
         onBlur={this.handleBlur}
         inline={this.props.inline}
@@ -50,6 +54,7 @@ class ListPicker extends SingleSelectionPicker<
         hoveredItemIndex={this.state.hoveredCellPosition}
         onCellHover={this.onHoveredCellPositionChange}
         localization={localization}
+        currentHeadingValue='test'
       />
     );
   }

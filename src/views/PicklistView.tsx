@@ -2,6 +2,8 @@ import React from 'react';
 
 import BasePicklistView, {
   BasePicklistViewProps,
+  PicklistWithHeaderViewProps,
+  HeadingValueProps,
   SingleSelectionPicklistViewProps,
 } from './BasePicklistView';
 import Picklist from './Picklist';
@@ -13,7 +15,9 @@ import { findHTMLElement } from '../lib';
 export const PICKLIST_ROW_WIDTH = 7;
 
 type PicklistViewProps = BasePicklistViewProps &
-  SingleSelectionPicklistViewProps;
+  HeadingValueProps &
+  SingleSelectionPicklistViewProps &
+  PicklistWithHeaderViewProps;
 
 class PicklistView extends BasePicklistView<PicklistViewProps, any> {
   public render() {
@@ -26,10 +30,11 @@ class PicklistView extends BasePicklistView<PicklistViewProps, any> {
       onCellHover,
       onMount,
       inline,
-      markedItemIndexes,
-      markedtipIndexes,
-      markColor,
-      localization,
+      onNextPageBtnClick,
+      onPrevPageBtnClick,
+      hasNextPage,
+      hasPrevPage,
+      currentHeadingValue,
       ...rest
     } = this.props;
 
@@ -39,15 +44,20 @@ class PicklistView extends BasePicklistView<PicklistViewProps, any> {
         outlineOnFocus={inline}
         {...rest}
       >
-        <Header width={PICKLIST_ROW_WIDTH} localization={localization} />
+        <Header
+          width={PICKLIST_ROW_WIDTH}
+          onNextPageBtnClick={onNextPageBtnClick}
+          onPrevPageBtnClick={onPrevPageBtnClick}
+          hasNextPage={hasNextPage}
+          hasPrevPage={hasPrevPage}
+          title={currentHeadingValue}
+        />
         <Body
           width={PICKLIST_ROW_WIDTH}
           data={values}
           hovered={hoveredItemIndex}
           onCellHover={onCellHover}
           onCellClick={onValueClick}
-          active={activeItemIndex}
-          disabled={disabledItemIndexes}
         />
       </Picklist>
     );

@@ -41,10 +41,6 @@ interface BodyProps {
   onCellHover: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
   /** Index of an element in `data` array that should be displayed as hovered. */
   hovered?: number;
-  /** Index of an element (or array of indexes) in `data` array that should be displayed as active. */
-  active?: number | number[];
-  /** Array of element indexes in `data` array that should be displayed as disabled. */
-  disabled?: number[];
 }
 
 class Body extends React.Component<BodyProps, any> {
@@ -53,7 +49,7 @@ class Body extends React.Component<BodyProps, any> {
       data,
       width,
       // onCellClick,
-      active,
+      // active,
       // disabled,
       // hovered,
       // onCellHover
@@ -99,7 +95,7 @@ class Body extends React.Component<BodyProps, any> {
             style={rowBtnStyle}
             onClick={this.onCellClick}
             onMouseOver={this.onCellHover}
-            active={isActive(rowIndex, active)}
+            // active={isActive(rowIndex, active)}
           >
             <Table.Cell id='name'>{item.name}</Table.Cell>
             <Table.Cell id='status'>{item.status}</Table.Cell>

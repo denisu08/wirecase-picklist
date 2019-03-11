@@ -8,16 +8,16 @@ import { BodyWidth } from '../Body/Body';
 // import HeaderWeeks from "./HeaderWeeks";
 
 export interface HeaderProps {
-  // /** Header text content. */
-  // title: string;
-  // /** Called after click on next page button. */
-  // onNextPageBtnClick: () => void;
-  // /** Called after click on previous page button. */
-  // onPrevPageBtnClick: () => void;
-  // /** Whether to display previous page button as active or disabled. */
-  // hasPrevPage: boolean;
-  // /** Whether to display next page button as active or disabled. */
-  // hasNextPage: boolean;
+  /** Header text content. */
+  title: string;
+  /** Called after click on next page button. */
+  onNextPageBtnClick: () => void;
+  /** Called after click on previous page button. */
+  onPrevPageBtnClick: () => void;
+  /** Whether to display previous page button as active or disabled. */
+  hasPrevPage: boolean;
+  /** Whether to display next page button as active or disabled. */
+  hasNextPage: boolean;
   // /** Whether to display weeks row or not. */
   // displayWeeks: boolean;
   /** Header width. */
@@ -32,25 +32,25 @@ function Header(props: HeaderProps) {
   const {
     // rangeRowContent,
     // displayWeeks,
-    // onNextPageBtnClick,
-    // onPrevPageBtnClick,
-    // hasPrevPage,
-    // hasNextPage
-    // width,
-    // title,
+    onNextPageBtnClick,
+    onPrevPageBtnClick,
+    hasPrevPage,
+    hasNextPage,
+    width,
+    title,
     // localization
   } = props;
 
-  // const cellStyle = {
-  //   border: "none",
-  //   borderBottom: displayWeeks ? "none" : "1px solid rgba(34,36,38,.1)"
-  // };
-  // const prevPageBtnStyle = {
-  //   cursor: hasPrevPage ? "pointer" : "auto"
-  // };
-  // const nextPageBtnStyle = {
-  //   cursor: hasNextPage ? "pointer" : "auto"
-  // };
+  const cellStyle = {
+    border: 'none',
+    borderBottom: '1px solid rgba(34,36,38,.1)',
+  };
+  const prevPageBtnStyle = {
+    cursor: hasPrevPage ? 'pointer' : 'auto',
+  };
+  const nextPageBtnStyle = {
+    cursor: hasNextPage ? 'pointer' : 'auto',
+  };
 
   return (
     // <Table.Header>
@@ -87,13 +87,15 @@ function Header(props: HeaderProps) {
     //   {displayWeeks && <HeaderWeeks localization={localization} />}
     // </Table.Header>
 
-    <Table.Header>
-      <Table.Row>
-        <Table.HeaderCell>Name</Table.HeaderCell>
-        <Table.HeaderCell>Status</Table.HeaderCell>
-        <Table.HeaderCell>Notes</Table.HeaderCell>
-      </Table.Row>
-    </Table.Header>
+    <React.Fragment>
+      <Table.Header>
+        <Table.Row>
+          <Table.HeaderCell>Name</Table.HeaderCell>
+          <Table.HeaderCell>Status</Table.HeaderCell>
+          <Table.HeaderCell>Notes</Table.HeaderCell>
+        </Table.Row>
+      </Table.Header>
+    </React.Fragment>
   );
 }
 
