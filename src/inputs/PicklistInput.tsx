@@ -95,6 +95,9 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
     const {
       value,
       format,
+      fields,
+      datasource,
+      url,
       initial,
       preserveViewMode,
       startMode,
@@ -115,6 +118,9 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
         {...rest}
         renderPicker={() => this.getPicker()}
         value={picklistValueToString(value, format, localization)}
+        fields={fields}
+        datasource={datasource}
+        url={url}
       />
     );
   }
@@ -132,6 +138,9 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       tabIndex,
       pickerWidth,
       pickerStyle,
+      datasource,
+      fields,
+      url,
     } = this.props;
 
     const pickerProps = {
@@ -148,6 +157,9 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       value,
       format,
       localization,
+      datasource,
+      fields,
+      url,
     };
 
     return <ListPicker {...pickerProps} />;

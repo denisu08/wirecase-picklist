@@ -17,11 +17,13 @@ interface PicklistProps {
   pickerWidth?: string;
   /** Style object for picker. */
   pickerStyle?: object;
+  /** Fields configuration */
+  fields?: object[];
 }
 
-const rowBtnStyle = {
-  cursor: 'pointer',
-};
+// const rowBtnStyle = {
+//   cursor: 'pointer',
+// };
 
 class Picklist extends React.Component<PicklistProps, any> {
   public static readonly propTypes: object;
@@ -57,6 +59,7 @@ class Picklist extends React.Component<PicklistProps, any> {
       outlineOnFocus,
       pickerWidth,
       pickerStyle,
+      fields,
       ...rest
     } = this.props;
 
@@ -81,7 +84,7 @@ class Picklist extends React.Component<PicklistProps, any> {
 
     return (
       <div>
-        <Filter />
+        <Filter fields={fields} />
         <Table
           style={style}
           unstackable

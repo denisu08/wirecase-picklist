@@ -27,7 +27,9 @@ export interface BasePickerProps {
   /** Currently selected date. */
   datasource?: object[];
   /** Field Configuration. */
-  fields?: object[];
+  fields?: any[];
+  /** URL to fetch data */
+  url?: string;
   /** A value for initializing day picker's state. */
   initial: string;
   /** Forse popup to close. */

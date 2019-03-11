@@ -12,7 +12,7 @@ import Header from './Header/Header';
 
 import { findHTMLElement } from '../lib';
 
-export const PICKLIST_ROW_WIDTH = 7;
+// export const PICKLIST_ROW_WIDTH = 7;
 
 type PicklistViewProps = BasePicklistViewProps &
   HeadingValueProps &
@@ -23,8 +23,8 @@ class PicklistView extends BasePicklistView<PicklistViewProps, any> {
   public render() {
     const {
       values,
+      rawData,
       onValueClick,
-      disabledItemIndexes,
       activeItemIndex,
       hoveredItemIndex,
       onCellHover,
@@ -34,27 +34,28 @@ class PicklistView extends BasePicklistView<PicklistViewProps, any> {
       onPrevPageBtnClick,
       hasNextPage,
       hasPrevPage,
-      currentHeadingValue,
+      columns,
       ...rest
     } = this.props;
 
     return (
       <Picklist
-        ref={(e) => (this.picklistNode = findHTMLElement(e))}
+        ref={e => (this.picklistNode = findHTMLElement(e))}
         outlineOnFocus={inline}
         {...rest}
       >
         <Header
-          width={PICKLIST_ROW_WIDTH}
+          // width={PICKLIST_ROW_WIDTH}
           onNextPageBtnClick={onNextPageBtnClick}
           onPrevPageBtnClick={onPrevPageBtnClick}
           hasNextPage={hasNextPage}
           hasPrevPage={hasPrevPage}
-          title={currentHeadingValue}
+          columns={columns}
         />
         <Body
-          width={PICKLIST_ROW_WIDTH}
+          // width={PICKLIST_ROW_WIDTH}
           data={values}
+          rawData={rawData}
           hovered={hoveredItemIndex}
           onCellHover={onCellHover}
           onCellClick={onValueClick}

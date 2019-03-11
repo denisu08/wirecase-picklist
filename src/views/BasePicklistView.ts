@@ -9,7 +9,10 @@ export interface BasePicklistViewProps {
   /** Whether a picklist is inside a popup or inline. */
   inline: boolean;
   /** An array of values to fill a picklist with (dates, or years, or anything like that). */
-  values: string[];
+  values: any[];
+  rawData: any[];
+  /** Fields configuration */
+  fields?: object[];
   /** Called after clicking on particular value (date, year or anything like that). */
   onValueClick: (
     e: React.SyntheticEvent<HTMLElement>,
@@ -19,13 +22,6 @@ export interface BasePicklistViewProps {
   onCellHover: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
   /** Index of a cell that should be displayed as hovered. */
   hoveredItemIndex?: number;
-  /** An array of cell positions to display as disabled. */
-  disabledItemIndexes?: number[];
-  /** An array of cell positions to display as marked. */
-  markedItemIndexes?: number[];
-  markedtipIndexes?: any;
-  /** An array of cell positions to display as marked. */
-  markColor?: SemanticCOLORS;
   /** Moment date localization */
   localization?: string;
 }
@@ -49,7 +45,8 @@ export interface RangeSelectionPicklistViewProps {
 
 export interface HeadingValueProps {
   /** A value (date, year or anything like that) that is displayed in picklist header. */
-  currentHeadingValue: string;
+  // currentHeadingValue: string;
+  columns: string[];
 }
 
 export interface PicklistWithHeaderViewProps {

@@ -58,6 +58,12 @@ export interface PicklistRelatedProps {
   format?: string;
   /** Date to display initially when no date is selected. */
   initial?: string;
+  /** Fields configuration */
+  fields?: object[];
+  /** Datasource */
+  datasource?: object[];
+  /** URL to fetch data */
+  url?: string;
 }
 
 export interface BaseInputState {

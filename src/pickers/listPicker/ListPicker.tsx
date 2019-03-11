@@ -1,6 +1,6 @@
 import React from 'react';
+import _ from 'lodash';
 import { StringTemplateEngine } from '../../lib';
-
 import PicklistView from '../../views/PicklistView';
 import {
   BasePickerOnChangeData,
@@ -39,6 +39,9 @@ class ListPicker extends SingleSelectionPicker<
       isTriggerInFocus,
       onPicklistViewMount,
       localization,
+      fields,
+      datasource,
+      url,
       ...rest
     } = this.props;
 
@@ -46,6 +49,7 @@ class ListPicker extends SingleSelectionPicker<
       <PicklistView
         {...rest}
         values={this.buildPicklistValues()}
+        rawData={this.buildPicklistValues(false)}
         hasNextPage
         hasPrevPage
         onNextPageBtnClick={null}
@@ -57,7 +61,8 @@ class ListPicker extends SingleSelectionPicker<
         hoveredItemIndex={this.state.hoveredCellPosition}
         onCellHover={this.onHoveredCellPositionChange}
         localization={localization}
-        currentHeadingValue='test'
+        fields={fields}
+        columns={this.buildPicklistHeader()}
         activeItemIndex={this.getActiveRowPosition()}
       />
     );
@@ -65,8 +70,7 @@ class ListPicker extends SingleSelectionPicker<
 
   protected getActiveRowPosition(): number {
     const { value, format } = this.props;
-    const buildValues = this.buildPicklistValues();
-    console.log('getActiveRowPosition', value || {}, buildValues || {});
+    const buildValues = this.buildPicklistValues(false);
     let active = -1;
     if (value) {
       buildValues.forEach((item, index) => {
@@ -84,32 +88,55 @@ class ListPicker extends SingleSelectionPicker<
     return active;
   }
 
-  protected buildPicklistValues(): any[] {
-    /*
-      Return array of strings like ['31', '1', ...]
-      that used to populate picklist's page.
-    */
-    // const { format, value } = this.props;
-    // console.log(
-    //   'test',
-    //   this.stringTemplateEngine.format(format, {
-    //     values: value ? JSON.parse(value) : {},
-    //   }),
-    // );
-    // return this.props.fields;
-    return [
-      { name: 'Jamie', status: 'Approved', notes: 'Requires call' },
-      { name: 'John', status: 'Selected', notes: 'None' },
-      { name: 'Jakun', status: 'Approved', notes: 'Requires call' },
-      { name: 'Jill', status: 'Approved', notes: 'None' },
-    ];
+  protected buildPicklistHeader(): string[] {
+    const { fields } = this.props;
+    const columnHeader = [];
+    fields.forEach((item) => {
+      if (item.displayFlag) {
+        columnHeader.push(item.name);
+      }
+    });
+
+    return columnHeader;
+  }
+
+  protected buildPicklistValues(filter = true): any[] {
+    const { fields, datasource, url } = this.props;
+    const result = !filter ? datasource : [];
+
+    if (!fields) {
+      return [];
+    }
+
+    const keyFields = [];
+    fields.forEach((item) => {
+      if (item.displayFlag) {
+        keyFields.push(item.model);
+      }
+    });
+
+    if (filter) {
+      if (datasource) {
+        datasource.forEach((data) => {
+          result.push(
+            _.pickBy(Object.assign(data), (value, key) => {
+              return keyFields.includes(key);
+            }),
+          );
+        });
+      } else if (url) {
+        // TODO: add URL
+        console.log('url ada neh', url);
+      }
+    }
+
+    return result;
   }
 
   protected handleChange = (
     e: React.SyntheticEvent<HTMLElement>,
     { value },
   ): void => {
-    // `value` is selected string like '31' or '1'
     const data: ListPickerOnChangeData = {
       ...this.props,
       value: {
@@ -118,7 +145,7 @@ class ListPicker extends SingleSelectionPicker<
     };
 
     this.props.onChange(e, data);
-  };
+  }
 }
 
 export default ListPicker;
