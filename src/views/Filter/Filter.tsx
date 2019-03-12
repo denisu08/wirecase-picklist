@@ -31,7 +31,7 @@ class Filter extends React.Component<FilterProps, any> {
 
     return (
       <Segment style={{ margin: '5px' }} size='tiny'>
-        {fields.map(item =>
+        {fields.map((item) =>
           item.searchFlag ? (
             <div key={`filter-${item.model}`}>
               <label style={{ fontSize: '10px' }}>{item.name}</label>

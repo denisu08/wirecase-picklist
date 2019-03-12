@@ -44,7 +44,7 @@ class PicklistView extends BasePicklistView<PicklistViewProps, any> {
 
     return (
       <Picklist
-        ref={e => (this.picklistNode = findHTMLElement(e))}
+        ref={(e) => (this.picklistNode = findHTMLElement(e))}
         outlineOnFocus={inline}
         activePage={activePage}
         pagesize={pagesize}

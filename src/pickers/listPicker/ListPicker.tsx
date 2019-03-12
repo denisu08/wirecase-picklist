@@ -140,7 +140,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
     };
 
     this.props.onChange(e, data);
-  };
+  }
 
   protected buildPicklistValues(overrideActivePage = null): any[] {
     const { fields, datasource, fetchurl, fetchkey, pagesize } = this.props;

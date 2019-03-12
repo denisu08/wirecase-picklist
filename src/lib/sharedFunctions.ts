@@ -23,7 +23,7 @@ export class StringTemplateEngine {
 
     this.tokensToReplace.map((token) => {
       string = string.replace(token, () => {
-        return eval(token.replace('{{=', '').replace('}}', ''));
+        return `${token.replace('{{=', '').replace('}}', '')}`;
       });
     });
 
