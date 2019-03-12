@@ -102,8 +102,8 @@ class PicklistForm extends React.Component {
 | ``animation`` | {string} Optional named animation event to used. Must be defined in CSS. Default: `'scale'` |
 | ``icon`` | {string\|false} icon to display inside Input. |
 | ``iconPosition`` | {'left'\|'right'} icon position inside Input. Default: 'right'. |
-| ``format`` | {'left'\|'right'} icon position inside Input. Default: 'right'. |
-| ``datasource`` | {'left'\|'right'} icon position inside Input. Default: 'right'. |
-| ``fields`` | {'left'\|'right'} icon position inside Input. Default: 'right'. |
-| ``fetchurl`` | {'left'\|'right'} icon position inside Input. Default: 'right'. |
-| ``fetchkey`` | {'left'\|'right'} icon position inside Input. Default: 'right'. |
+| ``format`` | {string} Optional format to display data in input |
+| ``datasource`` | {string} Optional static data |
+| ``fields`` | {string} fields configuration |
+| ``fetchurl`` | {string} Optional url to fetch data |
+| ``fetchkey`` | {string} Optional key to fetch data |
