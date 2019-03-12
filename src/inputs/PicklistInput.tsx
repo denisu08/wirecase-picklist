@@ -43,6 +43,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
     startMode: 'single',
     preserveViewMode: true,
     icon: 'hand lizard outline',
+    pageSize: 5,
   };
 
   public static readonly propTypes = {
@@ -141,6 +142,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       datasource,
       fields,
       url,
+      pageSize,
     } = this.props;
 
     const pickerProps = {
@@ -155,6 +157,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       onChange: this.handleSelect,
       initial: this.parseInternalValue(),
       value,
+      pageSize,
       format,
       localization,
       datasource,
@@ -163,14 +166,14 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
     };
 
     return <ListPicker {...pickerProps} />;
-  };
+  }
 
   private onFocus = (): void => {
     const { preserveViewMode, startMode } = this.props;
     if (!preserveViewMode) {
       this.setState({ mode: startMode });
     }
-  };
+  }
 
   private handleSelect = (e, { value }: BasePickerOnChangeData) => {
     this.closePopup();
@@ -188,7 +191,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
     return {
       valueText: `${dataFormatted}`,
     };
-  };
+  }
 
   /** Keeps internal state in sync with input field value. */
   private onInputValueChange = (e, { value }) => {
@@ -203,7 +206,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       });
     }
     invoke(this.props, 'onChange', e, { ...this.props, value: valueFormatted });
-  };
+  }
 }
 
 export default PicklistInput;

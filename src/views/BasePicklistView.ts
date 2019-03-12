@@ -24,23 +24,19 @@ export interface BasePicklistViewProps {
   hoveredItemIndex?: number;
   /** Moment date localization */
   localization?: string;
+  /** handle change pagination */
+  handlepagechange: (data?: any) => void;
+  /** handle filter change */
+  filterchange: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
 }
 
 export interface SingleSelectionPicklistViewProps {
   /** Position of a cell to display as active. */
   activeItemIndex?: number;
-}
-
-export interface RangeIndexes {
-  start: number | undefined;
-  end: number | undefined;
-}
-
-export interface RangeSelectionPicklistViewProps {
-  /** Currently selected range value (from - to) that is displayed in picklist header. */
-  currentRangeHeadingValue: string;
-  /** Indexes of start and end values of currently selected range (to display as active). */
-  activeRange: RangeIndexes;
+  /** Position of a page to display as active. */
+  activePage?: number;
+  /** Position of a page to display as total page. */
+  pageSize?: number;
 }
 
 export interface HeadingValueProps {

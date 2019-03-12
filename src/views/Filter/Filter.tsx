@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Button, Form, Item } from 'semantic-ui-react';
+import invoke from 'lodash/invoke';
 const buttonStyle = {
   display: 'flex',
   justifyContent: 'center',
@@ -11,31 +12,67 @@ const buttonStyle = {
 export interface FilterProps {
   /** Fields configuration */
   fields?: any[];
+  /** handle filter change */
+  filterchange: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
 }
 
-function Filter(props: FilterProps) {
-  const { fields } = props;
+class Filter extends React.Component<FilterProps, any> {
+  constructor(props) {
+    super(props);
+    this.handleValueChange = this.handleValueChange.bind(this);
+    this.handleFilterChange = this.handleFilterChange.bind(this);
+    this.state = {
+      data: {},
+    };
+  }
 
-  return (
-    <Form style={{ margin: '5px' }} size='tiny'>
-      {fields.map((item) =>
-        item.searchFlag ? (
-          <Form.Field>
-            <label>{item.name}</label>
-            <input placeholder={Item.name} id={item.model} />
-          </Form.Field>
-        ) : (
-          ''
-        ),
-      )}
+  public render() {
+    const { fields } = this.props;
 
-      <Form.Field style={buttonStyle}>
-        <Button type='button' fluid size='tiny' primary>
-          Search
-        </Button>
-      </Form.Field>
-    </Form>
-  );
+    return (
+      <Form style={{ margin: '5px' }} size='tiny'>
+        {fields.map((item) =>
+          item.searchFlag ? (
+            <Form.Field key={`filter-${item.model}`}>
+              <label>{item.name}</label>
+              <input
+                placeholder={item.name}
+                id={item.model}
+                onChange={this.handleValueChange}
+              />
+            </Form.Field>
+          ) : (
+            ''
+          ),
+        )}
+
+        <Form.Field style={buttonStyle}>
+          <Button
+            type='button'
+            fluid
+            size='tiny'
+            primary
+            onClick={this.handleFilterChange}
+          >
+            Search
+          </Button>
+        </Form.Field>
+      </Form>
+    );
+  }
+  protected handleValueChange(e) {
+    const target = e.currentTarget;
+    this.setState({
+      data: Object.assign(this.state.data, { [target.id]: target.value }),
+    });
+  }
+
+  protected handleFilterChange(e) {
+    invoke(this.props, 'filterchange', e, {
+      ...this.props,
+      value: this.state.data,
+    });
+  }
 }
 
 export default Filter;

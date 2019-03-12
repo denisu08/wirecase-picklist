@@ -27,6 +27,18 @@ class ListPicker extends SingleSelectionPicker<
     super(props);
     this.PAGE_WIDTH = PAGE_WIDTH;
     this.stringTemplateEngine = new StringTemplateEngine();
+    this.handlePaginationChange = this.handlePaginationChange.bind(this);
+    this.filterChange = this.filterChange.bind(this);
+
+    this.setState({
+      allData: [],
+      listData: [],
+      totalPage: 0,
+    });
+  }
+
+  public componentDidMount() {
+    this.buildPicklistValues();
   }
 
   public render() {
@@ -41,15 +53,17 @@ class ListPicker extends SingleSelectionPicker<
       localization,
       fields,
       datasource,
+      pageSize,
       url,
       ...rest
     } = this.props;
+    const { activePage, totalPage, allData, listData } = this.state;
 
     return (
       <PicklistView
         {...rest}
-        values={this.buildPicklistValues()}
-        rawData={this.buildPicklistValues(false)}
+        values={listData}
+        rawData={allData}
         hasNextPage
         hasPrevPage
         onNextPageBtnClick={null}
@@ -64,16 +78,20 @@ class ListPicker extends SingleSelectionPicker<
         fields={fields}
         columns={this.buildPicklistHeader()}
         activeItemIndex={this.getActiveRowPosition()}
+        activePage={activePage}
+        pageSize={totalPage}
+        handlepagechange={this.handlePaginationChange}
+        filterchange={this.filterChange}
       />
     );
   }
 
   protected getActiveRowPosition(): number {
     const { value, format } = this.props;
-    const buildValues = this.buildPicklistValues(false);
+    const { listData } = this.state;
     let active = -1;
-    if (value) {
-      buildValues.forEach((item, index) => {
+    if (value && listData) {
+      listData.forEach((item, index) => {
         if (active === -1) {
           const dataFormatted = this.stringTemplateEngine.format(format, {
             values: item || {},
@@ -88,6 +106,14 @@ class ListPicker extends SingleSelectionPicker<
     return active;
   }
 
+  /** Keeps internal state in sync with input field value. */
+  protected handlePaginationChange(
+    e?: React.SyntheticEvent<HTMLElement>,
+    data?: any,
+  ) {
+    this.buildPicklistValues(data.value);
+  }
+
   protected buildPicklistHeader(): string[] {
     const { fields } = this.props;
     const columnHeader = [];
@@ -100,37 +126,14 @@ class ListPicker extends SingleSelectionPicker<
     return columnHeader;
   }
 
-  protected buildPicklistValues(filter = true): any[] {
-    const { fields, datasource, url } = this.props;
-    const result = !filter ? datasource : [];
-
-    if (!fields) {
-      return [];
-    }
-
-    const keyFields = [];
-    fields.forEach((item) => {
-      if (item.displayFlag) {
-        keyFields.push(item.model);
-      }
+  protected filterChange(
+    e: React.SyntheticEvent<HTMLElement>,
+    data: any,
+  ): void {
+    this.setState({
+      filterParam: data.value,
     });
-
-    if (filter) {
-      if (datasource) {
-        datasource.forEach((data) => {
-          result.push(
-            _.pickBy(Object.assign(data), (value, key) => {
-              return keyFields.includes(key);
-            }),
-          );
-        });
-      } else if (url) {
-        // TODO: add URL
-        console.log('url ada neh', url);
-      }
-    }
-
-    return result;
+    this.buildPicklistValues();
   }
 
   protected handleChange = (
@@ -145,6 +148,69 @@ class ListPicker extends SingleSelectionPicker<
     };
 
     this.props.onChange(e, data);
+  }
+
+  protected buildPicklistValues(overrideActivePage = null): any[] {
+    const { fields, datasource, url, pageSize } = this.props;
+    const { activePage, filterParam } = this.state;
+    const result = [];
+    const currentPage = (overrideActivePage || (activePage || 1)) - 1;
+
+    if (!fields) {
+      return [];
+    }
+
+    const keyFields = [];
+    fields.forEach((item) => {
+      if (item.displayFlag) {
+        keyFields.push(item.model);
+      }
+    });
+
+    // chop based on page
+    if (datasource) {
+      let sliceData = datasource;
+      if (filterParam && !_.isEmpty(filterParam)) {
+        sliceData = datasource.filter((el) => {
+          let gotIt = true;
+          Object.keys(filterParam).forEach((key) => {
+            if (!gotIt || !_.get(filterParam, key)) {
+              return;
+            }
+            gotIt = _.get(el, key).indexOf(_.get(filterParam, key)) >= 0;
+          });
+
+          return gotIt;
+        });
+      }
+
+      const totalPage = Math.ceil(sliceData.length / pageSize);
+
+      sliceData = sliceData.slice(
+        pageSize * currentPage,
+        pageSize * currentPage + pageSize,
+      );
+
+      sliceData.forEach((data) => {
+        result.push(
+          _.pickBy(Object.assign(data), (value, key) => {
+            return keyFields.includes(key);
+          }),
+        );
+      });
+
+      this.setState({
+        activePage: currentPage + 1,
+        allData: datasource,
+        listData: result,
+        totalPage,
+      });
+    } else if (url) {
+      // TODO: add URL
+      console.log('url ada neh', url);
+    }
+
+    return result;
   }
 }
 

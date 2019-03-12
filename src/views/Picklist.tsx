@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table, Pagination, Segment } from 'semantic-ui-react';
 import { Filter } from './Filter';
+import invoke from 'lodash/invoke';
 
 // interface PickerStyle {
 //   [key: string]: any;
@@ -19,6 +20,13 @@ interface PicklistProps {
   pickerStyle?: object;
   /** Fields configuration */
   fields?: object[];
+  /** Position of a page to display as active. */
+  activePage?: number;
+  /** Position of a page to display as total page. */
+  pageSize?: number;
+  handlepagechange: (e?: React.SyntheticEvent<HTMLElement>, data?: any) => void;
+  /** handle filter change */
+  filterchange: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
 }
 
 // const rowBtnStyle = {
@@ -49,8 +57,11 @@ class Picklist extends React.Component<PicklistProps, any> {
 
   public handlePaginationChange(e, data) {
     const { activePage } = data;
-    console.log('activePage', activePage);
     this.setState({ activePage });
+    invoke(this.props, 'handlepagechange', e, {
+      ...this.props,
+      value: activePage,
+    });
   }
 
   public render() {
@@ -60,10 +71,14 @@ class Picklist extends React.Component<PicklistProps, any> {
       pickerWidth,
       pickerStyle,
       fields,
+      activePage,
+      pageSize,
+      filterchange,
       ...rest
     } = this.props;
 
     const style = {
+      margin: '0px',
       width: pickerWidth,
       minWidth: '22em',
       // Prevent poped up picker from beeing outlined on focus.
@@ -72,22 +87,13 @@ class Picklist extends React.Component<PicklistProps, any> {
       ...pickerStyle,
     };
 
-    const {
-      activePage,
-      boundaryRange,
-      siblingRange,
-      showEllipsis,
-      showFirstAndLastNav,
-      showPreviousAndNextNav,
-      totalPages,
-    } = this.state;
-
     return (
       <div>
-        <Filter fields={fields} />
+        <Filter fields={fields} filterchange={filterchange} />
         <Table
           style={style}
           unstackable
+          compact
           celled
           {...rest}
           textAlign='center'
@@ -96,18 +102,18 @@ class Picklist extends React.Component<PicklistProps, any> {
         >
           {children}
         </Table>
-        <div style={{ textAlign: 'right', margin: '0 10px 10px 0' }}>
+        <div style={{ textAlign: 'center', margin: '5px' }}>
           <Pagination
             onPageChange={this.handlePaginationChange}
-            size='mini'
-            totalPages={totalPages}
-            prevItem={showPreviousAndNextNav ? undefined : null}
-            nextItem={showPreviousAndNextNav ? undefined : null}
+            totalPages={pageSize}
+            prevItem={undefined}
+            nextItem={undefined}
+            firstItem={undefined}
+            lastItem={undefined}
             boundaryRange={0}
+            activePage={activePage}
             defaultActivePage={1}
             ellipsisItem={null}
-            firstItem={showFirstAndLastNav ? undefined : null}
-            lastItem={showFirstAndLastNav ? undefined : null}
             siblingRange={1}
           />
         </div>

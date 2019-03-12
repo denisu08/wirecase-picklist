@@ -31,10 +31,11 @@ interface BodyProps {
 class Body extends React.Component<BodyProps, any> {
   public render() {
     const { data, active } = this.props;
+    const rawData = data || [];
 
     return (
       <Table.Body>
-        {data.map((item, rowIndex) => (
+        {rawData.map((item, rowIndex) => (
           <Table.Row
             key={`${rowIndex}`}
             id={`${rowIndex}`}
@@ -43,7 +44,7 @@ class Body extends React.Component<BodyProps, any> {
             onMouseOver={this.onCellHover}
             active={isActive(rowIndex, active)}
           >
-            {Object.keys(item).map(key => (
+            {Object.keys(item).map((key) => (
               <Table.Cell id={key} key={key}>
                 {item[key]}
               </Table.Cell>
@@ -54,25 +55,22 @@ class Body extends React.Component<BodyProps, any> {
     );
   }
 
-  private onCellClick = event => {
+  private onCellClick = (event) => {
     const itemPosition = event.currentTarget.id;
     const { rawData } = this.props;
     const content = rawData[itemPosition];
-    // const { cells } = event.currentTarget;
-    // for (const cell of cells) {
-    //   content[cell.id] = cell.textContent;
-    // }
+
     invoke(this.props, 'onCellClick', event, {
       ...this.props,
       itemPosition,
       value: content,
     });
-  };
+  }
 
-  private onCellHover = event => {
+  private onCellHover = (event) => {
     const itemPosition = event.currentTarget.id;
     invoke(this.props, 'onCellHover', event, { ...this.props, itemPosition });
-  };
+  }
 }
 
 function isActive(rowIndex: number, active: number | number[]): boolean {

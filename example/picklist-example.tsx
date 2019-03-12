@@ -11,12 +11,21 @@ const defaultState = {
   pick1: '',
   pick2: '',
   pick3: '',
-  format: '{{name}} - {{notes}}',
+  format: '{{name}}, {{notes}}',
   datasource: [
     { name: 'Jamie', status: 'Approved', notes: 'Requires call' },
     { name: 'John', status: 'Selected', notes: 'None' },
     { name: 'Jakun', status: 'Approved', notes: 'Requires call' },
-    { name: 'Jill', status: 'Approved', notes: 'None' },
+    { name: 'Jill', status: 'Rejected', notes: 'None' },
+    { name: 'Blown', status: 'Approved', notes: 'Requires call' },
+    { name: 'Googie', status: 'Selected', notes: 'Requires call' },
+    { name: 'Pawn', status: 'Selected', notes: 'None' },
+    { name: 'Sessy', status: 'Approved', notes: 'Requires call' },
+    { name: 'Poland', status: 'Rejected', notes: 'None' },
+    { name: 'Kung', status: 'Approved', notes: 'Requires call' },
+    { name: 'Jing', status: 'Rejected', notes: 'None' },
+    { name: 'Mindel', status: 'Approved', notes: 'Requires call' },
+    { name: 'Plotty', status: 'Selected', notes: 'None' },
   ],
   fields: [
     {
@@ -24,14 +33,14 @@ const defaultState = {
       name: 'Name',
       type: 'string',
       searchFlag: true,
-      displayFlag: false,
+      displayFlag: true,
     },
     {
       model: 'status',
       name: 'Status',
       type: 'string',
-      searchFlag: false,
-      displayFlag: true,
+      searchFlag: true,
+      displayFlag: false,
     },
     {
       model: 'notes',
@@ -154,7 +163,7 @@ class DateTimeForm extends React.Component<any, any> {
     if (this.state.hasOwnProperty(name)) {
       this.setState({ [name]: value });
     }
-  };
+  }
 }
 
 class DateTimeFormInline extends React.Component<any, any> {
@@ -191,7 +200,7 @@ class DateTimeFormInline extends React.Component<any, any> {
     if (this.state.hasOwnProperty(name)) {
       this.setState({ [name]: value });
     }
-  };
+  }
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));

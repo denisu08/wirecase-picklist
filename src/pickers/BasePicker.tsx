@@ -47,6 +47,7 @@ export interface BasePickerProps {
   tabIndex?: string;
   pickerWidth?: string;
   pickerStyle?: object;
+  pageSize?: number;
 }
 
 export interface OptionalHeaderProps {
@@ -91,7 +92,7 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
     this.setState({
       hoveredCellPosition: itemPosition,
     });
-  };
+  }
 
   protected canPicklistCatchKeyboardEvents = (): boolean => {
     if (this.props.inline) {
@@ -99,7 +100,7 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
     }
 
     return this.props.isTriggerInFocus();
-  };
+  }
 
   protected handleKeyPress = (event: KeyboardEvent): void => {
     if (!this.canPicklistCatchKeyboardEvents()) {
@@ -117,7 +118,7 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
       default:
         this.handleArrowKeyPress(event);
     }
-  };
+  }
 
   protected handleEnterKeyPress = (event: KeyboardEvent): void => {
     const key = keyboardKey.getKey(event);
@@ -131,11 +132,11 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
         itemPosition: this.state.hoveredCellPosition,
       });
     }
-  };
+  }
 
   protected handleBlur = (): void => {
     this.props.closePopup();
-  };
+  }
 
   protected handleArrowKeyPress = (event: KeyboardEvent): void => {
     if (!this.canPicklistCatchKeyboardEvents()) {
@@ -215,7 +216,7 @@ abstract class BasePicker<P extends BasePickerProps> extends React.Component<
       default:
         break;
     }
-  };
+  }
 
   /** Return a position of a value (date, year, month ...) with wich a picklist was initialized. */
   // protected abstract getInitialDatePosition(): number;
