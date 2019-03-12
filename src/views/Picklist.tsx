@@ -23,7 +23,7 @@ interface PicklistProps {
   /** Position of a page to display as active. */
   activePage?: number;
   /** Position of a page to display as total page. */
-  pageSize?: number;
+  pagesize?: number;
   handlepagechange: (e?: React.SyntheticEvent<HTMLElement>, data?: any) => void;
   /** handle filter change */
   filterchange: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
@@ -72,7 +72,7 @@ class Picklist extends React.Component<PicklistProps, any> {
       pickerStyle,
       fields,
       activePage,
-      pageSize,
+      pagesize,
       filterchange,
       ...rest
     } = this.props;
@@ -105,13 +105,12 @@ class Picklist extends React.Component<PicklistProps, any> {
         <div style={{ textAlign: 'center', margin: '5px' }}>
           <Pagination
             onPageChange={this.handlePaginationChange}
-            totalPages={pageSize}
+            totalPages={pagesize || 0}
             prevItem={undefined}
             nextItem={undefined}
             firstItem={undefined}
             lastItem={undefined}
             boundaryRange={0}
-            activePage={activePage}
             defaultActivePage={1}
             ellipsisItem={null}
             siblingRange={1}

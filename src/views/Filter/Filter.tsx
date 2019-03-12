@@ -1,11 +1,12 @@
 // import isNil from 'lodash/isNil';
 
 import React from 'react';
-import { Button, Form, Item } from 'semantic-ui-react';
+import { Button, Form, Input, Segment } from 'semantic-ui-react';
 import invoke from 'lodash/invoke';
 const buttonStyle = {
   display: 'flex',
   justifyContent: 'center',
+  marginTop: '5px',
 };
 
 // import { BodyWidth } from '../Body/Body';
@@ -17,36 +18,36 @@ export interface FilterProps {
 }
 
 class Filter extends React.Component<FilterProps, any> {
+  public state = { data: {} };
+
   constructor(props) {
     super(props);
     this.handleValueChange = this.handleValueChange.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
-    this.state = {
-      data: {},
-    };
   }
 
   public render() {
     const { fields } = this.props;
 
     return (
-      <Form style={{ margin: '5px' }} size='tiny'>
+      <Segment style={{ margin: '5px' }} size='tiny'>
         {fields.map((item) =>
           item.searchFlag ? (
-            <Form.Field key={`filter-${item.model}`}>
+            <div key={`filter-${item.model}`}>
               <label>{item.name}</label>
-              <input
+              <Input
+                fluid
                 placeholder={item.name}
                 id={item.model}
                 onChange={this.handleValueChange}
               />
-            </Form.Field>
+            </div>
           ) : (
             ''
           ),
         )}
 
-        <Form.Field style={buttonStyle}>
+        <div style={buttonStyle}>
           <Button
             type='button'
             fluid
@@ -56,8 +57,8 @@ class Filter extends React.Component<FilterProps, any> {
           >
             Search
           </Button>
-        </Form.Field>
-      </Form>
+        </div>
+      </Segment>
     );
   }
   protected handleValueChange(e) {

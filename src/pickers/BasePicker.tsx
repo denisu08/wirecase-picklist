@@ -47,7 +47,7 @@ export interface BasePickerProps {
   tabIndex?: string;
   pickerWidth?: string;
   pickerStyle?: object;
-  pageSize?: number;
+  pagesize?: number;
 }
 
 export interface OptionalHeaderProps {
@@ -240,7 +240,14 @@ export abstract class SingleSelectionPicker<
     // this.setState({
     //   hoveredCellPosition: isNumber(active)
     //     ? active
-    //     : this.getInitialDatePosition()
+    //     : this.getInitialDatePosition(),
+    // });
+
+    // this.setState({
+    //   allData: [],
+    //   listData: [],
+    //   totalPage: 0,
+    //   activePage: 1,
     // });
   }
 

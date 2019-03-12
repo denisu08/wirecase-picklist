@@ -25,7 +25,7 @@ export interface BasePicklistViewProps {
   /** Moment date localization */
   localization?: string;
   /** handle change pagination */
-  handlepagechange: (data?: any) => void;
+  handlepagechange: (e?: React.SyntheticEvent<HTMLElement>, data?: any) => void;
   /** handle filter change */
   filterchange: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
 }
@@ -36,7 +36,7 @@ export interface SingleSelectionPicklistViewProps {
   /** Position of a page to display as active. */
   activePage?: number;
   /** Position of a page to display as total page. */
-  pageSize?: number;
+  pagesize?: number;
 }
 
 export interface HeadingValueProps {

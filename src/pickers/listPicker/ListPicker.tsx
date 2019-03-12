@@ -18,9 +18,7 @@ export interface ListPickerOnChangeData extends BasePickerOnChangeData {
 
 type ListPickerProps = BasePickerProps;
 
-class ListPicker extends SingleSelectionPicker<
-  ListPickerProps
-> /* implements ProvideHeadingValue */ {
+class ListPicker extends SingleSelectionPicker<ListPickerProps> {
   private stringTemplateEngine: StringTemplateEngine;
 
   constructor(props) {
@@ -29,12 +27,6 @@ class ListPicker extends SingleSelectionPicker<
     this.stringTemplateEngine = new StringTemplateEngine();
     this.handlePaginationChange = this.handlePaginationChange.bind(this);
     this.filterChange = this.filterChange.bind(this);
-
-    this.setState({
-      allData: [],
-      listData: [],
-      totalPage: 0,
-    });
   }
 
   public componentDidMount() {
@@ -53,17 +45,18 @@ class ListPicker extends SingleSelectionPicker<
       localization,
       fields,
       datasource,
-      pageSize,
+      pagesize,
       url,
       ...rest
     } = this.props;
+
     const { activePage, totalPage, allData, listData } = this.state;
 
     return (
       <PicklistView
         {...rest}
-        values={listData}
-        rawData={allData}
+        values={listData || []}
+        rawData={allData || []}
         hasNextPage
         hasPrevPage
         onNextPageBtnClick={null}
@@ -78,8 +71,8 @@ class ListPicker extends SingleSelectionPicker<
         fields={fields}
         columns={this.buildPicklistHeader()}
         activeItemIndex={this.getActiveRowPosition()}
-        activePage={activePage}
-        pageSize={totalPage}
+        activePage={activePage || 1}
+        pagesize={totalPage || 0}
         handlepagechange={this.handlePaginationChange}
         filterchange={this.filterChange}
       />
@@ -151,7 +144,7 @@ class ListPicker extends SingleSelectionPicker<
   }
 
   protected buildPicklistValues(overrideActivePage = null): any[] {
-    const { fields, datasource, url, pageSize } = this.props;
+    const { fields, datasource, url, pagesize } = this.props;
     const { activePage, filterParam } = this.state;
     const result = [];
     const currentPage = (overrideActivePage || (activePage || 1)) - 1;
@@ -184,11 +177,11 @@ class ListPicker extends SingleSelectionPicker<
         });
       }
 
-      const totalPage = Math.ceil(sliceData.length / pageSize);
+      const totalPage = Math.ceil(sliceData.length / pagesize);
 
       sliceData = sliceData.slice(
-        pageSize * currentPage,
-        pageSize * currentPage + pageSize,
+        pagesize * currentPage,
+        pagesize * currentPage + pagesize,
       );
 
       sliceData.forEach((data) => {

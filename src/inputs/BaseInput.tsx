@@ -52,7 +52,7 @@ export interface BaseInputProps {
   animation?: SemanticTRANSITIONS;
   /** picklist localization. */
   localization?: string;
-  pageSize?: number;
+  pagesize?: number;
 }
 export interface PicklistRelatedProps {
   /** Picklist formatting string. */
