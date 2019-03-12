@@ -21,7 +21,7 @@ export class StringTemplateEngine {
   private evaluateString(string, options) {
     this.tokensToReplace = string.match(new RegExp(/({{=[^}]*}})/g)) || [];
 
-    this.tokensToReplace.map(token => {
+    this.tokensToReplace.map((token) => {
       string = string.replace(token, () => {
         return eval(token.replace('{{=', '').replace('}}', ''));
       });
@@ -36,7 +36,7 @@ export class StringTemplateEngine {
     this.tokensToReplace =
       string.match(new RegExp(/({{[ ]*[^}.]+[ ]*}})/g)) || [];
 
-    this.tokensToReplace.map(token => {
+    this.tokensToReplace.map((token) => {
       string = string.replace(
         token,
         this.values[
@@ -57,7 +57,7 @@ export class StringTemplateEngine {
     this.tokensToReplace =
       string.match(new RegExp(/({{[ ]*[0-9]+[ ]*}})/g)) || [];
 
-    this.tokensToReplace.map(token => {
+    this.tokensToReplace.map((token) => {
       string = string.replace(
         token,
         this.array[

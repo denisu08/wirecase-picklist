@@ -46,7 +46,6 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
       fields,
       datasource,
       pagesize,
-      url,
       ...rest
     } = this.props;
 
@@ -81,10 +80,10 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
 
   protected getActiveRowPosition(): number {
     const { value, format } = this.props;
-    const { listData } = this.state;
+    const { allData } = this.state;
     let active = -1;
-    if (value && listData) {
-      listData.forEach((item, index) => {
+    if (value && allData) {
+      allData.forEach((item, index) => {
         if (active === -1) {
           const dataFormatted = this.stringTemplateEngine.format(format, {
             values: item || {},
@@ -141,10 +140,10 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
     };
 
     this.props.onChange(e, data);
-  }
+  };
 
   protected buildPicklistValues(overrideActivePage = null): any[] {
-    const { fields, datasource, url, pagesize } = this.props;
+    const { fields, datasource, fetchurl, fetchkey, pagesize } = this.props;
     const { activePage, filterParam } = this.state;
     const result = [];
     const currentPage = (overrideActivePage || (activePage || 1)) - 1;
@@ -161,7 +160,35 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
     });
 
     // chop based on page
-    if (datasource) {
+    if (fetchurl) {
+      const urlReplaced = this.stringTemplateEngine.format(fetchurl, {
+        values: Object.assign(filterParam || {}, {
+          activePage: currentPage,
+          pagesize,
+        }),
+      });
+
+      fetch(urlReplaced)
+        .then((response) => response.json())
+        .then((res) => {
+          const totalPage = res[fetchkey.totalPage];
+          const allData = res[fetchkey.data];
+          allData.forEach((data) => {
+            result.push(
+              _.pickBy(Object.assign(data), (value, key) => {
+                return keyFields.includes(key);
+              }),
+            );
+          });
+
+          this.setState({
+            activePage: currentPage + 1,
+            totalPage,
+            allData,
+            listData: result,
+          });
+        });
+    } else if (datasource) {
       let sliceData = datasource;
       if (filterParam && !_.isEmpty(filterParam)) {
         sliceData = datasource.filter((el) => {
@@ -198,9 +225,6 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
         listData: result,
         totalPage,
       });
-    } else if (url) {
-      // TODO: add URL
-      console.log('url ada neh', url);
     }
 
     return result;

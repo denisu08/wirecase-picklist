@@ -29,7 +29,8 @@ export interface BasePickerProps {
   /** Field Configuration. */
   fields?: any[];
   /** URL to fetch data */
-  url?: string;
+  fetchurl?: string;
+  fetchkey?: any;
   /** A value for initializing day picker's state. */
   initial: string;
   /** Forse popup to close. */

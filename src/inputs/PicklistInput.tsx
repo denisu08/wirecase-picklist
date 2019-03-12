@@ -98,7 +98,8 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       format,
       fields,
       datasource,
-      url,
+      fetchkey,
+      fetchurl,
       initial,
       preserveViewMode,
       startMode,
@@ -121,7 +122,8 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
         value={picklistValueToString(value, format, localization)}
         fields={fields}
         datasource={datasource}
-        url={url}
+        fetchurl={fetchurl}
+        fetchkey={fetchkey}
       />
     );
   }
@@ -141,7 +143,8 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       pickerStyle,
       datasource,
       fields,
-      url,
+      fetchurl,
+      fetchkey,
       pagesize,
     } = this.props;
 
@@ -162,18 +165,19 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       localization,
       datasource,
       fields,
-      url,
+      fetchurl,
+      fetchkey,
     };
 
     return <ListPicker {...pickerProps} />;
-  }
+  };
 
   private onFocus = (): void => {
     const { preserveViewMode, startMode } = this.props;
     if (!preserveViewMode) {
       this.setState({ mode: startMode });
     }
-  }
+  };
 
   private handleSelect = (e, { value }: BasePickerOnChangeData) => {
     this.closePopup();
@@ -191,7 +195,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
     return {
       valueText: `${dataFormatted}`,
     };
-  }
+  };
 
   /** Keeps internal state in sync with input field value. */
   private onInputValueChange = (e, { value }) => {
@@ -206,7 +210,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       });
     }
     invoke(this.props, 'onChange', e, { ...this.props, value: valueFormatted });
-  }
+  };
 }
 
 export default PicklistInput;

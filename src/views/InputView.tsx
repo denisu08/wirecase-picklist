@@ -113,7 +113,8 @@ interface InputViewProps {
   /** Datasource */
   datasource?: object[];
   /** URL to fetch data */
-  url?: string;
+  fetchurl?: string;
+  fetchkey?: any;
 }
 
 class InputView extends React.Component<InputViewProps, any> {
@@ -140,7 +141,7 @@ class InputView extends React.Component<InputViewProps, any> {
       value,
       fields,
       datasource,
-      url,
+      fetchurl,
       closeOnMouseLeave,
       onChange,
       onClear,

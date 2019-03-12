@@ -33,44 +33,54 @@ class Body extends React.Component<BodyProps, any> {
     const { data, active } = this.props;
     const rawData = data || [];
 
-    return (
-      <Table.Body>
-        {rawData.map((item, rowIndex) => (
-          <Table.Row
-            key={`${rowIndex}`}
-            id={`${rowIndex}`}
-            style={rowBtnStyle}
-            onClick={this.onCellClick}
-            onMouseOver={this.onCellHover}
-            active={isActive(rowIndex, active)}
-          >
-            {Object.keys(item).map((key) => (
-              <Table.Cell id={key} key={key}>
-                {item[key]}
-              </Table.Cell>
-            ))}
-          </Table.Row>
-        ))}
-      </Table.Body>
-    );
+    if (rawData && rawData.length) {
+      return (
+        <Table.Body>
+          {rawData.map((item, rowIndex) => (
+            <Table.Row
+              key={`${rowIndex}`}
+              id={`${rowIndex}`}
+              style={rowBtnStyle}
+              onClick={this.onCellClick}
+              onMouseOver={this.onCellHover}
+              active={isActive(rowIndex, active)}
+            >
+              {Object.keys(item).map(key => (
+                <Table.Cell id={key} key={key}>
+                  {item[key]}
+                </Table.Cell>
+              ))}
+            </Table.Row>
+          ))}
+        </Table.Body>
+      );
+    } else {
+      return <Table.Body />;
+    }
   }
 
-  private onCellClick = (event) => {
+  private onCellClick = event => {
     const itemPosition = event.currentTarget.id;
     const { rawData } = this.props;
-    const content = rawData[itemPosition];
+
+    let content;
+    if (rawData && rawData.length) {
+      content = rawData[itemPosition];
+    } else {
+      content = rawData[itemPosition];
+    }
 
     invoke(this.props, 'onCellClick', event, {
       ...this.props,
       itemPosition,
       value: content,
     });
-  }
+  };
 
-  private onCellHover = (event) => {
+  private onCellHover = event => {
     const itemPosition = event.currentTarget.id;
     invoke(this.props, 'onCellHover', event, { ...this.props, itemPosition });
-  }
+  };
 }
 
 function isActive(rowIndex: number, active: number | number[]): boolean {

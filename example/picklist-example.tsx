@@ -11,7 +11,10 @@ const defaultState = {
   pick1: '',
   pick2: '',
   pick3: '',
-  format: '{{name}}, {{notes}}',
+  format: '{{url}}, {{author}}',
+  fetchurl:
+    'https://hn.algolia.com/api/v1/search?query={{author}}&page={{activePage}}&hitsPerPage={{pagesize}}',
+  fetchkey: { totalPage: 'nbPages', currentPage: 'page', data: 'hits' },
   datasource: [
     { name: 'Jamie', status: 'Approved', notes: 'Requires call' },
     { name: 'John', status: 'Selected', notes: 'None' },
@@ -29,22 +32,22 @@ const defaultState = {
   ],
   fields: [
     {
-      model: 'name',
-      name: 'Name',
+      model: 'title',
+      name: 'Title',
       type: 'string',
       searchFlag: true,
       displayFlag: true,
     },
     {
-      model: 'status',
-      name: 'Status',
+      model: 'url',
+      name: 'URL',
       type: 'string',
       searchFlag: true,
       displayFlag: false,
     },
     {
-      model: 'notes',
-      name: 'Notes',
+      model: 'author',
+      name: 'Author',
       type: 'string',
       searchFlag: false,
       displayFlag: true,
@@ -106,7 +109,8 @@ class DateTimeForm extends React.Component<any, any> {
       format,
       datasource,
       fields,
-      url,
+      fetchurl,
+      fetchkey,
     } = this.state;
 
     return (
@@ -129,7 +133,8 @@ class DateTimeForm extends React.Component<any, any> {
           format={format}
           datasource={datasource}
           fields={fields}
-          url={url}
+          fetchurl={fetchurl}
+          fetchkey={fetchkey}
         />
         <br />
         <PicklistInput
@@ -150,7 +155,8 @@ class DateTimeForm extends React.Component<any, any> {
           format={format}
           datasource={datasource}
           fields={fields}
-          url={url}
+          fetchurl={fetchurl}
+          fetchkey={fetchkey}
         />
       </Form>
     );
@@ -163,7 +169,7 @@ class DateTimeForm extends React.Component<any, any> {
     if (this.state.hasOwnProperty(name)) {
       this.setState({ [name]: value });
     }
-  }
+  };
 }
 
 class DateTimeFormInline extends React.Component<any, any> {
@@ -174,7 +180,14 @@ class DateTimeFormInline extends React.Component<any, any> {
   }
 
   public render() {
-    const { format, datasource, fields, url, pick3: pick3Value } = this.state;
+    const {
+      format,
+      datasource,
+      fields,
+      fetchkey,
+      fetchurl,
+      pick3: pick3Value,
+    } = this.state;
 
     return (
       <Form>
@@ -187,7 +200,8 @@ class DateTimeFormInline extends React.Component<any, any> {
           format={format}
           datasource={datasource}
           fields={fields}
-          url={url}
+          fetchurl={fetchurl}
+          fetchkey={fetchkey}
         />
       </Form>
     );
@@ -200,7 +214,7 @@ class DateTimeFormInline extends React.Component<any, any> {
     if (this.state.hasOwnProperty(name)) {
       this.setState({ [name]: value });
     }
-  }
+  };
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
