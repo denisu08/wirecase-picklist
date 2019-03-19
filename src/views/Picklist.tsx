@@ -55,7 +55,7 @@ class Picklist extends React.Component<PicklistProps, any> {
     this.handlePaginationChange = this.handlePaginationChange.bind(this);
   }
 
-  public handlePaginationChange(e, data) {
+  public handlePaginationChange(e?: React.SyntheticEvent<HTMLElement>, data?: any) {
     const { activePage } = data;
     this.setState({ activePage });
     invoke(this.props, 'handlepagechange', e, {

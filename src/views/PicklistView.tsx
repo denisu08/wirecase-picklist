@@ -48,7 +48,7 @@ class PicklistView extends BasePicklistView<PicklistViewProps, any> {
         outlineOnFocus={inline}
         activePage={activePage}
         pagesize={pagesize}
-        handlepagechange={handlepagechange}
+        handlepagechange={(e, data) => handlepagechange(e, data)}
         filterchange={filterchange}
         {...rest}
       >
