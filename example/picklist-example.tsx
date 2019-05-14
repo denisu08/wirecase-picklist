@@ -210,8 +210,9 @@ class DateTimeForm extends React.Component<any, any> {
 
   private handleChange = (
     event: React.SyntheticEvent,
-    { name, value }: DateTimeFormHandleChangeData,
+    { name, value, rowData }: DateTimeFormHandleChangeData,
   ) => {
+    console.log('rowData', rowData);
     if (this.state.hasOwnProperty(name)) {
       this.setState({ [name]: value });
     }
