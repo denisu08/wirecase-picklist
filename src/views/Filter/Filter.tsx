@@ -76,10 +76,10 @@ class Filter extends React.Component<FilterProps, any> {
           checked={data[item.model] ? data[item.model].includes(f.value) : false}
           name={item.model} onChange={this.handleValueChange} label={f.text}></Checkbox>));
       case 'dropdown':
-        return <Dropdown fluid placeholder={item.name} id={item.model} selection style={{ marginRight: '10px' }}
+        return <Dropdown fluid placeholder={item.name} name={item.model} selection style={{ marginRight: '10px' }}
           options={item.options} onChange={this.handleValueChange} clearable />;
       case 'multidropdown':
-        return <Dropdown fluid placeholder={item.name} id={item.model} multiple
+        return <Dropdown fluid placeholder={item.name} name={item.model} multiple
           options={item.options} onChange={this.handleValueChange} clearable />;
       case 'radio':
         return <span className='ui radio checkbox'>
@@ -90,9 +90,9 @@ class Filter extends React.Component<FilterProps, any> {
             }
           </span>;
       case 'switch':
-        return (<Checkbox toggle id={item.model} onChange={this.handleValueChange} checked={data[item.model]} />);
+        return (<Checkbox toggle name={item.model} onChange={this.handleValueChange} checked={data[item.model]} />);
       default:
-        return <Input fluid placeholder={item.name} id={item.model} onChange={this.handleValueChange} />;
+        return <Input fluid placeholder={item.name} name={item.model} onChange={this.handleValueChange} />;
     }
   }
 
