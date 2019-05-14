@@ -194,6 +194,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
 
     return {
       valueText: `${dataFormatted}`,
+      rowData: value.data,
     };
   }
 
@@ -209,7 +210,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
         valueText: valueFormatted,
       });
     }
-    invoke(this.props, 'onChange', e, { ...this.props, value: valueFormatted });
+    invoke(this.props, 'onChange', e, { ...this.props, value: valueFormatted, rowData: value });
   }
 }
 

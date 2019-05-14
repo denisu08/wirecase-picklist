@@ -125,7 +125,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
     this.setState({
       filterParam: data.value,
     });
-    this.buildPicklistValues();
+    this.buildPicklistValues(null, data.value);
   }
 
   protected handleChange = (
@@ -142,9 +142,10 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
     this.props.onChange(e, data);
   }
 
-  protected buildPicklistValues(overrideActivePage = null): any[] {
+  protected buildPicklistValues(overrideActivePage = null, newFilterParam = null): any[] {
     const { fields, datasource, fetchurl, fetchkey, pagesize } = this.props;
-    const { activePage, filterParam } = this.state;
+    const { activePage, filterParam : prevFilterParam } = this.state;
+    const filterParam = newFilterParam || prevFilterParam || {};
     const result = [];
     const currentPage = (overrideActivePage || (activePage || 1)) - 1;
 
@@ -162,7 +163,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
     // chop based on page
     if (fetchurl) {
       const urlReplaced = this.stringTemplateEngine.format(fetchurl, {
-        values: Object.assign(filterParam || {}, {
+        values: Object.assign(filterParam, {
           activePage: currentPage,
           pagesize,
         }),
@@ -197,7 +198,15 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
             if (!gotIt || !_.get(filterParam, key)) {
               return;
             }
-            gotIt = _.get(el, key).indexOf(_.get(filterParam, key)) >= 0;
+            const filterValue = _.get(el, key);
+            const filterArg = _.get(filterParam, key);
+            if (Array.isArray(filterArg)) {
+              if (filterArg.length > 0) {
+                gotIt = filterArg.includes(filterValue);
+              }
+            } else {
+              gotIt = filterValue.indexOf(filterArg) >= 0;
+            }
           });
 
           return gotIt;

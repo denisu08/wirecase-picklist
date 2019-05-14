@@ -34,23 +34,31 @@ const defaultState = {
     {
       model: 'title',
       name: 'Title',
-      type: 'string',
+      type: 'switch',
       searchFlag: true,
       displayFlag: true,
     },
     {
       model: 'url',
       name: 'URL',
-      type: 'string',
+      type: 'checkbox',
       searchFlag: true,
       displayFlag: false,
+      options: [
+        {text: 'param1', value: 'param1'},
+        {text: 'param2', value: 'param2'},
+      ],
     },
     {
       model: 'author',
       name: 'Author',
-      type: 'string',
-      searchFlag: false,
+      type: 'multidropdown',
+      searchFlag: true,
       displayFlag: true,
+      options: [
+        {text: 'test', value: 'test'},
+        {text: 'test2', value: 'test2'},
+      ],
     },
   ],
 };
@@ -186,9 +194,13 @@ class DateTimeForm extends React.Component<any, any> {
             {
               model: 'notes',
               name: 'Notes',
-              type: 'string',
-              searchFlag: false,
+              type: 'multidropdown',
+              searchFlag: true,
               displayFlag: true,
+              options: [
+                {text: 'Requires call', value: 'Requires call'},
+                {text: 'None', value: 'None'},
+              ],
             },
           ]}
         />
@@ -203,7 +215,7 @@ class DateTimeForm extends React.Component<any, any> {
     if (this.state.hasOwnProperty(name)) {
       this.setState({ [name]: value });
     }
-  };
+  }
 }
 
 class DateTimeFormInline extends React.Component<any, any> {
@@ -248,7 +260,7 @@ class DateTimeFormInline extends React.Component<any, any> {
     if (this.state.hasOwnProperty(name)) {
       this.setState({ [name]: value });
     }
-  };
+  }
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
