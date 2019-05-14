@@ -7,6 +7,7 @@ import {
   BasePickerProps,
   SingleSelectionPicker,
 } from '../BasePicker';
+import { Loader, Dimmer } from 'semantic-ui-react';
 
 const PAGE_WIDTH = 7;
 
@@ -49,32 +50,37 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
       ...rest
     } = this.props;
 
-    const { activePage, totalPage, allData, listData } = this.state;
+    const { activePage, totalPage, allData, listData, isLoading } = this.state;
 
     return (
-      <PicklistView
-        {...rest}
-        values={listData || []}
-        rawData={allData || []}
-        hasNextPage
-        hasPrevPage
-        onNextPageBtnClick={null}
-        onPrevPageBtnClick={null}
-        onValueClick={this.handleChange}
-        onBlur={this.handleBlur}
-        inline={this.props.inline}
-        onMount={this.props.onPicklistViewMount}
-        hoveredItemIndex={this.state.hoveredCellPosition}
-        onCellHover={this.onHoveredCellPositionChange}
-        localization={localization}
-        fields={fields}
-        columns={this.buildPicklistHeader()}
-        activeItemIndex={this.getActiveRowPosition()}
-        activePage={activePage || 1}
-        pagesize={totalPage || 0}
-        handlepagechange={this.handlePaginationChange}
-        filterchange={this.filterChange}
-      />
+      <React.Fragment>
+        <Dimmer active={isLoading} inverted>
+          <Loader inverted />
+        </Dimmer>
+        <PicklistView
+          {...rest}
+          values={listData || []}
+          rawData={allData || []}
+          hasNextPage
+          hasPrevPage
+          onNextPageBtnClick={null}
+          onPrevPageBtnClick={null}
+          onValueClick={this.handleChange}
+          onBlur={this.handleBlur}
+          inline={this.props.inline}
+          onMount={this.props.onPicklistViewMount}
+          hoveredItemIndex={this.state.hoveredCellPosition}
+          onCellHover={this.onHoveredCellPositionChange}
+          localization={localization}
+          fields={fields}
+          columns={this.buildPicklistHeader()}
+          activeItemIndex={this.getActiveRowPosition()}
+          activePage={activePage || 1}
+          pagesize={totalPage || 0}
+          handlepagechange={(e, data) => this.handlePaginationChange(e, data)}
+          filterchange={this.filterChange}
+        />
+      </React.Fragment>
     );
   }
 
@@ -162,6 +168,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
 
     // chop based on page
     if (fetchurl) {
+      this.setState({isLoading: true});
       const urlReplaced = this.stringTemplateEngine.format(fetchurl, {
         values: Object.assign(filterParam, {
           activePage: currentPage,
@@ -187,6 +194,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
             totalPage,
             allData,
             listData: result,
+            isLoading: false,
           });
         });
     } else if (datasource) {
