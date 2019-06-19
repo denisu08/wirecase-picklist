@@ -43,7 +43,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
     startMode: 'single',
     preserveViewMode: true,
     icon: 'hand lizard outline',
-    pagesize: 5,
+    pageSize: 5,
   };
 
   public static readonly propTypes = {
@@ -145,7 +145,8 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       fields,
       fetchurl,
       fetchkey,
-      pagesize,
+      pageSize,
+      onFetchEvent,
     } = this.props;
 
     const pickerProps = {
@@ -158,9 +159,10 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       pickerWidth,
       pickerStyle,
       onChange: this.handleSelect,
+      onFetchEvent,
       initial: this.parseInternalValue(),
       value,
-      pagesize,
+      pageSize,
       format,
       localization,
       datasource,
@@ -211,7 +213,11 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
         valueText: valueFormatted,
       });
     }
-    invoke(this.props, 'onChange', e, { ...this.props, value: valueFormatted, rowData: value });
+    invoke(this.props, 'onChange', e, {
+      ...this.props,
+      value: valueFormatted,
+      rowData: value,
+    });
   }
 }
 

@@ -13,8 +13,8 @@ const defaultState = {
   pick3: '',
   format: '{{url}}, {{author}}',
   fetchurl:
-    'https://hn.algolia.com/api/v1/search?query={{author}}&page={{activePage}}&hitsPerPage={{pagesize}}',
-  fetchkey: { totalPage: 'nbPages', currentPage: 'page', data: 'hits' },
+    'https://hn.algolia.com/api/v1/search?query={{author}}&page={{page}}&hitsPerPage={{pageSize}}',
+  fetchkey: { pages: 'nbPages', page: 'page', data: 'hits' },
   datasource: [
     { name: 'Jamie', status: 'Approved', notes: 'Requires call' },
     { name: 'John', status: 'Selected', notes: 'None' },
@@ -152,6 +152,9 @@ class DateTimeForm extends React.Component<any, any> {
           autoComplete='off'
           preserveViewMode={false}
           onChange={this.handleChange}
+          onFetchEvent={(param) => {
+            console.log('onFetchEvent', param);
+          }}
           format='{{name}}, {{status}}'
           datasource={[
             { name: 'Jamie', status: 'Approved', notes: 'Requires call' },

@@ -34,9 +34,9 @@ export interface SingleSelectionPicklistViewProps {
   /** Position of a cell to display as active. */
   activeItemIndex?: number;
   /** Position of a page to display as active. */
-  activePage?: number;
+  page?: number;
   /** Position of a page to display as total page. */
-  pagesize?: number;
+  pages?: number;
 }
 
 export interface HeadingValueProps {

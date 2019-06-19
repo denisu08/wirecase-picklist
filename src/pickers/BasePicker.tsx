@@ -20,6 +20,7 @@ export interface BasePickerProps {
     e: React.SyntheticEvent<HTMLElement>,
     data: BasePickerOnChangeData,
   ) => void;
+  onFetchEvent: (parameter: any) => void;
   /** Currently selected date. */
   value?: string;
   /** Format Value. */
@@ -48,7 +49,7 @@ export interface BasePickerProps {
   tabIndex?: string;
   pickerWidth?: string;
   pickerStyle?: object;
-  pagesize?: number;
+  pageSize?: number;
 }
 
 export interface OptionalHeaderProps {
@@ -247,8 +248,9 @@ export abstract class SingleSelectionPicker<
     // this.setState({
     //   allData: [],
     //   listData: [],
-    //   totalPage: 0,
-    //   activePage: 1,
+    //   pageSize: 5,
+    //   pages: 0,
+    //   page: 1,
     // });
   }
 

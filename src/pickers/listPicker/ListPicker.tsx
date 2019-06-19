@@ -46,11 +46,11 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
       localization,
       fields,
       datasource,
-      pagesize,
+      pageSize,
       ...rest
     } = this.props;
 
-    const { activePage, totalPage, allData, listData, isLoading } = this.state;
+    const { page, pages, allData, listData, isLoading } = this.state;
     const fieldFiltered = this.buildPicklist();
 
     return (
@@ -76,8 +76,8 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
           fields={fields}
           columns={fieldFiltered}
           activeItemIndex={this.getActiveRowPosition()}
-          activePage={activePage || 1}
-          pagesize={totalPage || 0}
+          page={page || 1}
+          pages={pages || 0}
           handlepagechange={(e, data) => this.handlePaginationChange(e, data)}
           filterchange={this.filterChange}
         />
@@ -110,7 +110,21 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
     e?: React.SyntheticEvent<HTMLElement>,
     data?: any,
   ) {
-    this.buildPicklistValues(data.value);
+    console.log('handlePaginationChange', data);
+    const { onFetchEvent } = this.props;
+    if (onFetchEvent) {
+      const { pages, allData, data: selected, filterParam } = this.state;
+      onFetchEvent({
+        filtered: filterParam,
+        data: allData,
+        selected,
+        page: data.value,
+        pages,
+        pageSize: 5,
+      });
+    } else {
+      this.buildPicklistValues(data.value, null, true);
+    }
   }
 
   protected buildPicklist(): any[] {
@@ -129,10 +143,24 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
     e: React.SyntheticEvent<HTMLElement>,
     data: any,
   ): void {
+    console.log('filterChange', data);
+    const { onFetchEvent } = this.props;
     this.setState({
       filterParam: data.value,
     });
-    this.buildPicklistValues(null, data.value);
+    if (onFetchEvent) {
+      const { page, pages, allData, data: selected } = this.state;
+      onFetchEvent({
+        filtered: data.value,
+        data: allData,
+        selected,
+        page,
+        pages,
+        pageSize: 5,
+      });
+    } else {
+      this.buildPicklistValues(null, data.value, true);
+    }
   }
 
   protected handleChange = (
@@ -150,14 +178,15 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
   }
 
   protected buildPicklistValues(
-    overrideActivePage = null,
+    overridePage = null,
     newFilterParam = null,
+    isTrigger = false,
   ): any[] {
-    const { fields, datasource, fetchurl, fetchkey, pagesize } = this.props;
-    const { activePage, filterParam: prevFilterParam } = this.state;
+    const { fields, datasource, fetchurl, fetchkey, pageSize } = this.props;
+    const { page, filterParam: prevFilterParam } = this.state;
     const filterParam = newFilterParam || prevFilterParam || {};
     const result = [];
-    const currentPage = (overrideActivePage || (activePage || 1)) - 1;
+    const currentPage = (overridePage || page || 1) - 1;
 
     if (!fields) {
       return [];
@@ -170,20 +199,22 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
       }
     });
 
+    console.log('isTrigger', isTrigger);
+
     // chop based on page
     if (fetchurl) {
       this.setState({ isLoading: true });
       const urlReplaced = this.stringTemplateEngine.format(fetchurl, {
         values: Object.assign(filterParam, {
-          activePage: currentPage,
-          pagesize,
+          page: currentPage,
+          pageSize,
         }),
       });
 
       fetch(urlReplaced)
         .then((response) => response.json())
         .then((res) => {
-          const totalPage = res[fetchkey.totalPage];
+          const pages = res[fetchkey.pages];
           const allData = res[fetchkey.data];
           allData.forEach((data) => {
             result.push(
@@ -194,8 +225,8 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
           });
 
           this.setState({
-            activePage: currentPage + 1,
-            totalPage,
+            page: currentPage + 1,
+            pages,
             allData,
             listData: result,
             isLoading: false,
@@ -225,11 +256,11 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
         });
       }
 
-      const totalPage = Math.ceil(sliceData.length / pagesize);
+      const totalPage = Math.ceil(sliceData.length / pageSize);
 
       sliceData = sliceData.slice(
-        pagesize * currentPage,
-        pagesize * currentPage + pagesize,
+        pageSize * currentPage,
+        pageSize * currentPage + pageSize,
       );
 
       sliceData.forEach((data) => {
@@ -241,10 +272,10 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
       });
 
       this.setState({
-        activePage: currentPage + 1,
+        page: currentPage + 1,
         allData: datasource,
         listData: result,
-        totalPage,
+        pages: totalPage,
       });
     }
 

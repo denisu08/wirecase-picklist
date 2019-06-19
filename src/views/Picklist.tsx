@@ -21,9 +21,9 @@ interface PicklistProps {
   /** Fields configuration */
   fields?: object[];
   /** Position of a page to display as active. */
-  activePage?: number;
+  page?: number;
   /** Position of a page to display as total page. */
-  pagesize?: number;
+  pages?: number;
   handlepagechange: (e?: React.SyntheticEvent<HTMLElement>, data?: any) => void;
   /** handle filter change */
   filterchange: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
@@ -40,13 +40,13 @@ class Picklist extends React.Component<PicklistProps, any> {
   };
 
   public state = {
-    activePage: 5,
+    page: 0,
     boundaryRange: 1,
     siblingRange: 1,
     showEllipsis: true,
     showFirstAndLastNav: true,
     showPreviousAndNextNav: true,
-    totalPages: 50,
+    pageSize: 5,
   };
 
   constructor(props) {
@@ -55,9 +55,12 @@ class Picklist extends React.Component<PicklistProps, any> {
     this.handlePaginationChange = this.handlePaginationChange.bind(this);
   }
 
-  public handlePaginationChange(e?: React.SyntheticEvent<HTMLElement>, data?: any) {
+  public handlePaginationChange(
+    e?: React.SyntheticEvent<HTMLElement>,
+    data?: any,
+  ) {
     const { activePage } = data;
-    this.setState({ activePage });
+    this.setState({ page: activePage });
     invoke(this.props, 'handlepagechange', e, {
       ...this.props,
       value: activePage,
@@ -71,8 +74,8 @@ class Picklist extends React.Component<PicklistProps, any> {
       pickerWidth,
       pickerStyle,
       fields,
-      activePage,
-      pagesize,
+      page,
+      pages,
       filterchange,
       ...rest
     } = this.props;
@@ -102,20 +105,24 @@ class Picklist extends React.Component<PicklistProps, any> {
         >
           {children}
         </Table>
-        <div style={{ textAlign: 'center', margin: '5px' }}>
-          <Pagination
-            onPageChange={this.handlePaginationChange}
-            totalPages={pagesize || 0}
-            prevItem={undefined}
-            nextItem={undefined}
-            firstItem={undefined}
-            lastItem={undefined}
-            boundaryRange={0}
-            defaultActivePage={1}
-            ellipsisItem={null}
-            siblingRange={1}
-          />
-        </div>
+        {pages && pages > 0 ? (
+          <div style={{ textAlign: 'center', margin: '5px' }}>
+            <Pagination
+              onPageChange={this.handlePaginationChange}
+              totalPages={pages || 0}
+              prevItem={undefined}
+              nextItem={undefined}
+              firstItem={undefined}
+              lastItem={undefined}
+              boundaryRange={0}
+              defaultActivePage={1}
+              ellipsisItem={null}
+              siblingRange={1}
+            />
+          </div>
+        ) : (
+          'kosong'
+        )}
       </div>
     );
   }

@@ -37,8 +37,8 @@ class PicklistView extends BasePicklistView<PicklistViewProps, any> {
       hasNextPage,
       hasPrevPage,
       columns,
-      activePage,
-      pagesize,
+      page,
+      pages,
       fields,
       ...rest
     } = this.props;
@@ -47,8 +47,8 @@ class PicklistView extends BasePicklistView<PicklistViewProps, any> {
       <Picklist
         ref={(e) => (this.picklistNode = findHTMLElement(e))}
         outlineOnFocus={inline}
-        activePage={activePage}
-        pagesize={pagesize}
+        page={page}
+        pages={pages}
         handlepagechange={(e, data) => handlepagechange(e, data)}
         filterchange={filterchange}
         fields={fields}
