@@ -1,6 +1,7 @@
 import isNil from 'lodash/isNil';
 import isArray from 'lodash/isArray';
 import invoke from 'lodash/invoke';
+import pickBy from 'lodash/pickBy';
 
 import React from 'react';
 import { Table } from 'semantic-ui-react';
@@ -15,6 +16,7 @@ interface BodyProps {
   /** Data that is used to fill a picklist. */
   data: any[];
   rawData: any[];
+  columns: any[];
   /** Called after a click on picklist's cell. */
   onCellClick: (
     e: React.SyntheticEvent<HTMLElement>,
@@ -30,10 +32,10 @@ interface BodyProps {
 
 class Body extends React.Component<BodyProps, any> {
   public render() {
-    const { data, active } = this.props;
+    const { data, active, columns } = this.props;
     const rawData = data || [];
 
-    if (rawData && rawData.length) {
+    if (rawData && rawData.length && columns && columns.length) {
       return (
         <Table.Body>
           {rawData.map((item, rowIndex) => (
@@ -45,9 +47,9 @@ class Body extends React.Component<BodyProps, any> {
               onMouseOver={this.onCellHover}
               active={isActive(rowIndex, active)}
             >
-              {Object.keys(item).map((key) => (
-                <Table.Cell id={key} key={key}>
-                  {item[key]}
+              {columns.map((column) => (
+                <Table.Cell id={column.model} key={column.model}>
+                  {item[column.model]}
                 </Table.Cell>
               ))}
             </Table.Row>

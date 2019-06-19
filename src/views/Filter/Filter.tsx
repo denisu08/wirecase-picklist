@@ -1,7 +1,14 @@
 // import isNil from 'lodash/isNil';
 
 import React from 'react';
-import { Button, Input, Segment, Dropdown, Radio, Checkbox } from 'semantic-ui-react';
+import {
+  Button,
+  Input,
+  Segment,
+  Dropdown,
+  Radio,
+  Checkbox,
+} from 'semantic-ui-react';
 import invoke from 'lodash/invoke';
 
 const buttonStyle = {
@@ -29,14 +36,17 @@ class Filter extends React.Component<FilterProps, any> {
 
   public render() {
     const { fields } = this.props;
+    if (!fields || fields.length === 0) { return null; }
 
     return (
       <Segment style={{ margin: '5px' }} size='tiny'>
         {fields.map((item) =>
           item.searchFlag ? (
-            <div key={`filter-${item.model}`} >
-              <label style={{ fontSize: '10px', marginRight: '20px' }}>{item.name}</label>
-              { this.getComponent(item) }
+            <div key={`filter-${item.model}`}>
+              <label style={{ fontSize: '10px', marginRight: '20px' }}>
+                {item.name}
+              </label>
+              {this.getComponent(item)}
             </div>
           ) : (
             ''
@@ -67,32 +77,80 @@ class Filter extends React.Component<FilterProps, any> {
    * InputText,    => input
    */
   protected getComponent(item) {
-
     const { data } = this.state;
 
     switch (item.type) {
       case 'checkbox':
-        return item.options.map((f) => (<Checkbox value={f.value} style={{ marginRight: '10px' }}
-          checked={data[item.model] ? data[item.model].includes(f.value) : false}
-          name={item.model} onChange={this.handleValueChange} label={f.text}></Checkbox>));
-      case 'dropdown':
-        return <Dropdown fluid placeholder={item.name} name={item.model} selection style={{ marginRight: '10px' }}
-          options={item.options} onChange={this.handleValueChange} clearable />;
-      case 'multidropdown':
-        return <Dropdown fluid placeholder={item.name} name={item.model} multiple
-          options={item.options} onChange={this.handleValueChange} clearable />;
-      case 'radio':
-        return <span className='ui radio checkbox'>
-            {
-              item.options.map((f) => (<Radio value={f.value} name={item.model} style={{ marginRight: '10px' }}
-                onChange={this.handleValueChange} label={f.text} checked={data[item.model] === f.value} >
-              </Radio>))
+        return item.options.map((f) => (
+          <Checkbox
+            value={f.value}
+            style={{ marginRight: '10px' }}
+            checked={
+              data[item.model] ? data[item.model].includes(f.value) : false
             }
-          </span>;
+            name={item.model}
+            onChange={this.handleValueChange}
+            label={f.text}
+          />
+        ));
+      case 'dropdown':
+        return (
+          <Dropdown
+            fluid
+            placeholder={item.name}
+            name={item.model}
+            selection
+            style={{ marginRight: '10px' }}
+            options={item.options}
+            onChange={this.handleValueChange}
+            clearable
+          />
+        );
+      case 'multidropdown':
+        return (
+          <Dropdown
+            fluid
+            placeholder={item.name}
+            name={item.model}
+            multiple
+            options={item.options}
+            onChange={this.handleValueChange}
+            clearable
+          />
+        );
+      case 'radio':
+        return (
+          <span className='ui radio checkbox'>
+            {item.options.map((f) => (
+              <Radio
+                value={f.value}
+                name={item.model}
+                style={{ marginRight: '10px' }}
+                onChange={this.handleValueChange}
+                label={f.text}
+                checked={data[item.model] === f.value}
+              />
+            ))}
+          </span>
+        );
       case 'switch':
-        return (<Checkbox toggle name={item.model} onChange={this.handleValueChange} checked={data[item.model]} />);
+        return (
+          <Checkbox
+            toggle
+            name={item.model}
+            onChange={this.handleValueChange}
+            checked={data[item.model]}
+          />
+        );
       default:
-        return <Input fluid placeholder={item.name} name={item.model} onChange={this.handleValueChange} />;
+        return (
+          <Input
+            fluid
+            placeholder={item.name}
+            name={item.model}
+            onChange={this.handleValueChange}
+          />
+        );
     }
   }
 
@@ -101,9 +159,15 @@ class Filter extends React.Component<FilterProps, any> {
     if (data.type === 'checkbox' && !data.toggle) {
       dataMerged = this.state.data[data.id || data.name] || [];
       if (data.checked) {
-        dataMerged = { [data.id || data.name]: Array.from(new Set([...dataMerged, data.value])) };
+        dataMerged = {
+          [data.id || data.name]: Array.from(
+            new Set([...dataMerged, data.value]),
+          ),
+        };
       } else {
-        dataMerged = { [data.id || data.name]: dataMerged.filter((tmp) => tmp !== data.value) };
+        dataMerged = {
+          [data.id || data.name]: dataMerged.filter((tmp) => tmp !== data.value),
+        };
       }
     } else if (data.type === 'checkbox' && data.toggle) {
       dataMerged = { [data.id || data.name]: data.checked };

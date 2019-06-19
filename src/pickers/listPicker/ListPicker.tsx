@@ -51,6 +51,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
     } = this.props;
 
     const { activePage, totalPage, allData, listData, isLoading } = this.state;
+    const fieldFiltered = this.buildPicklist();
 
     return (
       <React.Fragment>
@@ -73,7 +74,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
           onCellHover={this.onHoveredCellPositionChange}
           localization={localization}
           fields={fields}
-          columns={this.buildPicklistHeader()}
+          columns={fieldFiltered}
           activeItemIndex={this.getActiveRowPosition()}
           activePage={activePage || 1}
           pagesize={totalPage || 0}
@@ -112,12 +113,12 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
     this.buildPicklistValues(data.value);
   }
 
-  protected buildPicklistHeader(): string[] {
+  protected buildPicklist(): any[] {
     const { fields } = this.props;
     const columnHeader = [];
     fields.forEach((item) => {
       if (item.displayFlag) {
-        columnHeader.push(item.name);
+        columnHeader.push(item);
       }
     });
 
@@ -148,9 +149,12 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
     this.props.onChange(e, data);
   }
 
-  protected buildPicklistValues(overrideActivePage = null, newFilterParam = null): any[] {
+  protected buildPicklistValues(
+    overrideActivePage = null,
+    newFilterParam = null,
+  ): any[] {
     const { fields, datasource, fetchurl, fetchkey, pagesize } = this.props;
-    const { activePage, filterParam : prevFilterParam } = this.state;
+    const { activePage, filterParam: prevFilterParam } = this.state;
     const filterParam = newFilterParam || prevFilterParam || {};
     const result = [];
     const currentPage = (overrideActivePage || (activePage || 1)) - 1;
@@ -168,7 +172,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
 
     // chop based on page
     if (fetchurl) {
-      this.setState({isLoading: true});
+      this.setState({ isLoading: true });
       const urlReplaced = this.stringTemplateEngine.format(fetchurl, {
         values: Object.assign(filterParam, {
           activePage: currentPage,
@@ -206,8 +210,8 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
             if (!gotIt || !_.get(filterParam, key)) {
               return;
             }
-            const filterValue = _.get(el, key);
-            const filterArg = _.get(filterParam, key);
+            const filterValue = _.get(el, key) || '';
+            const filterArg = _.get(filterParam, key) || '';
             if (Array.isArray(filterArg)) {
               if (filterArg.length > 0) {
                 gotIt = filterArg.includes(filterValue);

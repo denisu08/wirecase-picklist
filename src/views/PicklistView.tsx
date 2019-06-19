@@ -39,6 +39,7 @@ class PicklistView extends BasePicklistView<PicklistViewProps, any> {
       columns,
       activePage,
       pagesize,
+      fields,
       ...rest
     } = this.props;
 
@@ -50,6 +51,7 @@ class PicklistView extends BasePicklistView<PicklistViewProps, any> {
         pagesize={pagesize}
         handlepagechange={(e, data) => handlepagechange(e, data)}
         filterchange={filterchange}
+        fields={fields}
         {...rest}
       >
         <Header
@@ -63,6 +65,7 @@ class PicklistView extends BasePicklistView<PicklistViewProps, any> {
         <Body
           // width={PICKLIST_ROW_WIDTH}
           data={values}
+          columns={columns}
           rawData={rawData}
           hovered={hoveredItemIndex}
           onCellHover={onCellHover}

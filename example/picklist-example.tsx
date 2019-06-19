@@ -34,31 +34,23 @@ const defaultState = {
     {
       model: 'title',
       name: 'Title',
-      type: 'switch',
+      type: 'string',
       searchFlag: true,
       displayFlag: true,
     },
     {
       model: 'url',
       name: 'URL',
-      type: 'checkbox',
+      type: 'string',
       searchFlag: true,
       displayFlag: false,
-      options: [
-        {text: 'param1', value: 'param1'},
-        {text: 'param2', value: 'param2'},
-      ],
     },
     {
       model: 'author',
       name: 'Author',
-      type: 'multidropdown',
-      searchFlag: true,
+      type: 'string',
+      searchFlag: false,
       displayFlag: true,
-      options: [
-        {text: 'test', value: 'test'},
-        {text: 'test2', value: 'test2'},
-      ],
     },
   ],
 };
@@ -198,8 +190,8 @@ class DateTimeForm extends React.Component<any, any> {
               searchFlag: true,
               displayFlag: true,
               options: [
-                {text: 'Requires call', value: 'Requires call'},
-                {text: 'None', value: 'None'},
+                { text: 'Requires call', value: 'Requires call' },
+                { text: 'None', value: 'None' },
               ],
             },
           ]}

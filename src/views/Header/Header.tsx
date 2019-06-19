@@ -3,7 +3,7 @@ import { Table } from 'semantic-ui-react';
 
 export interface HeaderProps {
   /** Header text content. */
-  columns: string[];
+  columns: any[];
   /** Called after click on next page button. */
   onNextPageBtnClick: () => void;
   /** Called after click on previous page button. */
@@ -24,7 +24,9 @@ function Header(props: HeaderProps) {
       <Table.Header>
         <Table.Row>
           {columns.map((item, index) => (
-            <Table.HeaderCell key={`header-${index}`}>{item}</Table.HeaderCell>
+            <Table.HeaderCell key={`header-${index}`}>
+              {item.name}
+            </Table.HeaderCell>
           ))}
         </Table.Row>
       </Table.Header>
