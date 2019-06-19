@@ -110,7 +110,6 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
     e?: React.SyntheticEvent<HTMLElement>,
     data?: any,
   ) {
-    console.log('handlePaginationChange', data);
     const { onFetchEvent } = this.props;
     if (onFetchEvent) {
       const { pages, allData, data: selected, filterParam } = this.state;
@@ -123,7 +122,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
         pageSize: 5,
       });
     } else {
-      this.buildPicklistValues(data.value, null, true);
+      this.buildPicklistValues(data.value, null);
     }
   }
 
@@ -143,7 +142,6 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
     e: React.SyntheticEvent<HTMLElement>,
     data: any,
   ): void {
-    console.log('filterChange', data);
     const { onFetchEvent } = this.props;
     this.setState({
       filterParam: data.value,
@@ -159,7 +157,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
         pageSize: 5,
       });
     } else {
-      this.buildPicklistValues(null, data.value, true);
+      this.buildPicklistValues(null, data.value);
     }
   }
 
@@ -180,7 +178,6 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
   protected buildPicklistValues(
     overridePage = null,
     newFilterParam = null,
-    isTrigger = false,
   ): any[] {
     const { fields, datasource, fetchurl, fetchkey, pageSize } = this.props;
     const { page, filterParam: prevFilterParam } = this.state;
@@ -198,8 +195,6 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
         keyFields.push(item.model);
       }
     });
-
-    console.log('isTrigger', isTrigger);
 
     // chop based on page
     if (fetchurl) {
