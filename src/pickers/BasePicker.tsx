@@ -50,6 +50,8 @@ export interface BasePickerProps {
   pickerWidth?: string;
   pickerStyle?: object;
   pageSize?: number;
+  page?: number;
+  pages?: number;
 }
 
 export interface OptionalHeaderProps {

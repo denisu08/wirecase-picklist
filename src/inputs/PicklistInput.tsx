@@ -78,6 +78,8 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
     localization: PropTypes.string,
     icon: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     iconPosition: PropTypes.oneOf(['left', 'right']),
+    page: PropTypes.number,
+    pages: PropTypes.number,
   };
 
   private stringTemplateEngine: StringTemplateEngine;
@@ -147,6 +149,8 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       fetchkey,
       pageSize,
       onFetchEvent,
+      page,
+      pages,
     } = this.props;
 
     const pickerProps = {
@@ -169,6 +173,8 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       fields,
       fetchurl,
       fetchkey,
+      page,
+      pages,
     };
 
     return <ListPicker {...pickerProps} />;

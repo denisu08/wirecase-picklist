@@ -148,6 +148,8 @@ class DateTimeForm extends React.Component<any, any> {
           closable
           clearable={clearable}
           value={pick2Value}
+          page={1}
+          pages={3}
           iconPosition='left'
           autoComplete='off'
           preserveViewMode={false}
@@ -162,14 +164,14 @@ class DateTimeForm extends React.Component<any, any> {
             { name: 'Jakun', status: 'Approved', notes: 'Requires call' },
             { name: 'Jill', status: 'Rejected', notes: 'None' },
             { name: 'Blown', status: 'Approved', notes: 'Requires call' },
-            { name: 'Googie', status: 'Selected', notes: 'Requires call' },
-            { name: 'Pawn', status: 'Selected', notes: 'None' },
-            { name: 'Sessy', status: 'Approved', notes: 'Requires call' },
-            { name: 'Poland', status: 'Rejected', notes: 'None' },
-            { name: 'Kung', status: 'Approved', notes: 'Requires call' },
-            { name: 'Jing', status: 'Rejected', notes: 'None' },
-            { name: 'Mindel', status: 'Approved', notes: 'Requires call' },
-            { name: 'Plotty', status: 'Selected', notes: 'None' },
+            // { name: 'Googie', status: 'Selected', notes: 'Requires call' },
+            // { name: 'Pawn', status: 'Selected', notes: 'None' },
+            // { name: 'Sessy', status: 'Approved', notes: 'Requires call' },
+            // { name: 'Poland', status: 'Rejected', notes: 'None' },
+            // { name: 'Kung', status: 'Approved', notes: 'Requires call' },
+            // { name: 'Jing', status: 'Rejected', notes: 'None' },
+            // { name: 'Mindel', status: 'Approved', notes: 'Requires call' },
+            // { name: 'Plotty', status: 'Selected', notes: 'None' },
           ]}
           fields={[
             {

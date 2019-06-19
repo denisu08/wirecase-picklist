@@ -47,10 +47,18 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
       fields,
       datasource,
       pageSize,
+      page,
+      pages,
       ...rest
     } = this.props;
 
-    const { page, pages, allData, listData, isLoading } = this.state;
+    const {
+      page: prevPage,
+      pages: prevPages,
+      allData,
+      listData,
+      isLoading,
+    } = this.state;
     const fieldFiltered = this.buildPicklist();
 
     return (
@@ -76,8 +84,8 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
           fields={fields}
           columns={fieldFiltered}
           activeItemIndex={this.getActiveRowPosition()}
-          page={page || 1}
-          pages={pages || 0}
+          page={page || prevPage || 1}
+          pages={pages || prevPages || 0}
           handlepagechange={(e, data) => this.handlePaginationChange(e, data)}
           filterchange={this.filterChange}
         />

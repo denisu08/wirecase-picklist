@@ -105,24 +105,20 @@ class Picklist extends React.Component<PicklistProps, any> {
         >
           {children}
         </Table>
-        {pages && pages > 0 ? (
-          <div style={{ textAlign: 'center', margin: '5px' }}>
-            <Pagination
-              onPageChange={this.handlePaginationChange}
-              totalPages={pages || 0}
-              prevItem={undefined}
-              nextItem={undefined}
-              firstItem={undefined}
-              lastItem={undefined}
-              boundaryRange={0}
-              defaultActivePage={1}
-              ellipsisItem={null}
-              siblingRange={1}
-            />
-          </div>
-        ) : (
-          'kosong'
-        )}
+        <div style={{ textAlign: 'center', margin: '5px' }}>
+          <Pagination
+            onPageChange={this.handlePaginationChange}
+            totalPages={pages || 0}
+            prevItem={undefined}
+            nextItem={undefined}
+            firstItem={undefined}
+            lastItem={undefined}
+            boundaryRange={0}
+            defaultActivePage={(page || 0) + 1}
+            ellipsisItem={null}
+            siblingRange={1}
+          />
+        </div>
       </div>
     );
   }
