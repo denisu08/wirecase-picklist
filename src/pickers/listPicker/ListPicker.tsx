@@ -204,7 +204,6 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
       pageSize,
     } = this.props;
     const datasource = newDS || oldDS;
-    console.log('buildPicklistValues', datasource);
     const { page, filterParam: prevFilterParam } = this.state;
     const filterParam = newFilterParam || prevFilterParam || {};
     const result = [];
