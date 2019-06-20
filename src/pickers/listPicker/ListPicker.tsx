@@ -34,6 +34,14 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
     this.buildPicklistValues();
   }
 
+  public shouldComponentUpdate(nextProps) {
+    if (this.props.datasource !== nextProps.datasource) {
+      this.buildPicklistValues(null, null, nextProps.datasource);
+    }
+
+    return true;
+  }
+
   public render() {
     const {
       onChange,
@@ -125,7 +133,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
         filtered: filterParam,
         data: allData,
         selected,
-        page: data.value,
+        page: Math.abs(data.value - 1),
         pages,
         pageSize: 5,
       });
@@ -186,8 +194,17 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
   protected buildPicklistValues(
     overridePage = null,
     newFilterParam = null,
+    newDS = null,
   ): any[] {
-    const { fields, datasource, fetchurl, fetchkey, pageSize } = this.props;
+    const {
+      fields,
+      datasource: oldDS,
+      fetchurl,
+      fetchkey,
+      pageSize,
+    } = this.props;
+    const datasource = newDS || oldDS;
+    console.log('buildPicklistValues', datasource);
     const { page, filterParam: prevFilterParam } = this.state;
     const filterParam = newFilterParam || prevFilterParam || {};
     const result = [];

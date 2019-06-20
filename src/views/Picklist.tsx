@@ -114,7 +114,7 @@ class Picklist extends React.Component<PicklistProps, any> {
             firstItem={undefined}
             lastItem={undefined}
             boundaryRange={0}
-            defaultActivePage={(page || 0) + 1}
+            defaultActivePage={page || 1}
             ellipsisItem={null}
             siblingRange={1}
           />

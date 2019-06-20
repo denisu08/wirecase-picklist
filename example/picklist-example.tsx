@@ -21,14 +21,6 @@ const defaultState = {
     { name: 'Jakun', status: 'Approved', notes: 'Requires call' },
     { name: 'Jill', status: 'Rejected', notes: 'None' },
     { name: 'Blown', status: 'Approved', notes: 'Requires call' },
-    { name: 'Googie', status: 'Selected', notes: 'Requires call' },
-    { name: 'Pawn', status: 'Selected', notes: 'None' },
-    { name: 'Sessy', status: 'Approved', notes: 'Requires call' },
-    { name: 'Poland', status: 'Rejected', notes: 'None' },
-    { name: 'Kung', status: 'Approved', notes: 'Requires call' },
-    { name: 'Jing', status: 'Rejected', notes: 'None' },
-    { name: 'Mindel', status: 'Approved', notes: 'Requires call' },
-    { name: 'Plotty', status: 'Selected', notes: 'None' },
   ],
   fields: [
     {
@@ -81,8 +73,8 @@ class App extends React.Component<any, any> {
         </Header>
 
         <DateTimeForm clearable={this.state.clearable} />
-        <h2>Inline</h2>
-        <DateTimeFormInline />
+        {/* <h2>Inline</h2>
+        <DateTimeFormInline /> */}
       </div>
     );
   }
@@ -111,11 +103,12 @@ class DateTimeForm extends React.Component<any, any> {
       fields,
       fetchurl,
       fetchkey,
+      page,
     } = this.state;
 
     return (
       <Form>
-        <PicklistInput
+        {/* <PicklistInput
           placeholder='Sample Picklist 01'
           popupPosition='bottom right'
           className='example-picklist-input'
@@ -136,7 +129,7 @@ class DateTimeForm extends React.Component<any, any> {
           fetchurl={fetchurl}
           fetchkey={fetchkey}
         />
-        <br />
+        <br /> */}
         <PicklistInput
           startMode='single'
           popupPosition='bottom right'
@@ -148,31 +141,44 @@ class DateTimeForm extends React.Component<any, any> {
           closable
           clearable={clearable}
           value={pick2Value}
-          page={1}
+          page={page || 1}
           pages={3}
           iconPosition='left'
           autoComplete='off'
           preserveViewMode={false}
           onChange={this.handleChange}
           onFetchEvent={(param) => {
-            console.log('onFetchEvent', param);
+            const { page: currentPage } = param;
+            const newDS = [
+              { name: 'Jamie', status: 'Approved', notes: 'Requires call' },
+              { name: 'John', status: 'Selected', notes: 'None' },
+              { name: 'Jakun', status: 'Approved', notes: 'Requires call' },
+              { name: 'Jill', status: 'Rejected', notes: 'None' },
+              { name: 'Blown', status: 'Approved', notes: 'Requires call' },
+              { name: 'Googie', status: 'Selected', notes: 'Requires call' },
+              { name: 'Pawn', status: 'Selected', notes: 'None' },
+              { name: 'Sessy', status: 'Approved', notes: 'Requires call' },
+              { name: 'Poland', status: 'Rejected', notes: 'None' },
+              { name: 'Kung', status: 'Approved', notes: 'Requires call' },
+              { name: 'Jing', status: 'Rejected', notes: 'None' },
+              { name: 'Mindel', status: 'Approved', notes: 'Requires call' },
+              { name: 'Plotty', status: 'Selected', notes: 'None' },
+            ];
+            const indexPage = Math.abs(currentPage || 0);
+            let startIndex = 5 * indexPage;
+            if (startIndex >= newDS.length) {
+              startIndex = 0;
+            }
+            const endIndex = Math.min(5 * indexPage + 5, newDS.length);
+            const dataChopped =
+              newDS && newDS.length >= startIndex
+                ? newDS.slice(startIndex, endIndex)
+                : newDS;
+            console.log('onFetchEvent', param, dataChopped);
+            this.setState({ datasource: dataChopped, page: currentPage + 1 });
           }}
           format='{{name}}, {{status}}'
-          datasource={[
-            { name: 'Jamie', status: 'Approved', notes: 'Requires call' },
-            { name: 'John', status: 'Selected', notes: 'None' },
-            { name: 'Jakun', status: 'Approved', notes: 'Requires call' },
-            { name: 'Jill', status: 'Rejected', notes: 'None' },
-            { name: 'Blown', status: 'Approved', notes: 'Requires call' },
-            // { name: 'Googie', status: 'Selected', notes: 'Requires call' },
-            // { name: 'Pawn', status: 'Selected', notes: 'None' },
-            // { name: 'Sessy', status: 'Approved', notes: 'Requires call' },
-            // { name: 'Poland', status: 'Rejected', notes: 'None' },
-            // { name: 'Kung', status: 'Approved', notes: 'Requires call' },
-            // { name: 'Jing', status: 'Rejected', notes: 'None' },
-            // { name: 'Mindel', status: 'Approved', notes: 'Requires call' },
-            // { name: 'Plotty', status: 'Selected', notes: 'None' },
-          ]}
+          datasource={datasource}
           fields={[
             {
               model: 'name',
