@@ -147,7 +147,7 @@ class DateTimeForm extends React.Component<any, any> {
           autoComplete='off'
           preserveViewMode={false}
           onChange={this.handleChange}
-          onFetchEvent={(param) => {
+          onFetchEvent={param => {
             const { page: currentPage } = param;
             const newDS = [
               { name: 'Jamie', status: 'Approved', notes: 'Requires call' },
@@ -174,7 +174,7 @@ class DateTimeForm extends React.Component<any, any> {
               newDS && newDS.length >= startIndex
                 ? newDS.slice(startIndex, endIndex)
                 : newDS;
-            console.log('onFetchEvent', param, dataChopped);
+            // console.log('onFetchEvent', param, dataChopped);
             this.setState({ datasource: dataChopped, page: currentPage + 1 });
           }}
           format='{{name}}, {{status}}'
@@ -219,7 +219,7 @@ class DateTimeForm extends React.Component<any, any> {
     if (this.state.hasOwnProperty(name)) {
       this.setState({ [name]: value });
     }
-  }
+  };
 }
 
 class DateTimeFormInline extends React.Component<any, any> {
@@ -264,7 +264,7 @@ class DateTimeFormInline extends React.Component<any, any> {
     if (this.state.hasOwnProperty(name)) {
       this.setState({ [name]: value });
     }
-  }
+  };
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));

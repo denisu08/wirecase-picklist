@@ -36,36 +36,44 @@ class Filter extends React.Component<FilterProps, any> {
 
   public render() {
     const { fields } = this.props;
-    if (!fields || fields.length === 0) { return null; }
+    if (!fields || fields.length === 0) {
+      return null;
+    }
 
-    return (
-      <Segment style={{ margin: '5px' }} size='tiny'>
-        {fields.map((item) =>
-          item.searchFlag ? (
-            <div key={`filter-${item.model}`}>
-              <label style={{ fontSize: '10px', marginRight: '20px' }}>
-                {item.name}
-              </label>
-              {this.getComponent(item)}
-            </div>
-          ) : (
-            ''
-          ),
-        )}
+    const searchFields = [];
+    fields.forEach((item) => {
+      if (item.searchFlag) {
+        searchFields.push(
+          <div key={`filter-${item.model}`}>
+            <label style={{ fontSize: '10px', marginRight: '20px' }}>
+              {item.name}
+            </label>
+            {this.getComponent(item)}
+          </div>,
+        );
+      }
+    });
 
-        <div style={buttonStyle}>
-          <Button
-            type='button'
-            fluid
-            size='tiny'
-            primary
-            onClick={this.handleFilterChange}
-          >
-            Search
-          </Button>
-        </div>
-      </Segment>
-    );
+    if (searchFields && searchFields.length > 0) {
+      return (
+        <Segment style={{ margin: '5px' }} size='tiny'>
+          {searchFields}
+          <div style={buttonStyle}>
+            <Button
+              type='button'
+              fluid
+              size='tiny'
+              primary
+              onClick={this.handleFilterChange}
+            >
+              Search
+            </Button>
+          </div>
+        </Segment>
+      );
+    }
+
+    return '';
   }
 
   /**
