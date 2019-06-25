@@ -52,6 +52,7 @@ export interface BasePickerProps {
   pageSize?: number;
   page?: number;
   pages?: number;
+  filtered?: any;
 }
 
 export interface OptionalHeaderProps {

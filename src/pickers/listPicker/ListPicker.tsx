@@ -57,12 +57,14 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
       pageSize,
       page,
       pages,
+      filtered,
       ...rest
     } = this.props;
 
     const {
       page: prevPage,
       pages: prevPages,
+      filtered: prevFiltered,
       allData,
       listData,
       isLoading,
@@ -94,6 +96,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
           activeItemIndex={this.getActiveRowPosition()}
           page={page || prevPage || 0}
           pages={pages || prevPages || 0}
+          filtered={filtered || prevFiltered || {}}
           handlepagechange={(e, data) => this.handlePaginationChange(e, data)}
           filterchange={this.filterChange}
         />
@@ -202,12 +205,14 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
       fetchurl,
       fetchkey,
       pageSize,
+      onFetchEvent,
     } = this.props;
     const datasource = newDS || oldDS;
     const { page, filterParam: prevFilterParam } = this.state;
     const filterParam = newFilterParam || prevFilterParam || {};
     const result = [];
     const currentPage = overridePage || page || 0;
+    const needFiltered = onFetchEvent ? false : true;
 
     if (!fields) {
       return [];
@@ -253,7 +258,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
         });
     } else if (datasource) {
       let sliceData = datasource;
-      if (filterParam && !_.isEmpty(filterParam)) {
+      if (needFiltered && filterParam && !_.isEmpty(filterParam)) {
         sliceData = datasource.filter((el) => {
           let gotIt = true;
           Object.keys(filterParam).forEach((key) => {

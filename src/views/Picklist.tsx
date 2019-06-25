@@ -24,6 +24,7 @@ interface PicklistProps {
   page?: number;
   /** Position of a page to display as total page. */
   pages?: number;
+  filtered?: any;
   handlepagechange: (e?: React.SyntheticEvent<HTMLElement>, data?: any) => void;
   /** handle filter change */
   filterchange: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
@@ -77,6 +78,7 @@ class Picklist extends React.Component<PicklistProps, any> {
       page,
       pages,
       filterchange,
+      filtered,
       ...rest
     } = this.props;
 
@@ -92,7 +94,11 @@ class Picklist extends React.Component<PicklistProps, any> {
 
     return (
       <div>
-        <Filter fields={fields} filterchange={filterchange} />
+        <Filter
+          fields={fields}
+          filterchange={filterchange}
+          filtered={filtered}
+        />
         <Table
           style={style}
           unstackable

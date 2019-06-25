@@ -2,6 +2,7 @@ import moment from 'moment';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Checkbox, Form, Header, Icon } from 'semantic-ui-react';
+import * as _ from 'lodash';
 
 import { PicklistInput, PicklistInputOnChangeData } from '../src/inputs';
 
@@ -104,6 +105,8 @@ class DateTimeForm extends React.Component<any, any> {
       fetchurl,
       fetchkey,
       page,
+      pages,
+      filtered: prevFiltered,
     } = this.state;
 
     return (
@@ -142,13 +145,14 @@ class DateTimeForm extends React.Component<any, any> {
           clearable={clearable}
           value={pick2Value}
           page={page || 0}
-          pages={3}
+          pages={pages || 3}
+          filtered={prevFiltered || {}}
           iconPosition='left'
           autoComplete='off'
           preserveViewMode={false}
           onChange={this.handleChange}
           onFetchEvent={(param) => {
-            const { page: currentPage } = param;
+            const { page: currentPage, filtered } = param;
             const newDS = [
               { name: 'Jamie', status: 'Approved', notes: 'Requires call' },
               { name: 'John', status: 'Selected', notes: 'None' },
@@ -163,18 +167,39 @@ class DateTimeForm extends React.Component<any, any> {
               { name: 'Jing', status: 'Rejected', notes: 'None' },
               { name: 'Mindel', status: 'Approved', notes: 'Requires call' },
               { name: 'Plotty', status: 'Selected', notes: 'None' },
-            ];
+            ].filter((item) => {
+              let isValid = true;
+              if (filtered) {
+                Object.keys(filtered).forEach((keyFilter) => {
+                  if (_.has(item, keyFilter)) {
+                    isValid =
+                      _.get(item, keyFilter).indexOf(filtered[keyFilter]) >= 0;
+                    if (!isValid) {
+                      return;
+                    }
+                  }
+                });
+              }
+
+              return isValid;
+            });
             const indexPage = Math.abs(currentPage || 0);
             let startIndex = 5 * indexPage;
             if (startIndex >= newDS.length) {
               startIndex = 0;
             }
             const endIndex = Math.min(5 * indexPage + 5, newDS.length);
+            const totalPage = Math.ceil(newDS.length / 5);
             const dataChopped =
               newDS && newDS.length >= startIndex
                 ? newDS.slice(startIndex, endIndex)
                 : newDS;
-            this.setState({ datasource: dataChopped, page: currentPage });
+            this.setState({
+              datasource: dataChopped,
+              page: currentPage,
+              pages: totalPage,
+              filtered,
+            });
           }}
           format='{{name}}, {{status}}'
           datasource={datasource}

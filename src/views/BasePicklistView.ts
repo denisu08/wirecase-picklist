@@ -37,6 +37,7 @@ export interface SingleSelectionPicklistViewProps {
   page?: number;
   /** Position of a page to display as total page. */
   pages?: number;
+  filtered?: any;
 }
 
 export interface HeadingValueProps {

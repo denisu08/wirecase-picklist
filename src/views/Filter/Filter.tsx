@@ -23,15 +23,15 @@ export interface FilterProps {
   fields?: any[];
   /** handle filter change */
   filterchange: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
+  filtered?: any;
 }
 
 class Filter extends React.Component<FilterProps, any> {
-  public state = { data: {} };
-
   constructor(props) {
     super(props);
     this.handleValueChange = this.handleValueChange.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
+    this.state = { data: props.filtered || {} };
   }
 
   public render() {
@@ -85,7 +85,7 @@ class Filter extends React.Component<FilterProps, any> {
    * InputText,    => input
    */
   protected getComponent(item) {
-    const { data } = this.state;
+    const { data = {} } = this.state;
 
     switch (item.type) {
       case 'checkbox':
@@ -111,6 +111,7 @@ class Filter extends React.Component<FilterProps, any> {
             style={{ marginRight: '10px' }}
             options={item.options}
             onChange={this.handleValueChange}
+            defaultValue={data[item.model]}
             clearable
           />
         );
@@ -123,6 +124,7 @@ class Filter extends React.Component<FilterProps, any> {
             multiple
             options={item.options}
             onChange={this.handleValueChange}
+            defaultValue={data[item.model]}
             clearable
           />
         );
@@ -156,6 +158,7 @@ class Filter extends React.Component<FilterProps, any> {
             fluid
             placeholder={item.name}
             name={item.model}
+            value={data[item.model]}
             onChange={this.handleValueChange}
           />
         );

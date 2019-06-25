@@ -80,6 +80,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
     iconPosition: PropTypes.oneOf(['left', 'right']),
     page: PropTypes.number,
     pages: PropTypes.number,
+    filtered: PropTypes.any,
   };
 
   private stringTemplateEngine: StringTemplateEngine;
@@ -151,6 +152,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       onFetchEvent,
       page,
       pages,
+      filtered,
     } = this.props;
 
     const pickerProps = {
@@ -175,6 +177,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       fetchkey,
       page,
       pages,
+      filtered,
     };
 
     return <ListPicker {...pickerProps} />;
