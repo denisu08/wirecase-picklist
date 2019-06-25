@@ -59,7 +59,7 @@ class Picklist extends React.Component<PicklistProps, any> {
     e?: React.SyntheticEvent<HTMLElement>,
     data?: any,
   ) {
-    const { activePage } = data;
+    const activePage = data.activePage - 1;
     this.setState({ page: activePage });
     invoke(this.props, 'handlepagechange', e, {
       ...this.props,
@@ -114,7 +114,7 @@ class Picklist extends React.Component<PicklistProps, any> {
             firstItem={undefined}
             lastItem={undefined}
             boundaryRange={0}
-            defaultActivePage={page || 1}
+            defaultActivePage={page < 1 ? 1 : page + 1}
             ellipsisItem={null}
             siblingRange={1}
           />

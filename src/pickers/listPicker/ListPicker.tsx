@@ -92,7 +92,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
           fields={fields}
           columns={fieldFiltered}
           activeItemIndex={this.getActiveRowPosition()}
-          page={page || prevPage || 1}
+          page={page || prevPage || 0}
           pages={pages || prevPages || 0}
           handlepagechange={(e, data) => this.handlePaginationChange(e, data)}
           filterchange={this.filterChange}
@@ -133,7 +133,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
         filtered: filterParam,
         data: allData,
         selected,
-        page: Math.abs(data.value - 1),
+        page: Math.abs(data.value),
         pages,
         pageSize: 5,
       });
@@ -207,7 +207,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
     const { page, filterParam: prevFilterParam } = this.state;
     const filterParam = newFilterParam || prevFilterParam || {};
     const result = [];
-    const currentPage = (overridePage || page || 1) - 1;
+    const currentPage = overridePage || page || 0;
 
     if (!fields) {
       return [];
@@ -244,7 +244,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
           });
 
           this.setState({
-            page: currentPage + 1,
+            page: currentPage,
             pages,
             allData,
             listData: result,
@@ -291,7 +291,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
       });
 
       this.setState({
-        page: currentPage + 1,
+        page: currentPage,
         allData: datasource,
         listData: result,
         pages: totalPage,

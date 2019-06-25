@@ -141,7 +141,7 @@ class DateTimeForm extends React.Component<any, any> {
           closable
           clearable={clearable}
           value={pick2Value}
-          page={page || 1}
+          page={page || 0}
           pages={3}
           iconPosition='left'
           autoComplete='off'
@@ -174,8 +174,7 @@ class DateTimeForm extends React.Component<any, any> {
               newDS && newDS.length >= startIndex
                 ? newDS.slice(startIndex, endIndex)
                 : newDS;
-            console.log('onFetchEvent', param, dataChopped);
-            this.setState({ datasource: dataChopped, page: currentPage + 1 });
+            this.setState({ datasource: dataChopped, page: currentPage });
           }}
           format='{{name}}, {{status}}'
           datasource={datasource}
@@ -215,7 +214,6 @@ class DateTimeForm extends React.Component<any, any> {
     event: React.SyntheticEvent,
     { name, value, rowData }: DateTimeFormHandleChangeData,
   ) => {
-    console.log('rowData', rowData);
     if (this.state.hasOwnProperty(name)) {
       this.setState({ [name]: value });
     }
