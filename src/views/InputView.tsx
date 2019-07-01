@@ -70,6 +70,7 @@ interface InputViewProps {
   onClear?: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
   /** Whether to close a popup when cursor leaves it. */
   closeOnMouseLeave?: boolean;
+  closable?: boolean;
   /** A field can have its label next to instead of above it. */
   inlineLabel?: boolean;
   /** Using the clearable setting will let users remove their selection from a picklist. */

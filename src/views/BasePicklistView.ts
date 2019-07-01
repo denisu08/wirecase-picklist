@@ -28,6 +28,8 @@ export interface BasePicklistViewProps {
   handlepagechange: (e?: React.SyntheticEvent<HTMLElement>, data?: any) => void;
   /** handle filter change */
   filterchange: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
+  closePopup: () => void;
+  closable: boolean;
 }
 
 export interface SingleSelectionPicklistViewProps {

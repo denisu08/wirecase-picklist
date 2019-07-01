@@ -28,6 +28,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
     this.stringTemplateEngine = new StringTemplateEngine();
     this.handlePaginationChange = this.handlePaginationChange.bind(this);
     this.filterChange = this.filterChange.bind(this);
+    this.closePopup = this.closePopup.bind(this);
   }
 
   public componentDidMount() {
@@ -47,6 +48,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
       onChange,
       value,
       closePopup,
+      closable,
       inline,
       isPickerInFocus,
       isTriggerInFocus,
@@ -98,6 +100,8 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
           pages={pages || prevPages || 0}
           filtered={filtered || prevFiltered || {}}
           handlepagechange={(e, data) => this.handlePaginationChange(e, data)}
+          closePopup={() => this.closePopup()}
+          closable={closable}
           filterchange={this.filterChange}
         />
       </React.Fragment>
@@ -122,6 +126,11 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
     }
 
     return active;
+  }
+
+  protected closePopup() {
+    const { closePopup } = this.props;
+    closePopup();
   }
 
   /** Keeps internal state in sync with input field value. */
@@ -258,7 +267,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
         });
     } else if (datasource) {
       let sliceData = datasource;
-      if (needFiltered && filterParam && !_.isEmpty(filterParam)) {
+      if (filterParam && !_.isEmpty(filterParam)) {
         sliceData = datasource.filter((el) => {
           let gotIt = true;
           Object.keys(filterParam).forEach((key) => {

@@ -36,6 +36,7 @@ export interface BasePickerProps {
   initial: string;
   /** Forse popup to close. */
   closePopup: () => void;
+  closable: boolean;
   /** Whether to display picker without a popup or inside a popup. */
   inline: boolean;
   /** WHether picker in focus. */

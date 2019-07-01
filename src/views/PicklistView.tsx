@@ -33,6 +33,8 @@ class PicklistView extends BasePicklistView<PicklistViewProps, any> {
       onNextPageBtnClick,
       onPrevPageBtnClick,
       handlepagechange,
+      closePopup,
+      closable,
       filterchange,
       hasNextPage,
       hasPrevPage,
@@ -50,6 +52,8 @@ class PicklistView extends BasePicklistView<PicklistViewProps, any> {
         page={page}
         pages={pages}
         handlepagechange={(e, data) => handlepagechange(e, data)}
+        closePopup={() => closePopup()}
+        closable={closable}
         filterchange={filterchange}
         fields={fields}
         {...rest}

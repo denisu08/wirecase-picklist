@@ -63,13 +63,13 @@ class Body extends React.Component<BodyProps, any> {
 
   private onCellClick = (event) => {
     const itemPosition = event.currentTarget.id;
-    const { rawData } = this.props;
+    const { data } = this.props;
 
     let content;
-    if (rawData && rawData.length) {
-      content = rawData[itemPosition];
+    if (data && data.length) {
+      content = data[itemPosition];
     } else {
-      content = rawData[itemPosition];
+      content = data[itemPosition];
     }
 
     invoke(this.props, 'onCellClick', event, {

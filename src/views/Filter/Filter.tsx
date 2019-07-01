@@ -24,6 +24,8 @@ export interface FilterProps {
   /** handle filter change */
   filterchange: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
   filtered?: any;
+  closable?: boolean;
+  closePopup: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
 }
 
 class Filter extends React.Component<FilterProps, any> {
@@ -31,11 +33,12 @@ class Filter extends React.Component<FilterProps, any> {
     super(props);
     this.handleValueChange = this.handleValueChange.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
+    this.closePopup = this.closePopup.bind(this);
     this.state = { data: props.filtered || {} };
   }
 
   public render() {
-    const { fields } = this.props;
+    const { fields, closable } = this.props;
     if (!fields || fields.length === 0) {
       return null;
     }
@@ -54,11 +57,11 @@ class Filter extends React.Component<FilterProps, any> {
       }
     });
 
-    if (searchFields && searchFields.length > 0) {
-      return (
-        <Segment style={{ margin: '5px' }} size='tiny'>
-          {searchFields}
-          <div style={buttonStyle}>
+    return (
+      <Segment style={{ margin: '5px' }} size='tiny'>
+        {searchFields && searchFields.length > 0 ? searchFields : null}
+        <div style={buttonStyle}>
+          {searchFields && searchFields.length > 0 ? (
             <Button
               type='button'
               fluid
@@ -68,12 +71,21 @@ class Filter extends React.Component<FilterProps, any> {
             >
               Search
             </Button>
-          </div>
-        </Segment>
-      );
-    }
-
-    return '';
+          ) : null}
+          {closable ? (
+            <Button
+              type='button'
+              color='red'
+              fluid
+              size='tiny'
+              onClick={this.closePopup}
+            >
+              Close
+            </Button>
+          ) : null}
+        </div>
+      </Segment>
+    );
   }
 
   /**
@@ -195,6 +207,10 @@ class Filter extends React.Component<FilterProps, any> {
       ...this.props,
       value: this.state.data,
     });
+  }
+
+  protected closePopup(e) {
+    invoke(this.props, 'closePopup');
   }
 }
 

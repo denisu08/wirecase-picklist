@@ -28,6 +28,8 @@ interface PicklistProps {
   handlepagechange: (e?: React.SyntheticEvent<HTMLElement>, data?: any) => void;
   /** handle filter change */
   filterchange: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
+  closable: boolean;
+  closePopup: () => void;
 }
 
 // const rowBtnStyle = {
@@ -79,6 +81,8 @@ class Picklist extends React.Component<PicklistProps, any> {
       pages,
       filterchange,
       filtered,
+      closePopup,
+      closable,
       ...rest
     } = this.props;
 
@@ -98,6 +102,8 @@ class Picklist extends React.Component<PicklistProps, any> {
           fields={fields}
           filterchange={filterchange}
           filtered={filtered}
+          closePopup={closePopup}
+          closable={closable}
         />
         <Table
           style={style}

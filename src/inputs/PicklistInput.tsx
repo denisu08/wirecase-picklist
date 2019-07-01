@@ -120,6 +120,8 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
         onMount={this.onInputViewMount}
         onFocus={this.onFocus}
         onChange={this.onInputValueChange}
+        closeOnMouseLeave={!closable}
+        closable={closable}
         {...rest}
         renderPicker={() => this.getPicker()}
         value={picklistValueToString(value, format, localization)}
@@ -153,6 +155,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       page,
       pages,
       filtered,
+      closable,
     } = this.props;
 
     const pickerProps = {
@@ -178,6 +181,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       page,
       pages,
       filtered,
+      closable,
     };
 
     return <ListPicker {...pickerProps} />;
