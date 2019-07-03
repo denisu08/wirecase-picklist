@@ -1,6 +1,6 @@
 {
   "name": "wirecase-picklist",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "date/time picker built from semantic-ui elements",
   "main": "dist/index.js",
   "scripts": {
