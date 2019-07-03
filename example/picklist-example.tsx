@@ -23,7 +23,7 @@ const defaultState = {
     { name: 'Jill', status: 'Rejected', notes: 'None' },
     { name: 'Blown', status: 'Approved', notes: 'Requires call' },
     // remove below if paging
-    // { name: 'Googie', status: 'Selected', notes: 'Requires call' },
+    { name: 'Googie', status: 'Selected', notes: 'Requires call' },
     // { name: 'Pawn', status: 'Selected', notes: 'None' },
     // { name: 'Sessy', status: 'Approved', notes: 'Requires call' },
     // { name: 'Poland', status: 'Rejected', notes: 'None' },
@@ -154,13 +154,13 @@ class DateTimeForm extends React.Component<any, any> {
           clearable={clearable}
           value={pick2Value}
           page={page || 0}
-          pages={pages || 3}
+          pages={pages || 2}
           filtered={prevFiltered || {}}
           iconPosition='left'
           autoComplete='off'
           preserveViewMode={false}
           onChange={this.handleChange}
-          onFetchEvent={(param) => {
+          /* onFetchEvent={(param) => {
             const { page: currentPage, filtered } = param;
             const newDS = [
               { name: 'Jamie', status: 'Approved', notes: 'Requires call' },
@@ -209,7 +209,7 @@ class DateTimeForm extends React.Component<any, any> {
               pages: totalPage,
               filtered,
             });
-          }}
+          }}*/
           format='{{name}}, {{status}}'
           datasource={datasource}
           fields={[
