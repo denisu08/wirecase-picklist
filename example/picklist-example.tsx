@@ -23,14 +23,14 @@ const defaultState = {
     { name: 'Jill', status: 'Rejected', notes: 'None' },
     { name: 'Blown', status: 'Approved', notes: 'Requires call' },
     // remove below if paging
-    { name: 'Googie', status: 'Selected', notes: 'Requires call' },
-    { name: 'Pawn', status: 'Selected', notes: 'None' },
-    { name: 'Sessy', status: 'Approved', notes: 'Requires call' },
-    { name: 'Poland', status: 'Rejected', notes: 'None' },
-    { name: 'Kung', status: 'Approved', notes: 'Requires call' },
-    { name: 'Jing', status: 'Rejected', notes: 'None' },
-    { name: 'Mindel', status: 'Approved', notes: 'Requires call' },
-    { name: 'Plotty', status: 'Selected', notes: 'None' },
+    // { name: 'Googie', status: 'Selected', notes: 'Requires call' },
+    // { name: 'Pawn', status: 'Selected', notes: 'None' },
+    // { name: 'Sessy', status: 'Approved', notes: 'Requires call' },
+    // { name: 'Poland', status: 'Rejected', notes: 'None' },
+    // { name: 'Kung', status: 'Approved', notes: 'Requires call' },
+    // { name: 'Jing', status: 'Rejected', notes: 'None' },
+    // { name: 'Mindel', status: 'Approved', notes: 'Requires call' },
+    // { name: 'Plotty', status: 'Selected', notes: 'None' },
   ],
   fields: [
     {
@@ -160,56 +160,56 @@ class DateTimeForm extends React.Component<any, any> {
           autoComplete='off'
           preserveViewMode={false}
           onChange={this.handleChange}
-          // onFetchEvent={(param) => {
-          //   const { page: currentPage, filtered } = param;
-          //   const newDS = [
-          //     { name: 'Jamie', status: 'Approved', notes: 'Requires call' },
-          //     { name: 'John', status: 'Selected', notes: 'None' },
-          //     { name: 'Jakun', status: 'Approved', notes: 'Requires call' },
-          //     { name: 'Jill', status: 'Rejected', notes: 'None' },
-          //     { name: 'Blown', status: 'Approved', notes: 'Requires call' },
-          //     { name: 'Googie', status: 'Selected', notes: 'Requires call' },
-          //     { name: 'Pawn', status: 'Selected', notes: 'None' },
-          //     { name: 'Sessy', status: 'Approved', notes: 'Requires call' },
-          //     { name: 'Poland', status: 'Rejected', notes: 'None' },
-          //     { name: 'Kung', status: 'Approved', notes: 'Requires call' },
-          //     { name: 'Jing', status: 'Rejected', notes: 'None' },
-          //     { name: 'Mindel', status: 'Approved', notes: 'Requires call' },
-          //     { name: 'Plotty', status: 'Selected', notes: 'None' },
-          //   ].filter((item) => {
-          //     let isValid = true;
-          //     if (filtered) {
-          //       Object.keys(filtered).forEach((keyFilter) => {
-          //         if (_.has(item, keyFilter)) {
-          //           isValid =
-          //             _.get(item, keyFilter).indexOf(filtered[keyFilter]) >= 0;
-          //           if (!isValid) {
-          //             return;
-          //           }
-          //         }
-          //       });
-          //     }
+          onFetchEvent={(param) => {
+            const { page: currentPage, filtered } = param;
+            const newDS = [
+              { name: 'Jamie', status: 'Approved', notes: 'Requires call' },
+              { name: 'John', status: 'Selected', notes: 'None' },
+              { name: 'Jakun', status: 'Approved', notes: 'Requires call' },
+              { name: 'Jill', status: 'Rejected', notes: 'None' },
+              { name: 'Blown', status: 'Approved', notes: 'Requires call' },
+              { name: 'Googie', status: 'Selected', notes: 'Requires call' },
+              { name: 'Pawn', status: 'Selected', notes: 'None' },
+              { name: 'Sessy', status: 'Approved', notes: 'Requires call' },
+              { name: 'Poland', status: 'Rejected', notes: 'None' },
+              { name: 'Kung', status: 'Approved', notes: 'Requires call' },
+              { name: 'Jing', status: 'Rejected', notes: 'None' },
+              { name: 'Mindel', status: 'Approved', notes: 'Requires call' },
+              { name: 'Plotty', status: 'Selected', notes: 'None' },
+            ].filter((item) => {
+              let isValid = true;
+              if (filtered) {
+                Object.keys(filtered).forEach((keyFilter) => {
+                  if (_.has(item, keyFilter)) {
+                    isValid =
+                      _.get(item, keyFilter).indexOf(filtered[keyFilter]) >= 0;
+                    if (!isValid) {
+                      return;
+                    }
+                  }
+                });
+              }
 
-          //     return isValid;
-          //   });
-          //   const indexPage = Math.abs(currentPage || 0);
-          //   let startIndex = 5 * indexPage;
-          //   if (startIndex >= newDS.length) {
-          //     startIndex = 0;
-          //   }
-          //   const endIndex = Math.min(5 * indexPage + 5, newDS.length);
-          //   const totalPage = Math.ceil(newDS.length / 5);
-          //   const dataChopped =
-          //     newDS && newDS.length >= startIndex
-          //       ? newDS.slice(startIndex, endIndex)
-          //       : newDS;
-          //   this.setState({
-          //     datasource: dataChopped,
-          //     page: currentPage,
-          //     pages: totalPage,
-          //     filtered,
-          //   });
-          // }}
+              return isValid;
+            });
+            const indexPage = Math.abs(currentPage || 0);
+            let startIndex = 5 * indexPage;
+            if (startIndex >= newDS.length) {
+              startIndex = 0;
+            }
+            const endIndex = Math.min(5 * indexPage + 5, newDS.length);
+            const totalPage = Math.ceil(newDS.length / 5);
+            const dataChopped =
+              newDS && newDS.length >= startIndex
+                ? newDS.slice(startIndex, endIndex)
+                : newDS;
+            this.setState({
+              datasource: dataChopped,
+              page: currentPage,
+              pages: totalPage,
+              filtered,
+            });
+          }}
           format='{{name}}, {{status}}'
           datasource={datasource}
           fields={[
@@ -248,8 +248,9 @@ class DateTimeForm extends React.Component<any, any> {
     event: React.SyntheticEvent,
     { name, value, rowData }: DateTimeFormHandleChangeData,
   ) => {
+    const { page, pages } = this.state;
     if (this.state.hasOwnProperty(name)) {
-      this.setState({ [name]: value });
+      this.setState({ [name]: value, page, pages });
     }
   }
 }
@@ -293,8 +294,9 @@ class DateTimeFormInline extends React.Component<any, any> {
     event: React.SyntheticEvent,
     { name, value }: DateTimeFormHandleChangeData,
   ) => {
+    const { page, pages } = this.state;
     if (this.state.hasOwnProperty(name)) {
-      this.setState({ [name]: value });
+      this.setState({ [name]: value, page, pages });
     }
   }
 }

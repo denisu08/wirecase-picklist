@@ -73,6 +73,8 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
     } = this.state;
     const fieldFiltered = this.buildPicklist();
 
+    const activePage = page || prevPage || 0;
+
     return (
       <React.Fragment>
         <Dimmer active={isLoading} inverted>
@@ -95,8 +97,8 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
           localization={localization}
           fields={fields}
           columns={fieldFiltered}
-          activeItemIndex={this.getActiveRowPosition()}
-          page={page || prevPage || 0}
+          activeItemIndex={this.getActiveRowPosition(activePage)}
+          page={activePage}
           pages={pages || prevPages || 0}
           filtered={filtered || prevFiltered || {}}
           handlepagechange={(e, data) => this.handlePaginationChange(e, data)}
@@ -108,12 +110,20 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
     );
   }
 
-  protected getActiveRowPosition(): number {
-    const { value, format } = this.props;
+  protected getActiveRowPosition(activePage): number {
+    const { value, format, pageSize } = this.props;
     const { allData } = this.state;
     let active = -1;
     if (value && allData) {
-      allData.forEach((item, index) => {
+      let dataChopped = allData;
+      if (allData.length > 5 && activePage * 5) {
+        dataChopped = allData.slice(
+          pageSize * activePage,
+          pageSize * activePage + pageSize,
+        );
+      }
+
+      dataChopped.forEach((item, index) => {
         if (active === -1) {
           const dataFormatted = this.stringTemplateEngine.format(format, {
             values: item || {},
@@ -220,13 +230,17 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
     const { page, filterParam: prevFilterParam } = this.state;
     const filterParam = newFilterParam || prevFilterParam || {};
     const result = [];
-    const currentPage = overridePage || page || 0;
-    const needFiltered = onFetchEvent ? false : true;
+    let currentPage = 0;
+    if (overridePage !== undefined) {
+      currentPage = overridePage;
+    } else if (page !== undefined) {
+      currentPage = page;
+    }
 
+    const needFiltered = onFetchEvent ? false : true;
     if (!fields) {
       return [];
     }
-
     const keyFields = [];
     fields.forEach((item) => {
       if (item.displayFlag) {
@@ -251,9 +265,10 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
           const allData = res[fetchkey.data];
           allData.forEach((data) => {
             result.push(
-              _.pickBy(Object.assign(data), (value, key) => {
+              /* _.pickBy(Object.assign(data), (value, key) => {
                 return keyFields.includes(key);
-              }),
+              }),*/
+              data,
             );
           });
 
@@ -267,7 +282,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
         });
     } else if (datasource) {
       let sliceData = datasource;
-      if (filterParam && !_.isEmpty(filterParam)) {
+      if (needFiltered && filterParam && !_.isEmpty(filterParam)) {
         sliceData = datasource.filter((el) => {
           let gotIt = true;
           Object.keys(filterParam).forEach((key) => {
@@ -298,9 +313,10 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
 
       sliceData.forEach((data) => {
         result.push(
-          _.pickBy(Object.assign(data), (value, key) => {
+          /* _.pickBy(Object.assign(data), (value, key) => {
             return keyFields.includes(key);
-          }),
+          }), */
+          data,
         );
       });
 
