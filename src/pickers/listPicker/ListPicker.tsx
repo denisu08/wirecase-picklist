@@ -180,20 +180,31 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
     e: React.SyntheticEvent<HTMLElement>,
     data: any,
   ): void {
-    const { onFetchEvent } = this.props;
+    const { onFetchEvent, page: prevPage, pages: prevPages } = this.props;
     this.setState({
       filterParam: data.value,
     });
+
     if (onFetchEvent) {
       const { page, pages, allData, data: selected } = this.state;
-      onFetchEvent({
+      let pPage = page === null ? prevPage : page;
+      if (pPage === undefined) {
+        pPage = 0;
+      }
+      let pPages = pages === null ? prevPages : pages;
+      if (pPages === undefined) {
+        pPages = 0;
+      }
+
+      const params = {
         filtered: data.value,
         data: allData,
         selected,
-        page,
-        pages,
+        page: pPage,
+        pages: pPages,
         pageSize: 5,
-      });
+      };
+      onFetchEvent(params);
     } else {
       this.buildPicklistValues(null, data.value);
     }
