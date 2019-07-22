@@ -180,7 +180,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
     e: React.SyntheticEvent<HTMLElement>,
     data: any,
   ): void {
-    const { onFetchEvent, page: prevPage, pages: prevPages } = this.props;
+    const { onFetchEvent, page: prevPage, pages: prevPages, isCSensitive } = this.props;
     this.setState({
       filterParam: data.value,
     });
@@ -236,6 +236,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
       fetchkey,
       pageSize,
       onFetchEvent,
+      isCSensitive,
     } = this.props;
     const datasource = newDS || oldDS;
     const { page, filterParam: prevFilterParam } = this.state;
@@ -300,8 +301,10 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
             if (!gotIt || !_.get(filterParam, key)) {
               return;
             }
-            const filterValue = _.get(el, key) || '';
-            const filterArg = _.get(filterParam, key) || '';
+            let filterValue = _.get(el, key) || '';
+            if (isCSensitive) { filterValue = filterValue.toLowerCase(); }
+            let filterArg = _.get(filterParam, key) || '';
+            if (isCSensitive) { filterArg = filterArg.toLowerCase(); }
             if (Array.isArray(filterArg)) {
               if (filterArg.length > 0) {
                 gotIt = filterArg.includes(filterValue);

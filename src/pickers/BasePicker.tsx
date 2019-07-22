@@ -27,6 +27,7 @@ export interface BasePickerProps {
   format?: string;
   /** Currently selected date. */
   datasource?: object[];
+  isCSensitive?: boolean;
   /** Field Configuration. */
   fields?: any[];
   /** URL to fetch data */

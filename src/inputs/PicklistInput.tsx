@@ -156,6 +156,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       pages,
       filtered,
       closable,
+      isCSensitive,
     } = this.props;
 
     const pickerProps = {
@@ -182,6 +183,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       pages,
       filtered,
       closable,
+      isCSensitive,
     };
 
     return <ListPicker {...pickerProps} />;

@@ -63,6 +63,7 @@ export interface PicklistRelatedProps {
   fields?: object[];
   /** Datasource */
   datasource?: object[];
+  isCSensitive?: boolean;
   /** URL to fetch data */
   fetchurl?: string;
   fetchkey?: any;

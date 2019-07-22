@@ -37,6 +37,7 @@ const defaultState = {
       model: 'title',
       name: 'Title',
       type: 'string',
+      formatType: 'number',
       searchFlag: true,
       displayFlag: true,
     },
@@ -212,6 +213,7 @@ class DateTimeForm extends React.Component<any, any> {
           }}*/
           format='{{name}}, {{status}}'
           datasource={datasource}
+          isCSensitive={false}
           fields={[
             {
               model: 'name',
@@ -219,6 +221,8 @@ class DateTimeForm extends React.Component<any, any> {
               type: 'string',
               searchFlag: true,
               displayFlag: true,
+              formatType: 'string',
+              maxLength: 5,
             },
             {
               model: 'status',

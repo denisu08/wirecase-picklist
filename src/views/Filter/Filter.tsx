@@ -172,6 +172,10 @@ class Filter extends React.Component<FilterProps, any> {
             name={item.model}
             value={data[item.model]}
             onChange={this.handleValueChange}
+            type={item.formatType}
+            maxLength={item.maxLength}
+            minNumber={item.minNumber}
+            maxNumber={item.maxNumber}
           />
         );
     }
@@ -195,7 +199,17 @@ class Filter extends React.Component<FilterProps, any> {
     } else if (data.type === 'checkbox' && data.toggle) {
       dataMerged = { [data.id || data.name]: data.checked };
     } else {
-      dataMerged = { [data.id || data.name]: data.value };
+      let compValue = { [data.id || data.name]: data.value };
+      if (data.type === 'number') {
+        const { value, minNumber, maxNumber } = data;
+        if (maxNumber !== undefined && Number(value) >= Number(maxNumber)) {
+          compValue = { [data.id || data.name]: maxNumber };
+        } 
+        if (minNumber !== undefined && Number(value) <= Number(minNumber)) {
+          compValue = { [data.id || data.name]: minNumber };
+        }
+      }
+      dataMerged = compValue;
     }
     this.setState({
       data: Object.assign(this.state.data, dataMerged),
