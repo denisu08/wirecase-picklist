@@ -204,7 +204,7 @@ class Filter extends React.Component<FilterProps, any> {
         const { value, minNumber, maxNumber } = data;
         if (maxNumber !== undefined && Number(value) >= Number(maxNumber)) {
           compValue = { [data.id || data.name]: maxNumber };
-        } 
+        }
         if (minNumber !== undefined && Number(value) <= Number(minNumber)) {
           compValue = { [data.id || data.name]: minNumber };
         }
