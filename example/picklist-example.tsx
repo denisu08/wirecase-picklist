@@ -223,6 +223,7 @@ class DateTimeForm extends React.Component<any, any> {
               displayFlag: true,
               formatType: 'string',
               maxLength: 5,
+              regex: '^[a-zA-Z ]*$',
             },
             {
               model: 'status',

@@ -10,6 +10,7 @@ import {
   Checkbox,
 } from 'semantic-ui-react';
 import invoke from 'lodash/invoke';
+import * as _ from 'lodash';
 
 const buttonStyle = {
   display: 'flex',
@@ -176,6 +177,7 @@ class Filter extends React.Component<FilterProps, any> {
             maxLength={item.maxLength}
             minNumber={item.minNumber}
             maxNumber={item.maxNumber}
+            regex={item.regex}
           />
         );
     }
@@ -207,6 +209,13 @@ class Filter extends React.Component<FilterProps, any> {
         }
         if (minNumber !== undefined && Number(value) <= Number(minNumber)) {
           compValue = { [data.id || data.name]: minNumber };
+        }
+      } else if (data.regex) {
+        if (data.value.match(data.regex) == null) {
+          compValue = {
+            [data.id || data.name]:
+              _.get(this.state.data, data.id || data.name) || '',
+          };
         }
       }
       dataMerged = compValue;
