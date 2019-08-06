@@ -62,7 +62,7 @@ class Picklist extends React.Component<PicklistProps, any> {
     e?: React.SyntheticEvent<HTMLElement>,
     data?: any,
   ) {
-    const activePage = Math.ceil(data.activePage) - 1;
+    const activePage = Math.floor(data.activePage) - 1;
     this.setState({ page: activePage });
     invoke(this.props, 'handlepagechange', e, {
       ...this.props,
@@ -120,13 +120,13 @@ class Picklist extends React.Component<PicklistProps, any> {
         <div style={{ textAlign: 'center', margin: '5px' }}>
           <Pagination
             onPageChange={this.handlePaginationChange}
-            totalPages={pages || 0}
+            totalPages={Math.floor(pages || 0)}
             prevItem={undefined}
             nextItem={undefined}
             firstItem={undefined}
             lastItem={undefined}
             boundaryRange={0}
-            defaultActivePage={page < 1 ? 1 : page + 1}
+            defaultActivePage={Math.floor(page < 1 ? 1 : page + 1)}
             ellipsisItem={null}
             siblingRange={1}
           />
