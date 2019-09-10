@@ -64,7 +64,7 @@ class Body extends React.Component<BodyProps, any> {
           {noRecordText}
         </Table.HeaderCell>
       </Table.Row>
-    </Table.Footer>
+    </Table.Footer>;
     }
   }
 
