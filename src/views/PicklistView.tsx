@@ -42,6 +42,7 @@ class PicklistView extends BasePicklistView<PicklistViewProps, any> {
       page,
       pages,
       fields,
+      noRecordText,
       ...rest
     } = this.props;
 
@@ -75,6 +76,7 @@ class PicklistView extends BasePicklistView<PicklistViewProps, any> {
           onCellHover={onCellHover}
           onCellClick={onValueClick}
           active={activeItemIndex}
+          noRecordText={noRecordText}
         />
       </Picklist>
     );

@@ -60,6 +60,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
       page,
       pages,
       filtered,
+      noRecordText,
       ...rest
     } = this.props;
 
@@ -82,6 +83,7 @@ class ListPicker extends SingleSelectionPicker<ListPickerProps> {
         </Dimmer>
         <PicklistView
           {...rest}
+          noRecordText={noRecordText}
           values={listData || []}
           rawData={allData || []}
           hasNextPage

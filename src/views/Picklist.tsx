@@ -117,7 +117,7 @@ class Picklist extends React.Component<PicklistProps, any> {
         >
           {children}
         </Table>
-        <div style={{ textAlign: 'center', margin: '5px' }}>
+        { pages > 0 ? <div style={{ textAlign: 'center', margin: '5px' }}>
           <Pagination
             onPageChange={this.handlePaginationChange}
             totalPages={Math.floor(pages || 0)}
@@ -130,7 +130,7 @@ class Picklist extends React.Component<PicklistProps, any> {
             ellipsisItem={null}
             siblingRange={1}
           />
-        </div>
+        </div> : ''}
       </div>
     );
   }

@@ -55,6 +55,7 @@ export interface BasePickerProps {
   page?: number;
   pages?: number;
   filtered?: any;
+  noRecordText?: string;
 }
 
 export interface OptionalHeaderProps {

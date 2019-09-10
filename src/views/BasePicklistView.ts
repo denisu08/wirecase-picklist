@@ -30,6 +30,7 @@ export interface BasePicklistViewProps {
   filterchange: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
   closePopup: () => void;
   closable: boolean;
+  noRecordText: string;
 }
 
 export interface SingleSelectionPicklistViewProps {

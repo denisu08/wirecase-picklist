@@ -116,6 +116,7 @@ interface InputViewProps {
   /** URL to fetch data */
   fetchurl?: string;
   fetchkey?: any;
+  noRecordText?: string;
 }
 
 class InputView extends React.Component<InputViewProps, any> {
@@ -160,6 +161,7 @@ class InputView extends React.Component<InputViewProps, any> {
       pickerStyle,
       iconPosition,
       icon,
+      noRecordText,
       ...rest
     } = this.props;
 
@@ -222,6 +224,7 @@ class InputView extends React.Component<InputViewProps, any> {
         onBlur={onBlur}
         onMouseEnter={onMouseEnter}
         onChange={onChange}
+        noRecordText={noRecordText}
       />
     );
 

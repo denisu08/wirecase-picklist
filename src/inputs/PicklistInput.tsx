@@ -81,6 +81,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
     page: PropTypes.number,
     pages: PropTypes.number,
     filtered: PropTypes.any,
+    noRecordText: PropTypes.string,
   };
 
   private stringTemplateEngine: StringTemplateEngine;
@@ -109,6 +110,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       closable,
       localization,
       onChange,
+      noRecordText,
       ...rest
     } = this.props;
 
@@ -129,6 +131,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
         datasource={datasource}
         fetchurl={fetchurl}
         fetchkey={fetchkey}
+        noRecordText={noRecordText}
       />
     );
   }
@@ -157,6 +160,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       filtered,
       closable,
       isCSensitive,
+      noRecordText,
     } = this.props;
 
     const pickerProps = {
@@ -184,6 +188,7 @@ class PicklistInput extends BaseInput<PicklistInputProps, PicklistInputState> {
       filtered,
       closable,
       isCSensitive,
+      noRecordText,
     };
 
     return <ListPicker {...pickerProps} />;

@@ -53,6 +53,7 @@ export interface BaseInputProps {
   /** picklist localization. */
   localization?: string;
   pageSize?: number;
+  noRecordText?: string;
 }
 export interface PicklistRelatedProps {
   /** Picklist formatting string. */

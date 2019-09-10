@@ -28,11 +28,12 @@ interface BodyProps {
   hovered?: number;
   /** Index of an element (or array of indexes) in `data` array that should be displayed as active. */
   active?: number;
+  noRecordText?: string;
 }
 
 class Body extends React.Component<BodyProps, any> {
   public render() {
-    const { data, active, columns } = this.props;
+    const { data, active, columns, noRecordText = 'No Record' } = this.props;
     const rawData = data || [];
 
     if (rawData && rawData.length && columns && columns.length) {
@@ -57,7 +58,13 @@ class Body extends React.Component<BodyProps, any> {
         </Table.Body>
       );
     } else {
-      return <Table.Body />;
+      return <Table.Footer fullWidth>
+      <Table.Row>
+        <Table.HeaderCell colSpan='999'>
+          {noRecordText}
+        </Table.HeaderCell>
+      </Table.Row>
+    </Table.Footer>
     }
   }
 
