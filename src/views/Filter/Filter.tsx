@@ -118,7 +118,7 @@ class Filter extends React.Component<FilterProps, any> {
         return (
           <Dropdown
             fluid
-            placeholder={item.name}
+            placeholder={item.placeholder}
             name={item.model}
             selection
             style={{ marginRight: '10px' }}
@@ -132,7 +132,7 @@ class Filter extends React.Component<FilterProps, any> {
         return (
           <Dropdown
             fluid
-            placeholder={item.name}
+            placeholder={item.placeholder}
             name={item.model}
             multiple
             options={item.options}
@@ -169,7 +169,7 @@ class Filter extends React.Component<FilterProps, any> {
         return (
           <Input
             fluid
-            placeholder={item.name}
+            placeholder={item.placeholder}
             name={item.model}
             value={data[item.model]}
             onChange={this.handleValueChange}

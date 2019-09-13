@@ -219,6 +219,7 @@ class DateTimeForm extends React.Component<any, any> {
               model: 'name',
               name: 'Name',
               type: 'string',
+              placeholder: 'Name Placeholder',
               searchFlag: true,
               displayFlag: true,
               formatType: 'string',
@@ -227,6 +228,7 @@ class DateTimeForm extends React.Component<any, any> {
             },
             {
               model: 'status',
+              placeholder: 'Status Placeholder',
               name: 'Status',
               type: 'string',
               searchFlag: true,
@@ -234,6 +236,7 @@ class DateTimeForm extends React.Component<any, any> {
             },
             {
               model: 'notes',
+              placeholder: 'Notes Placeholder',
               name: 'Notes',
               type: 'multidropdown',
               searchFlag: true,
