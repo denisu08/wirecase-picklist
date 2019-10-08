@@ -9,6 +9,7 @@ export interface BaseInputProps {
   onChange: (e: React.SyntheticEvent<HTMLElement>, data: any) => void;
   /** If true, popup closes after selecting a value. */
   closable?: boolean;
+  readOnly?: boolean;
   /** An input can be formatted to appear inline in other content. */
   inline?: boolean;
   /** Optional icon to display inside the Input. */

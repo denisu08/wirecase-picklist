@@ -1,29 +1,29 @@
-import moment from 'moment';
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Checkbox, Form, Header, Icon } from 'semantic-ui-react';
-import * as _ from 'lodash';
+import moment from "moment";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { Checkbox, Form, Header, Icon } from "semantic-ui-react";
+import * as _ from "lodash";
 
-import { PicklistInput, PicklistInputOnChangeData } from '../src/inputs';
+import { PicklistInput, PicklistInputOnChangeData } from "../src/inputs";
 
-moment.locale('en');
+moment.locale("en");
 
 const defaultState = {
-  pick1: '',
-  pick2: '',
-  pick3: '',
-  format: '{{url}}, {{author}}',
+  pick1: "",
+  pick2: "",
+  pick3: "",
+  format: "{{url}}, {{author}}",
   fetchurl:
-    'https://hn.algolia.com/api/v1/search?query={{author}}&page={{page}}&hitsPerPage={{pageSize}}',
-  fetchkey: { pages: 'nbPages', page: 'page', data: 'hits' },
+    "https://hn.algolia.com/api/v1/search?query={{author}}&page={{page}}&hitsPerPage={{pageSize}}",
+  fetchkey: { pages: "nbPages", page: "page", data: "hits" },
   datasource: [
-    { name: 'Jamie', status: 'Approved', notes: 'Requires call' },
-    { name: 'John', status: 'Selected', notes: 'None' },
-    { name: 'Jakun', status: 'Approved', notes: 'Requires call' },
-    { name: 'Jill', status: 'Rejected', notes: 'None' },
-    { name: 'Blown', status: 'Approved', notes: 'Requires call' },
+    { name: "Jamie", status: "Approved", notes: "Requires call" },
+    { name: "John", status: "Selected", notes: "None" },
+    { name: "Jakun", status: "Approved", notes: "Requires call" },
+    { name: "Jill", status: "Rejected", notes: "None" },
+    { name: "Blown", status: "Approved", notes: "Requires call" },
     // remove below if paging
-    { name: 'Googie', status: 'Selected', notes: 'Requires call' },
+    { name: "Googie", status: "Selected", notes: "Requires call" }
     // { name: 'Pawn', status: 'Selected', notes: 'None' },
     // { name: 'Sessy', status: 'Approved', notes: 'Requires call' },
     // { name: 'Poland', status: 'Rejected', notes: 'None' },
@@ -34,28 +34,28 @@ const defaultState = {
   ],
   fields: [
     {
-      model: 'title',
-      name: 'Title',
-      type: 'string',
-      formatType: 'number',
+      model: "title",
+      name: "Title",
+      type: "string",
+      formatType: "number",
       searchFlag: true,
-      displayFlag: true,
+      displayFlag: true
     },
     {
-      model: 'url',
-      name: 'URL',
-      type: 'string',
+      model: "url",
+      name: "URL",
+      type: "string",
       searchFlag: true,
-      displayFlag: false,
+      displayFlag: false
     },
     {
-      model: 'author',
-      name: 'Author',
-      type: 'string',
+      model: "author",
+      name: "Author",
+      type: "string",
       searchFlag: false,
-      displayFlag: true,
-    },
-  ],
+      displayFlag: true
+    }
+  ]
 };
 
 type DateTimeFormHandleChangeData = PicklistInputOnChangeData;
@@ -65,18 +65,18 @@ class App extends React.Component<any, any> {
     super(props);
 
     this.state = {
-      clearable: false,
+      clearable: false
     };
   }
 
   public render() {
     return (
-      <div className='example-picklist-container'>
-        <Header as='h2' dividing>
+      <div className="example-picklist-container">
+        <Header as="h2" dividing>
           As text fields
           <Header.Subheader>
             <Checkbox
-              label='Make data inputs clearable'
+              label="Make data inputs clearable"
               checked={this.state.clearable}
               onChange={this.handleCheckboxChange.bind(this)}
             />
@@ -92,7 +92,7 @@ class App extends React.Component<any, any> {
 
   private handleCheckboxChange() {
     this.setState(() => ({
-      clearable: !this.state.clearable,
+      clearable: !this.state.clearable
     }));
   }
 }
@@ -116,7 +116,7 @@ class DateTimeForm extends React.Component<any, any> {
       fetchkey,
       page,
       pages,
-      filtered: prevFiltered,
+      filtered: prevFiltered
     } = this.state;
 
     return (
@@ -144,21 +144,22 @@ class DateTimeForm extends React.Component<any, any> {
         />
         <br /> */}
         <PicklistInput
-          startMode='single'
-          popupPosition='bottom right'
-          placeholder='Sample Picklist 02'
-          className='example-picklist-input'
-          name='pick2'
-          animation='fly left'
+          startMode="single"
+          popupPosition="bottom right"
+          placeholder="Sample Picklist 02"
+          className="example-picklist-input"
+          name="pick2"
+          animation="fly left"
           duration={300}
           closable
           clearable={clearable}
           value={pick2Value}
           page={page || 0}
           pages={pages || 2}
+          readOnly={true}
           filtered={prevFiltered || {}}
-          iconPosition='left'
-          autoComplete='off'
+          iconPosition="left"
+          autoComplete="off"
           preserveViewMode={false}
           onChange={this.handleChange}
           /* onFetchEvent={(param) => {
@@ -211,41 +212,41 @@ class DateTimeForm extends React.Component<any, any> {
               filtered,
             });
           }}*/
-          format='{{name}}, {{status}}'
+          format="{{name}}, {{status}}"
           datasource={datasource}
           isCSensitive={false}
           fields={[
             {
-              model: 'name',
-              name: 'Name',
-              type: 'string',
-              placeholder: 'Name Placeholder',
+              model: "name",
+              name: "Name",
+              type: "string",
+              placeholder: "Name Placeholder",
               searchFlag: true,
               displayFlag: true,
-              formatType: 'string',
+              formatType: "string",
               maxLength: 5,
-              regex: '^[a-zA-Z ]*$',
+              regex: "^[a-zA-Z ]*$"
             },
             {
-              model: 'status',
-              placeholder: 'Status Placeholder',
-              name: 'Status',
-              type: 'string',
+              model: "status",
+              placeholder: "Status Placeholder",
+              name: "Status",
+              type: "string",
               searchFlag: true,
-              displayFlag: false,
+              displayFlag: false
             },
             {
-              model: 'notes',
-              placeholder: 'Notes Placeholder',
-              name: 'Notes',
-              type: 'multidropdown',
+              model: "notes",
+              placeholder: "Notes Placeholder",
+              name: "Notes",
+              type: "multidropdown",
               searchFlag: true,
               displayFlag: true,
               options: [
-                { text: 'Requires call', value: 'Requires call' },
-                { text: 'None', value: 'None' },
-              ],
-            },
+                { text: "Requires call", value: "Requires call" },
+                { text: "None", value: "None" }
+              ]
+            }
           ]}
         />
       </Form>
@@ -254,13 +255,13 @@ class DateTimeForm extends React.Component<any, any> {
 
   private handleChange = (
     event: React.SyntheticEvent,
-    { name, value, rowData }: DateTimeFormHandleChangeData,
+    { name, value, rowData }: DateTimeFormHandleChangeData
   ) => {
     const { page, pages } = this.state;
     if (this.state.hasOwnProperty(name)) {
       this.setState({ [name]: value, page, pages });
     }
-  }
+  };
 }
 
 class DateTimeFormInline extends React.Component<any, any> {
@@ -277,15 +278,15 @@ class DateTimeFormInline extends React.Component<any, any> {
       fields,
       fetchkey,
       fetchurl,
-      pick3: pick3Value,
+      pick3: pick3Value
     } = this.state;
 
     return (
       <Form>
         <PicklistInput
-          className='example-picklist-input'
+          className="example-picklist-input"
           value={pick3Value}
-          name='pick3'
+          name="pick3"
           inline
           onChange={this.handleChange}
           format={format}
@@ -300,13 +301,13 @@ class DateTimeFormInline extends React.Component<any, any> {
 
   private handleChange = (
     event: React.SyntheticEvent,
-    { name, value }: DateTimeFormHandleChangeData,
+    { name, value }: DateTimeFormHandleChangeData
   ) => {
     const { page, pages } = this.state;
     if (this.state.hasOwnProperty(name)) {
       this.setState({ [name]: value, page, pages });
     }
-  }
+  };
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));

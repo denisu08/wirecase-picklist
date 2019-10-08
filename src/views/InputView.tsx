@@ -45,6 +45,7 @@ class FormInputWithRef extends React.Component<FormInputProps, any> {
         onClick={onFocus}
         onMouseEnter={onMouseEnter}
         icon
+        readOnly={true}
         {...rest}
       >
         {value && clearable ? ClearIcon : <Icon name={icon} />}
@@ -71,6 +72,7 @@ interface InputViewProps {
   /** Whether to close a popup when cursor leaves it. */
   closeOnMouseLeave?: boolean;
   closable?: boolean;
+  readOnly?: boolean;
   /** A field can have its label next to instead of above it. */
   inlineLabel?: boolean;
   /** Using the clearable setting will let users remove their selection from a picklist. */
@@ -162,6 +164,7 @@ class InputView extends React.Component<InputViewProps, any> {
       iconPosition,
       icon,
       noRecordText,
+      readOnly,
       ...rest
     } = this.props;
 
@@ -222,6 +225,7 @@ class InputView extends React.Component<InputViewProps, any> {
           openPopup();
         }}
         onBlur={onBlur}
+        readOnly={readOnly}
         onMouseEnter={onMouseEnter}
         onChange={onChange}
         noRecordText={noRecordText}
